@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Calendars.Resources.Core\Calendars.Resources.Core.csproj" />
+    <ProjectReference Include="..\Calendars.Resources.Data\Calendars.Resources.Data.csproj" />
   </ItemGroup>
 
 </Project>
