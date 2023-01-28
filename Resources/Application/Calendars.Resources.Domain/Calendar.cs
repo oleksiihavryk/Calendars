@@ -11,7 +11,7 @@ public class Calendar
 
     [Key] public Guid Id { get; set; }
 
-    [Required] [StringLength(128)] public string Name { get; set; } = UnnamedCalendarName;
+    [Required] [StringLength(32)] public string Name { get; set; } = UnnamedCalendarName;
     [Required] public int Year { get; set; }
     [Required] public CalendarType Type { get; set; }
     public IEnumerable<SpecialDay> SpecialDays { get; set; } = Enumerable.Empty<SpecialDay>();

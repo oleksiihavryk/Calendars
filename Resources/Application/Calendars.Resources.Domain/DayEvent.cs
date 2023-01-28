@@ -11,10 +11,10 @@ public class DayEvent
     [Key] public Guid Id { get; set; }
     [ForeignKey(name: "SpecialDay")] public Guid SpecialDayId { get; set; }
 
-    [Required] [MaxLength(32)] public string Name { get; set; }
+    [Required] [StringLength(32)] public string Name { get; set; }
     [Required] public int HoursFrom { get; set; }
     [Required] public int HoursTo { get; set; }
     [Required] public int MinutesFrom { get; set; }
     [Required] public int MinutesTo { get; set; }
-    [MaxLength(128)] public string? Description { get; set; }
+    [StringLength(128)] public string? Description { get; set; }
 }
