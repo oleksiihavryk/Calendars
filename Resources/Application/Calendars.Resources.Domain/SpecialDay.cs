@@ -15,6 +15,12 @@ public class SpecialDay
     [ForeignKey(name: "Calendar")] public Guid CalendarId { get; set; }
     
     [Required] public int Day { get; set; }
-    public Color Color => Color.FromKnownColor(DefaultColor);
+    public int ArgbColorInteger { get; set; } = Color.FromKnownColor(DefaultColor).ToArgb();
+    [NotMapped]
+    public Color Color
+    {
+        get => Color.FromArgb(ArgbColorInteger);
+        set => value.ToArgb();
+    }
     public IEnumerable<DayEvent> Events = Enumerable.Empty<DayEvent>();
 }
