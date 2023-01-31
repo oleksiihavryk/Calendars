@@ -1,6 +1,23 @@
+using Calendars.Resources.Data.Extensions;
+using Calendars.Resources.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var services = builder.Services;
+var config = builder.Configuration;
+var env = builder.Environment;
+
+services.AddControllers();
+
+services.AddDataLayer(connectionString: config.GetSystemConnectionString());
+services.AddCustomExceptionHandler();
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseCustomExceptionHandler();
+
+app.UseRouting();
+
+app.UseEndpoints((IEndpointRouteBuilder mapping) => mapping.MapControllers());
 
 app.Run();

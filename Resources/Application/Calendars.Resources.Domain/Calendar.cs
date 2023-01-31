@@ -14,5 +14,5 @@ public class Calendar
     [Required] [StringLength(32)] public string Name { get; set; } = UnnamedCalendarName;
     [Required] public int Year { get; set; }
     [Required] public CalendarType Type { get; set; }
-    public IEnumerable<SpecialDay> SpecialDays { get; set; } = Enumerable.Empty<SpecialDay>();
+    public IEnumerable<Day> Days { get; set; } = Enumerable.Empty<Day>();
 }
