@@ -9,8 +9,9 @@ namespace Calendars.Resources.Dto;
 /// </summary>
 public class DayDto
 {
-    [Required] public Guid Id { get; set; }
+    public Guid Id { get; set; }
     [Required] public Guid CalendarId { get; set; }
+    [Required] public string UserId { get; set; }
     [Required] public int DayNumber { get; set; }
     [Required] public int ArgbColorInteger { get; set; }
     public IEnumerable<Event> Events { get; set; }

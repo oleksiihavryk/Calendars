@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Data", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Core", "Resources\Application\Calendars.Resources.Core\Calendars.Resources.Core.csproj", "{536AC744-9DDD-42B2-BD84-215E4BF92EC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Resources.Shared", "Resources\Application\Calendars.Resources.Shared\Calendars.Resources.Shared.csproj", "{721B50BC-2597-432F-A077-87ABED4C39A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{536AC744-9DDD-42B2-BD84-215E4BF92EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{536AC744-9DDD-42B2-BD84-215E4BF92EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{536AC744-9DDD-42B2-BD84-215E4BF92EC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{721B50BC-2597-432F-A077-87ABED4C39A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{721B50BC-2597-432F-A077-87ABED4C39A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{721B50BC-2597-432F-A077-87ABED4C39A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{721B50BC-2597-432F-A077-87ABED4C39A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +113,7 @@ Global
 		{C2F17B90-E585-43A9-8D1E-C637AE66D50B} = {535BD07A-E157-45FB-9729-294841A28C2C}
 		{5E8C1339-2ABB-4182-805E-E9C61D60C698} = {535BD07A-E157-45FB-9729-294841A28C2C}
 		{536AC744-9DDD-42B2-BD84-215E4BF92EC6} = {535BD07A-E157-45FB-9729-294841A28C2C}
+		{721B50BC-2597-432F-A077-87ABED4C39A8} = {535BD07A-E157-45FB-9729-294841A28C2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2B0AD275-8048-4F45-A040-8A7DEEC645CC}

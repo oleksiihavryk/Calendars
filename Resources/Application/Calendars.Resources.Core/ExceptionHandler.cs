@@ -1,15 +1,15 @@
-﻿using System.Reflection.Metadata;
+﻿using Calendars.Resources.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Calendars.Resources.Core;
 /// <summary>
 ///     Exception handler implementation.
 /// </summary>
-public class DefaultExceptionHandler : IExceptionHandler
+public class ExceptionHandler : IExceptionHandler
 {
-    private readonly ILogger<DefaultExceptionHandler> _logger;
+    private readonly ILogger<ExceptionHandler> _logger;
 
-    public DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger)
+    public ExceptionHandler(ILogger<ExceptionHandler> logger)
     {
         _logger = logger;
     }

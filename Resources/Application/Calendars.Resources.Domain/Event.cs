@@ -10,6 +10,7 @@ public class Event
 {
     [Key] public Guid Id { get; set; }
     [ForeignKey(name: "Day")] public Guid DayId { get; set; }
+    [Required] public string UserId { get; set; }
 
     [Required] [StringLength(32)] public string Name { get; set; }
     [Required] public int HoursFrom { get; set; }

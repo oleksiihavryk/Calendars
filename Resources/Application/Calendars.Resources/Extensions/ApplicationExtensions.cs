@@ -1,5 +1,5 @@
 ﻿using Calendars.Resources.Core.Extensions;
-using Calendars.Resources.Middlewares;
+using Calendars.Resources.Middleware;
 
 namespace Calendars.Resources.Extensions;
 /// <summary>

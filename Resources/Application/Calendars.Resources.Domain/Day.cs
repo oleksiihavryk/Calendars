@@ -13,7 +13,8 @@ public class Day
 
     [Key] public Guid Id { get; set; }
     [ForeignKey(name: "Calendar")] public Guid CalendarId { get; set; }
-    
+    [Required] public string UserId { get; set; }
+
     [Required] public int DayNumber { get; set; }
     public int ArgbColorInteger { get; set; } = Color.FromKnownColor(DefaultColor).ToArgb();
     [NotMapped]

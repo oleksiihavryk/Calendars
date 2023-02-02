@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Calendars.Resources.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Calendars.Resources.Core.Extensions;
 /// <summary>
@@ -14,5 +15,5 @@ public static class ApplicationExtensions
     ///     IServiceCollection implementation after completing the operation.
     /// </returns>
     public static IServiceCollection AddExceptionHandlerCore(this IServiceCollection services)
-        => services.AddScoped<IExceptionHandler, DefaultExceptionHandler>();
+        => services.AddScoped<IExceptionHandler, ExceptionHandler>();
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Calendars.Resources.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Calendars.Resources.Data.Extensions;
@@ -20,7 +21,15 @@ public static class ApplicationExtensions
     public static IServiceCollection AddDataLayer(
         this IServiceCollection services,
         string connectionString)
-        => services.AddDbContext<CalendarsDbContext>(
+    {
+        services.AddDbContext<CalendarsDbContext>(
             optionsAction: options => options.UseSqlServer(
                 connectionString));
+
+        services.AddScoped<IDayRepository, DayRepository>();
+        services.AddScoped<IEventRepository, EventRepository>();
+        services.AddScoped<ICalendarRepository, CalendarRepository>();
+
+        return services;
+    } 
 }

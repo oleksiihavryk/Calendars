@@ -1,6 +1,6 @@
-﻿using Calendars.Resources.Core;
+﻿using Calendars.Resources.Core.Interfaces;
 
-namespace Calendars.Resources.Middlewares;
+namespace Calendars.Resources.Middleware;
 /// <summary>
 ///     Exception handler middleware.
 /// </summary>
