@@ -1,3 +1,4 @@
+using Calendars.Resources.Core.Extensions;
 using Calendars.Resources.Data.Extensions;
 using Calendars.Resources.Extensions;
 
@@ -10,7 +11,9 @@ var env = builder.Environment;
 services.AddControllers();
 
 services.AddDataLayer(connectionString: config.GetSystemConnectionString());
+
 services.AddCustomExceptionHandler();
+services.AddResponseFactory();
 
 var app = builder.Build();
 
