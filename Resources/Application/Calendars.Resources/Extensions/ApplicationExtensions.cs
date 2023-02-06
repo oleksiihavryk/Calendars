@@ -1,4 +1,6 @@
 ﻿using Calendars.Resources.Core.Extensions;
+using Calendars.Resources.Domain;
+using Calendars.Resources.Dto;
 using Calendars.Resources.Middleware;
 
 namespace Calendars.Resources.Extensions;
@@ -24,6 +26,20 @@ internal static class ApplicationExtensions
 
         return services;
     }
+    /// <summary>
+    ///     Add auto mapper service to DI Container with pre-configured settings.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns>
+    ///     IServiceCollection implementation after completing the operation.
+    /// </returns>
+    internal static IServiceCollection AddAutoMapper(this IServiceCollection services)
+        => services.AddAutoMapper(mapper =>
+        {
+            mapper.CreateDoubleLinkedMap<Calendar, CalendarDto>();
+            mapper.CreateDoubleLinkedMap<Day, DayDto>();
+            mapper.CreateDoubleLinkedMap<Event, EventDto>();
+        });
     /// <summary>
     ///     Use exception handler middleware.
     /// </summary>
