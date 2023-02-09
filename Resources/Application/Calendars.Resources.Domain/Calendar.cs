@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Calendars.Resources.Domain;
 /// <summary>
@@ -15,5 +17,6 @@ public class Calendar
     [Required] [StringLength(32)] public string Name { get; set; } = UnnamedCalendarName;
     [Required] public int Year { get; set; }
     [Required] public CalendarType Type { get; set; }
-    public IEnumerable<Day> Days { get; set; } = Enumerable.Empty<Day>();
+    [ForeignKey("CalendarId")] public ICollection<Day> Days { get; set; } 
+        = new List<Day>();
 }

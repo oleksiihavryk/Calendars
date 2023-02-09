@@ -1,4 +1,5 @@
-﻿using Calendars.Resources.Data.Interfaces;
+﻿using Calendars.Resources.Data.Extensions;
+using Calendars.Resources.Data.Interfaces;
 using Calendars.Resources.Domain;
 using Calendars.Resources.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,7 @@ public class DayRepository : IDayRepository
     {
         var entity = await _dbContext
             .Days
+            .GetFullDays()
             .FirstOrDefaultAsync(c => c.Id == id);
 
         if (entity == null)
@@ -41,8 +43,10 @@ public class DayRepository : IDayRepository
     public async Task<Day> UpdateAsync(Day entity)
     {
         var updateEntity = await GetByIdAsync(entity.Id);
+        var entry = _dbContext.Update(updateEntity);
 
-        updateEntity.ShallowUpdateProperties(entity, nameof(Day.Id));
+        entry.Entity.ShallowUpdateProperties(entity, nameof(Day.Id));
+        await _dbContext.SaveChangesAsync();
 
         return updateEntity;
     }

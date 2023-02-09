@@ -26,7 +26,7 @@ public class CalendarController : ResponseSupportedControllerBase
         _autoMapper = autoMapper;
     }
 
-    [HttpGet("/id/{id:guid:required}")]
+    [HttpGet("id/{id:guid:required}")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
     {
         try
@@ -41,7 +41,7 @@ public class CalendarController : ResponseSupportedControllerBase
             return UnknownIdentifier(id);
         }
     }
-    [HttpGet("/user-id/{userId:required}")]
+    [HttpGet("user-id/{userId:required}")]
     public async Task<IActionResult> GetAllByUserId([FromRoute] string userId)
     {
         var calendars = await _calendarRepository.GetByUserIdAsync(userId);
@@ -74,7 +74,7 @@ public class CalendarController : ResponseSupportedControllerBase
             return UnknownIdentifier(calendarDto.Id);
         }
     }
-    [HttpDelete("/id/{id:guid:required}")]
+    [HttpDelete("id/{id:guid:required}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try

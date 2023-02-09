@@ -41,8 +41,10 @@ public class EventRepository : IEventRepository
     public async Task<Event> UpdateAsync(Event entity)
     {
         var updateEntity = await GetByIdAsync(entity.Id);
-
-        updateEntity.ShallowUpdateProperties(entity, nameof(Event.Id));
+        var entry = _dbContext.Update(updateEntity);
+        
+        entry.Entity.ShallowUpdateProperties(entity, nameof(Event.Id));
+        await _dbContext.SaveChangesAsync();
 
         return updateEntity;
     }

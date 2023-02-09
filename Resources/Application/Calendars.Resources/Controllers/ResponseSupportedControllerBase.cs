@@ -16,28 +16,28 @@ public class ResponseSupportedControllerBase : ControllerBase
         _responseFactory = responseFactory;
     }
 
-    public IActionResult EntityFound<T>(T entity)
+    [NonAction] protected IActionResult EntityFound<T>(T entity)
         => new ResponseOkObjectResult(
             responseFactory: _responseFactory,
             value: entity,
             messages: "Entity is successfully find in system.");
-    public IActionResult UnknownIdentifier<T>(T identifier)
+    [NonAction] protected IActionResult UnknownIdentifier<T>(T identifier)
         => new ResponseNotFoundResult(
             responseFactory: _responseFactory,
-            value: identifier,
+            value: null,
             messages: $"Entity with identifier {identifier} is not found.");
-    public IActionResult EntityCreated<T>(T entity)
+    [NonAction] protected IActionResult EntityCreated<T>(T entity)
         => new ResponseCreatedResult(
             responseFactory: _responseFactory,
             value: entity,
             messages: "Object is successfully created by route " +
                       HttpContext.Request.GetDisplayUrl());
-    public IActionResult EntityUpdated<T>(T entity)
+    [NonAction] protected IActionResult EntityUpdated<T>(T entity)
         => new ResponseOkObjectResult(
             responseFactory: _responseFactory,
             value: entity,
             messages: "Entity is successfully updated in system with new values.");
-    public IActionResult EntityDeleted()
+    [NonAction] public IActionResult EntityDeleted()
         => new ResponseOkObjectResult(
             responseFactory: _responseFactory,
             value: null,

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Calendars.Resources.Data.Migrations
 {
     [DbContext(typeof(CalendarsDbContext))]
-    [Migration("20230131102025_Init")]
-    partial class Init
+    [Migration("20230209093052_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,10 @@ namespace Calendars.Resources.Data.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
@@ -61,6 +65,10 @@ namespace Calendars.Resources.Data.Migrations
 
                     b.Property<int>("DayNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -99,6 +107,10 @@ namespace Calendars.Resources.Data.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DayId");
@@ -118,7 +130,7 @@ namespace Calendars.Resources.Data.Migrations
             modelBuilder.Entity("Calendars.Resources.Domain.Event", b =>
                 {
                     b.HasOne("Calendars.Resources.Domain.Day", null)
-                        .WithMany()
+                        .WithMany("Events")
                         .HasForeignKey("DayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -127,6 +139,11 @@ namespace Calendars.Resources.Data.Migrations
             modelBuilder.Entity("Calendars.Resources.Domain.Calendar", b =>
                 {
                     b.Navigation("Days");
+                });
+
+            modelBuilder.Entity("Calendars.Resources.Domain.Day", b =>
+                {
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,9 +7,8 @@ namespace Calendars.Resources.Dto;
 /// </summary>
 public class EventDto
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.Empty;
     [Required] public Guid DayId { get; set; }
-    [Required] public string UserId { get; set; }
     [Required][StringLength(32)] public string Name { get; set; }
     [Required] public int HoursFrom { get; set; }
     [Required] public int HoursTo { get; set; }

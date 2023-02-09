@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Calendars.Resources.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,6 +16,7 @@ namespace Calendars.Resources.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false)
@@ -31,6 +32,7 @@ namespace Calendars.Resources.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CalendarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DayNumber = table.Column<int>(type: "int", nullable: false),
                     ArgbColorInteger = table.Column<int>(type: "int", nullable: false)
                 },
@@ -51,6 +53,7 @@ namespace Calendars.Resources.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DayId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     HoursFrom = table.Column<int>(type: "int", nullable: false),
                     HoursTo = table.Column<int>(type: "int", nullable: false),

@@ -15,7 +15,8 @@ public static class SharedExtensions
             .GetProperties()
             .Where(p =>
                 p is { CanWrite: true, CanRead: true } &&
-                exceptNameOfProperties?.FirstOrDefault(p.Name) is null);
+                exceptNameOfProperties?
+                    .FirstOrDefault(propName => propName == p.Name) is null);
 
         foreach (var p in properties) 
             p.SetValue(updatedEntity, p.GetValue(sampleEntity));

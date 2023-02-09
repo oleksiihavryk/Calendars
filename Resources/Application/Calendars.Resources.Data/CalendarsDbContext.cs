@@ -15,15 +15,4 @@ public class CalendarsDbContext : DbContext
         : base(options)
     {
     }
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-
-        //Preconfigured by fluent api Event-Day relation.
-        builder.Entity<Event>(opt =>
-        {
-            opt.HasOne<Day>().WithMany();
-        });
-    }
 }

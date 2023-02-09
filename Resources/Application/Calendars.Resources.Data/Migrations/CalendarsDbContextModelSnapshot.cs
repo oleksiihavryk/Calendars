@@ -127,7 +127,7 @@ namespace Calendars.Resources.Data.Migrations
             modelBuilder.Entity("Calendars.Resources.Domain.Event", b =>
                 {
                     b.HasOne("Calendars.Resources.Domain.Day", null)
-                        .WithMany()
+                        .WithMany("Events")
                         .HasForeignKey("DayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -136,6 +136,11 @@ namespace Calendars.Resources.Data.Migrations
             modelBuilder.Entity("Calendars.Resources.Domain.Calendar", b =>
                 {
                     b.Navigation("Days");
+                });
+
+            modelBuilder.Entity("Calendars.Resources.Domain.Day", b =>
+                {
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

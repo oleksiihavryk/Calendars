@@ -1,4 +1,5 @@
-﻿using Calendars.Resources.Data.Interfaces;
+﻿using Calendars.Resources.Data.Extensions;
+using Calendars.Resources.Data.Interfaces;
 using Calendars.Resources.Domain;
 using Calendars.Resources.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,7 @@ public class CalendarRepository : ICalendarRepository
     {
         var entity = await _dbContext
             .Calendars
+            .GetFullCalendars()
             .FirstOrDefaultAsync(c => c.Id == id);
 
         if (entity == null)
@@ -32,14 +34,10 @@ public class CalendarRepository : ICalendarRepository
         return entity;
     }
     public async Task<IEnumerable<Calendar>> GetByUserIdAsync(string userId)
-    {
-        var entities = (await _dbContext
-            .Calendars
-            .ToArrayAsync())
-            .Where(c => c.UserId == userId);
-
-        return entities;
-    }
+        => await _dbContext.Calendars
+            .GetFullCalendars()
+            .Where(c => c.UserId == userId)
+            .ToArrayAsync();
     public async Task<Calendar> SaveAsync(Calendar entity)
     {
         _dbContext.Calendars.Add(entity);
@@ -50,10 +48,12 @@ public class CalendarRepository : ICalendarRepository
     public async Task<Calendar> UpdateAsync(Calendar entity)
     {
         var updateEntity = await GetByIdAsync(entity.Id);
+        var entry = _dbContext.Update(updateEntity);
 
-        updateEntity.ShallowUpdateProperties(entity, nameof(Calendar.Id));
-
-        return updateEntity;
+        entry.Entity.ShallowUpdateProperties(entity, nameof(Calendar.Id));
+        await _dbContext.SaveChangesAsync();
+        
+        return entry.Entity;
     }
     public async Task DeleteAsync(Guid id)
     {
