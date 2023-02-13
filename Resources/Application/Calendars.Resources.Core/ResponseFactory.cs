@@ -14,11 +14,18 @@ public class ResponseFactory : IResponseFactory
         HttpStatusCode statusCode,
         object? result,
         params string[] messages)
-        => new Response()
+    {
+        if (Enum.IsDefined(statusCode) == false)
+            throw new ArgumentException(
+                paramName: nameof(statusCode), 
+                message: "Passed status code number is not defined.");
+
+        return new Response()
         {
             IsSuccess = isSuccess,
             Messages = messages,
             Result = result,
             StatusCode = (int)statusCode
         };
+    }
 }

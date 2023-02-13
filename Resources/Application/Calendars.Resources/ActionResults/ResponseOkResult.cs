@@ -6,12 +6,12 @@ namespace Calendars.Resources.ActionResults;
 /// <summary>
 ///     Derived from OkResult class which supported response objects.
 /// </summary>
-public class ResponseOkObjectResult : OkObjectResult
+public class ResponseOkResult : OkObjectResult
 {
     public const bool IsSuccess = true;
     public const HttpStatusCode StatusCode = HttpStatusCode.OK;
 
-    public ResponseOkObjectResult(
+    public ResponseOkResult(
         IResponseFactory responseFactory,
         object? value,
         params string[] messages)

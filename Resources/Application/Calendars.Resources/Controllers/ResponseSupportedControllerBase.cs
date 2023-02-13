@@ -17,7 +17,7 @@ public class ResponseSupportedControllerBase : ControllerBase
     }
 
     [NonAction] protected IActionResult EntityFound<T>(T entity)
-        => new ResponseOkObjectResult(
+        => new ResponseOkResult(
             responseFactory: _responseFactory,
             value: entity,
             messages: "Entity is successfully find in system.");
@@ -33,12 +33,12 @@ public class ResponseSupportedControllerBase : ControllerBase
             messages: "Object is successfully created by route " +
                       HttpContext.Request.GetDisplayUrl());
     [NonAction] protected IActionResult EntityUpdated<T>(T entity)
-        => new ResponseOkObjectResult(
+        => new ResponseOkResult(
             responseFactory: _responseFactory,
             value: entity,
             messages: "Entity is successfully updated in system with new values.");
     [NonAction] public IActionResult EntityDeleted()
-        => new ResponseOkObjectResult(
+        => new ResponseOkResult(
             responseFactory: _responseFactory,
             value: null,
             messages: "Entity is successfully deleted from system.");
