@@ -15,13 +15,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{620DD804-8420-461E-B632-BD01DF583F18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Resources", "Resources\Application\Calendars.Resources\Calendars.Resources.csproj", "{FF2D5E91-6AA5-4F71-85F8-0298320ECADC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources", "Resources\Application\Calendars.Resources\Calendars.Resources.csproj", "{FF2D5E91-6AA5-4F71-85F8-0298320ECADC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Resources.Tests", "Resources\Tests\Calendars.Resources.Tests\Calendars.Resources.Tests.csproj", "{3371C513-9DC8-44BB-BC03-77D5D3430342}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Tests", "Resources\Tests\Calendars.Resources.Tests\Calendars.Resources.Tests.csproj", "{3371C513-9DC8-44BB-BC03-77D5D3430342}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Authentication", "Authentication\Application\Calendars.Authentication\Calendars.Authentication.csproj", "{E868282C-C726-4B8D-B27B-507A0F2D6B65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Authentication", "Authentication\Application\Calendars.Authentication\Calendars.Authentication.csproj", "{E868282C-C726-4B8D-B27B-507A0F2D6B65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Authentication.Tests", "Authentication\Tests\Calendars.Authentication.Tests\Calendars.Authentication.Tests.csproj", "{119DBAA5-4344-4A24-A3B1-5A0C8C2C5809}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Authentication.Tests", "Authentication\Tests\Calendars.Authentication.Tests\Calendars.Authentication.Tests.csproj", "{119DBAA5-4344-4A24-A3B1-5A0C8C2C5809}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Authentication.Domain", "Authentication\Application\Calendars.Authentication.Domain\Calendars.Authentication.Domain.csproj", "{F7004FF1-C852-44D7-94A8-9FA4E8A71363}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Authentication.Shared", "Authentication\Application\Calendars.Authentication.Shared\Calendars.Authentication.Shared.csproj", "{5221CDFE-7721-4671-AD40-0DC4DBF15775}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Authentication.Data", "Authentication\Application\Calendars.Authentication.Data\Calendars.Authentication.Data.csproj", "{AEEC94C0-F3A8-4D24-9470-B7B22D79DBE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Authentication.Core", "Authentication\Application\Calendars.Authentication.Core\Calendars.Authentication.Core.csproj", "{679CF650-1C4E-4C1B-9FDF-EA56223DAF06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Domain", "Resources\Application\Calendars.Resources.Domain\Calendars.Resources.Domain.csproj", "{C2F17B90-E585-43A9-8D1E-C637AE66D50B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Data", "Resources\Application\Calendars.Resources.Data\Calendars.Resources.Data.csproj", "{5E8C1339-2ABB-4182-805E-E9C61D60C698}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Core", "Resources\Application\Calendars.Resources.Core\Calendars.Resources.Core.csproj", "{536AC744-9DDD-42B2-BD84-215E4BF92EC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Resources.Shared", "Resources\Application\Calendars.Resources.Shared\Calendars.Resources.Shared.csproj", "{721B50BC-2597-432F-A077-87ABED4C39A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +61,38 @@ Global
 		{119DBAA5-4344-4A24-A3B1-5A0C8C2C5809}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{119DBAA5-4344-4A24-A3B1-5A0C8C2C5809}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{119DBAA5-4344-4A24-A3B1-5A0C8C2C5809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7004FF1-C852-44D7-94A8-9FA4E8A71363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7004FF1-C852-44D7-94A8-9FA4E8A71363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7004FF1-C852-44D7-94A8-9FA4E8A71363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7004FF1-C852-44D7-94A8-9FA4E8A71363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5221CDFE-7721-4671-AD40-0DC4DBF15775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5221CDFE-7721-4671-AD40-0DC4DBF15775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5221CDFE-7721-4671-AD40-0DC4DBF15775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5221CDFE-7721-4671-AD40-0DC4DBF15775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEEC94C0-F3A8-4D24-9470-B7B22D79DBE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEEC94C0-F3A8-4D24-9470-B7B22D79DBE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEEC94C0-F3A8-4D24-9470-B7B22D79DBE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEEC94C0-F3A8-4D24-9470-B7B22D79DBE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{679CF650-1C4E-4C1B-9FDF-EA56223DAF06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{679CF650-1C4E-4C1B-9FDF-EA56223DAF06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{679CF650-1C4E-4C1B-9FDF-EA56223DAF06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{679CF650-1C4E-4C1B-9FDF-EA56223DAF06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F17B90-E585-43A9-8D1E-C637AE66D50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F17B90-E585-43A9-8D1E-C637AE66D50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F17B90-E585-43A9-8D1E-C637AE66D50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F17B90-E585-43A9-8D1E-C637AE66D50B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8C1339-2ABB-4182-805E-E9C61D60C698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8C1339-2ABB-4182-805E-E9C61D60C698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8C1339-2ABB-4182-805E-E9C61D60C698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8C1339-2ABB-4182-805E-E9C61D60C698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{536AC744-9DDD-42B2-BD84-215E4BF92EC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{536AC744-9DDD-42B2-BD84-215E4BF92EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{536AC744-9DDD-42B2-BD84-215E4BF92EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{536AC744-9DDD-42B2-BD84-215E4BF92EC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{721B50BC-2597-432F-A077-87ABED4C39A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{721B50BC-2597-432F-A077-87ABED4C39A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{721B50BC-2597-432F-A077-87ABED4C39A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{721B50BC-2597-432F-A077-87ABED4C39A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +106,14 @@ Global
 		{3371C513-9DC8-44BB-BC03-77D5D3430342} = {52EDB6A2-717C-4750-A3CC-E6B9C06C836C}
 		{E868282C-C726-4B8D-B27B-507A0F2D6B65} = {EA375A54-56FC-4BB2-A93F-B5A0102DB76E}
 		{119DBAA5-4344-4A24-A3B1-5A0C8C2C5809} = {620DD804-8420-461E-B632-BD01DF583F18}
+		{F7004FF1-C852-44D7-94A8-9FA4E8A71363} = {EA375A54-56FC-4BB2-A93F-B5A0102DB76E}
+		{5221CDFE-7721-4671-AD40-0DC4DBF15775} = {EA375A54-56FC-4BB2-A93F-B5A0102DB76E}
+		{AEEC94C0-F3A8-4D24-9470-B7B22D79DBE6} = {EA375A54-56FC-4BB2-A93F-B5A0102DB76E}
+		{679CF650-1C4E-4C1B-9FDF-EA56223DAF06} = {EA375A54-56FC-4BB2-A93F-B5A0102DB76E}
+		{C2F17B90-E585-43A9-8D1E-C637AE66D50B} = {535BD07A-E157-45FB-9729-294841A28C2C}
+		{5E8C1339-2ABB-4182-805E-E9C61D60C698} = {535BD07A-E157-45FB-9729-294841A28C2C}
+		{536AC744-9DDD-42B2-BD84-215E4BF92EC6} = {535BD07A-E157-45FB-9729-294841A28C2C}
+		{721B50BC-2597-432F-A077-87ABED4C39A8} = {535BD07A-E157-45FB-9729-294841A28C2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2B0AD275-8048-4F45-A040-8A7DEEC645CC}

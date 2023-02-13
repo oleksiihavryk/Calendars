@@ -1,27 +1,30 @@
 ﻿{
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:45894",
-      "sslPort": 0
-    }
-  },
   "profiles": {
-    "Calendars.Resources": {
+    "Calendars.Resources_Development": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5053",
+      "applicationUrl": "http://localhost:7000;https://localhost:7001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "Calendars.Resources_Staging": {
+        "commandName": "Project",
+        "dotnetRunMessages": true,
+        "launchBrowser": false,
+        "applicationUrl": "http://localhost:7000;https://localhost:7001",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Staging"
+        },
+        "Calendars.Resources_Production": {
+          "commandName": "Project",
+          "dotnetRunMessages": true,
+          "launchBrowser": false,
+          "applicationUrl": "http://localhost:7000;https://localhost:7001",
+          "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Production"
+          }
+        }
       }
     }
   }
