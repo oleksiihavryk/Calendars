@@ -1,6 +1,7 @@
 ﻿using Calendars.Resources.Core.Extensions;
 using Calendars.Resources.Domain;
 using Calendars.Resources.Dto;
+using Calendars.Resources.Filters;
 using Calendars.Resources.Middleware;
 
 namespace Calendars.Resources.Extensions;
@@ -49,4 +50,16 @@ internal static class ApplicationExtensions
     /// </returns>
     internal static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder app)
         => app.UseMiddleware<ExceptionHandlerMiddleware>();
+    /// <summary>
+    ///     Add global model state validating filter into DI container.
+    ///     Additionally need to register this filter in application.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns>
+    ///     IServiceCollection instance after completing the operation.
+    /// </returns>
+    internal static IServiceCollection AddModelStateValidatingGlobalFilter(
+        this IServiceCollection services)
+        => services.AddScoped<CustomModelStateActionFilter>();
+    
 }
