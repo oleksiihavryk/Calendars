@@ -1,6 +1,8 @@
 using Calendars.Resources.Core.Extensions;
 using Calendars.Resources.Data.Extensions;
 using Calendars.Resources.Extensions;
+using Calendars.Resources.Filters;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,17 @@ var services = builder.Services;
 var config = builder.Configuration;
 var env = builder.Environment;
 
-services.AddControllers();
+services.Configure<ApiBehaviorOptions>(opt =>
+{
+    opt.SuppressModelStateInvalidFilter = true;
+});
+
+services.AddModelStateValidatingGlobalFilter();
+
+services.AddControllers(opt =>
+{
+    opt.Filters.AddService<CustomModelStateActionFilter>();
+});
 
 services.AddDataLayer(connectionString: config.GetSystemConnectionString());
 
