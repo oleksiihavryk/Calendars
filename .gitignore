@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /_info
+/Authentication/Application/Calendars.Authentication/appsettings.Production.json
