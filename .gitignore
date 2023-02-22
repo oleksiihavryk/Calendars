@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /_info
 /Authentication/Application/Calendars.Authentication/appsettings.Production.json
+/Authentication/Application/Calendars.Authentication/appsettings.Staging.json
