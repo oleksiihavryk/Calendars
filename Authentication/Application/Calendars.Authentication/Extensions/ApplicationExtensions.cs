@@ -16,7 +16,9 @@ public static class ApplicationExtensions
     /// <returns>
     ///     IServiceCollection instance after completing the operation.
     /// </returns>
-    public static IServiceCollection AddConfiguredIdentityServer(this IServiceCollection services)
+    public static IServiceCollection AddIdentityServer(
+        this IServiceCollection services,
+        IdentityServerInMemoryConfiguration identityServerInMemoryConfiguration)
     {
         services.AddIdentity<User, UserRole>(opt =>
         {
@@ -34,12 +36,25 @@ public static class ApplicationExtensions
             };
         }).AddEntityFrameworkStores<AuthenticationIdentityDbContext>();
         services.AddIdentityServer()
-            .AddInMemoryClients(IdentityServerInMemoryConfiguration.Clients)
-            .AddInMemoryApiScopes(IdentityServerInMemoryConfiguration.Scopes)
-            .AddInMemoryIdentityResources(IdentityServerInMemoryConfiguration.IdentityResources)
-            .AddInMemoryApiResources(IdentityServerInMemoryConfiguration.ApiResources)
+            .AddInMemoryClients(identityServerInMemoryConfiguration.Clients)
+            .AddInMemoryApiScopes(identityServerInMemoryConfiguration.Scopes)
+            .AddInMemoryIdentityResources(identityServerInMemoryConfiguration.Resources)
+            .AddInMemoryApiResources(identityServerInMemoryConfiguration.ApiResources)
             .AddDeveloperSigningCredential();
 
         return services;
     }
+    /// <summary>
+    ///     Shorthand for <code>GetConnectionString(name: "Authentication")</code>
+    /// </summary>
+    /// <param name="config"></param>
+    /// <returns>
+    ///     The connection string.
+    /// </returns>
+    /// <exception cref="ApplicationException"></exception>
+    public static string GetAuthenticationConnectionString(this IConfiguration config)
+        => config.GetConnectionString(name: "Authentication")
+           ?? throw new ApplicationException(
+               message: "Cannot get authentication database " +
+                        "connection string from configuration file.");
 }

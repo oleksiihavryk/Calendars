@@ -1,3 +1,4 @@
+using Calendars.Authentication.Core.Extensions;
 using Calendars.Authentication.Data.Extensions;
 using Calendars.Authentication.Extensions;
 
@@ -17,7 +18,8 @@ services.AddMvc(opt => opt.EnableEndpointRouting = false);
 
 services.AddDataLayer(config.GetAuthenticationConnectionString());
 
-services.AddConfiguredIdentityServer();
+var isConfig = config.AssembleIdentityServerInMemoryConfiguration();
+services.AddIdentityServer(isConfig);
 
 var app = builder.Build();
 

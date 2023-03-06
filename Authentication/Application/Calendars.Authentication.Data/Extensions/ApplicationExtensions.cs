@@ -22,17 +22,4 @@ public static class ApplicationExtensions
         string connectionString)
         => services.AddDbContext<AuthenticationIdentityDbContext>(optionsAction:
                 opt => opt.UseSqlServer(connectionString));
-    /// <summary>
-    ///     Shorthand for <code>GetConnectionString(name: "Authentication")</code>
-    /// </summary>
-    /// <param name="config"></param>
-    /// <returns>
-    ///     The connection string.
-    /// </returns>
-    /// <exception cref="ApplicationException"></exception>
-    public static string GetAuthenticationConnectionString(this IConfiguration config)
-        => config.GetConnectionString(name: "Authentication") 
-           ?? throw new ApplicationException(
-               message: "Cannot get authentication database " +
-                        "connection string from configuration file.");
 }
