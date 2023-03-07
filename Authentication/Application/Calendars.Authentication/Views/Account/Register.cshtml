@@ -1,0 +1,26 @@
+﻿@model RegisterViewModel
+@{
+    ViewBag.Title = "Sign Up";
+}
+<form>
+    <div asp-validation-summary="All"></div>
+    <div class="form-part">
+        <section class="input-section">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" placeholder="optional..."/>
+        </section>
+        <section class="input-section">
+            <label asp-for="Name"></label>
+            <input asp-for="Name"/>
+        </section>
+        <section class="input-section">
+            <label asp-for="Password"></label>
+            <input asp-for="Password"/>
+        </section>
+        <input asp-for="ReturnUrl" hidden/>
+        <section class="buttons-section">
+            <button type="submit">Submit</button>
+            <a class="button" href="@Model.ReturnUrl">Cancel</a>
+        </section>
+    </div>
+</form>

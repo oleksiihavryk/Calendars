@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Calendars.Authentication.Core\Calendars.Authentication.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>

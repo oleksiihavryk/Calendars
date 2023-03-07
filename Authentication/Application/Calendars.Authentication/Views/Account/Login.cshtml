@@ -1,0 +1,22 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Sign In";
+}
+<form>
+    <div asp-validation-summary="All"></div>
+    <div class="form-part">
+        <section class="input-section">
+            <label asp-for="Login"></label>
+            <input asp-for="Login"/>
+        </section>
+        <section class="input-section">
+            <label asp-for="Password"></label>
+            <input asp-for="Password"/>
+        </section>
+        <input asp-for="ReturnUrl" hidden/>
+        <section class="buttons-section">
+            <button type="submit">Submit</button>
+            <a class="button" href="@Model.ReturnUrl">Cancel</a>
+        </section>
+    </div>
+</form>

@@ -29,7 +29,14 @@ if (env.IsDevelopment())
     app.UseStatusCodePages();
 }
 
+app.UseStaticFiles();
+
 app.UseIdentityServer();
-app.UseMvc();
+app.UseMvc(routes =>
+{
+    routes.MapRoute(
+        name: null,
+        template: "{controller}/{action}");
+});
 
 app.Run();
