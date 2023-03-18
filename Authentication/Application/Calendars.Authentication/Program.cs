@@ -18,10 +18,27 @@ services.AddMvc(opt => opt.EnableEndpointRouting = false);
 
 services.AddDataLayer(config.GetAuthenticationConnectionString());
 
-var isConfig = config.AssembleIdentityServerInMemoryConfiguration();
+var isConfig = config
+    .AssembleIdentityServerInMemoryConfiguration(
+        isDevelopment: env.IsDevelopment());
+
+services.AddCors(opt =>
+{
+    opt.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyMethod();
+        policy.AllowAnyHeader();
+        policy.DisallowCredentials();
+        policy.WithOrigins(isConfig.ClientsOrigins);
+    });
+});
 services.AddIdentityServer(isConfig);
 
 var app = builder.Build();
+
+app.UseRouting();
+
+app.UseHttpsRedirection();
 
 if (env.IsDevelopment())
 {

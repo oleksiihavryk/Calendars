@@ -3,6 +3,7 @@ using Calendars.Resources.Core.Interfaces;
 using Calendars.Resources.Data.Interfaces;
 using Calendars.Resources.Domain;
 using Calendars.Resources.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Calendars.Resources.Controllers;
@@ -11,6 +12,7 @@ namespace Calendars.Resources.Controllers;
 ///     Controller of event entity.
 /// </summary>
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class EventController : ResponseSupportedControllerBase
 {

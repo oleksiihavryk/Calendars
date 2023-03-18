@@ -10,6 +10,7 @@ namespace Calendars.Authentication.Core;
 public class IdentityServerInMemoryConfiguration
 {
     private readonly ClientsConfiguration _clientsConfiguration;
+    private readonly bool _isDevelopment;
 
     public List<Client> Clients => new()
     {
@@ -18,51 +19,49 @@ public class IdentityServerInMemoryConfiguration
         {
             ClientId = _clientsConfiguration.Resources.Id,
             ClientName = _clientsConfiguration.Resources.Name,
-
             ClientSecrets = { new Secret(_clientsConfiguration.Resources.Secret.ToSha256()) },
-
+            
             AllowedGrantTypes = GrantTypes.ClientCredentials,
-
             AllowedScopes = _clientsConfiguration.Resources.Scopes,
 
             RedirectUris =
             {
-                _clientsConfiguration.Resources.Origin + "/oauth2-redirect.html",
-                _clientsConfiguration.Resources.Origin + "/signin-oidc",
+                _clientsConfiguration.Resources.Origin + "oauth2-redirect.html",
+                _clientsConfiguration.Resources.Origin + "signin-oidc",
             },
             PostLogoutRedirectUris =
             {
-                _clientsConfiguration.Resources.Origin + "/signout-callback-oidc"
+                _clientsConfiguration.Resources.Origin + "signout-callback-oidc"
             },
+
+            RequirePkce = _isDevelopment == false,
+
+            AllowedCorsOrigins = ClientsOrigins
         },
         //Identity application client.
         new Client
         {
-            ClientId = "web_cceb34b9-c5e9-4dcf-9830-70b830717389",
-            
-            ClientName = "web",
+            ClientId = _clientsConfiguration.Web.Id,
+            ClientName = _clientsConfiguration.Web.Name,
             ClientSecrets =
             {
-                new Secret("cceb34b9-c5e9-4dcf-9830-70b830717389".ToSha256())
+                new Secret(_clientsConfiguration.Web.Secret.ToSha256())
             },
 
             AllowedGrantTypes = GrantTypes.Code,
-            AllowedScopes =
-            {
-                IdentityServerConstants.StandardScopes.OpenId,
-                IdentityServerConstants.StandardScopes.Email,
-                IdentityServerConstants.StandardScopes.Profile
-            },
+            AllowedScopes = _clientsConfiguration.Web.Scopes,
 
             RedirectUris =
             {
-                _clientsConfiguration.Web.Origin + "/oauth2-redirect.html",
-                _clientsConfiguration.Web.Origin + "/signin-oidc",
+                _clientsConfiguration.Web.Origin + "oauth2-redirect.html",
+                _clientsConfiguration.Web.Origin + "signin-oidc",
             },
             PostLogoutRedirectUris =
             {
-                _clientsConfiguration.Web.Origin + "/signout-callback-oidc"
+                _clientsConfiguration.Web.Origin + "signout-callback-oidc"
             },
+
+            AllowedCorsOrigins = ClientsOrigins
         }
     };
     public List<ApiScope> Scopes => new()
@@ -102,9 +101,17 @@ public class IdentityServerInMemoryConfiguration
             Scopes = { "resources" }
         }
     };
+    public string[] ClientsOrigins => new[]
+    {
+        _clientsConfiguration.Resources.Origin.OriginalString,
+        _clientsConfiguration.Web.Origin.OriginalString
+    };
 
-    public IdentityServerInMemoryConfiguration(ClientsConfiguration clientsConfiguration)
+    public IdentityServerInMemoryConfiguration(
+        ClientsConfiguration clientsConfiguration,
+        bool isDevelopment)
     {
         _clientsConfiguration = clientsConfiguration;
+        _isDevelopment = isDevelopment;
     }
 }

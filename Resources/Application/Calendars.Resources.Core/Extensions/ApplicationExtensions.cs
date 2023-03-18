@@ -1,4 +1,5 @@
 ﻿using Calendars.Resources.Core.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Calendars.Resources.Core.Extensions;
@@ -25,4 +26,17 @@ public static class ApplicationExtensions
     /// </returns>
     public static IServiceCollection AddResponseFactory(this IServiceCollection services)
         => services.AddSingleton<IResponseFactory, ResponseFactory>();
+    /// <summary>
+    ///     Create authentication configuration object and fill it up
+    ///     with data from configuration file.
+    /// </summary>
+    /// <param name="config"></param>
+    /// <returns>
+    ///     AuthenticationConfiguration object.
+    /// </returns>
+    public static AuthenticationConfiguration AssembleAuthenticationConfiguration(
+        this IConfiguration config)
+        => new AuthenticationConfiguration(
+            uri: config["Authentication:Uri"] ?? string.Empty,
+            scope: config["Authentication:Scope"] ?? string.Empty);
 }

@@ -7,7 +7,8 @@ namespace Calendars.Authentication.Core.Extensions;
 public static class ApplicationExtensions
 {
     public static IdentityServerInMemoryConfiguration AssembleIdentityServerInMemoryConfiguration(
-        this IConfiguration configuration)
+        this IConfiguration configuration,
+        bool isDevelopment)
         => new IdentityServerInMemoryConfiguration(
             clientsConfiguration: new ClientsConfiguration(
                 resources: new ClientConfiguration(
@@ -17,7 +18,8 @@ public static class ApplicationExtensions
                     origin: configuration["Clients:Resources:Origin"] ?? string.Empty)
                     {
                         Scopes = configuration
-                            .GetValue<List<string>>("Clients:Resources:Scopes")
+                            .GetSection("Clients:Resources:Scopes")
+                            .Get<List<string>>()
                     },
                 web: new ClientConfiguration(
                     id: configuration["Clients:Web:Id"] ?? string.Empty,
@@ -26,6 +28,8 @@ public static class ApplicationExtensions
                     origin: configuration["Clients:Web:Origin"] ?? string.Empty)
                     {
                         Scopes = configuration
-                            .GetValue<List<string>>("Clients:Web:Scopes")
-                    }));
+                            .GetSection("Clients:Resources:Scopes")
+                            .Get<List<string>>()
+                    }),
+                isDevelopment);
 }
