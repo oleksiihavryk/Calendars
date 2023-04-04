@@ -43,7 +43,7 @@ public class CalendarController : ResponseSupportedControllerBase
             return UnknownIdentifier(id);
         }
     }
-    [HttpGet("user-id/{userId:required}")]
+    [HttpGet("user-id/{userId:required}")] 
     public async Task<IActionResult> GetAllByUserId([FromRoute] string userId)
     {
         var calendars = await _calendarRepository.GetByUserIdAsync(userId);

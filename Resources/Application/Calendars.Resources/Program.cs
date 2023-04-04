@@ -94,49 +94,23 @@ var app = builder.Build();
 app.UseRouting();
 
 app.UseHttpsRedirection();
-
 app.UseCustomExceptionHandler();
-//if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+
+if (env.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Calendar API V1");
+        c.RoutePrefix = string.Empty;
+    });
+}
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Calendar API V1");
-    c.RoutePrefix = string.Empty;
-});
-
 app.UseEndpoints((IEndpointRouteBuilder mapping) => mapping.MapControllers());
 
 app.Run();
-
-public class TestEvents : JwtBearerEvents
-{
-    public override async Task AuthenticationFailed(AuthenticationFailedContext context)
-    {
-        var res = base.AuthenticationFailed(context);
-        await res;
-    }
-    public override async Task MessageReceived(MessageReceivedContext context)
-    {
-        var res = base.MessageReceived(context);
-        await res;
-    }
-    public override async Task Challenge(JwtBearerChallengeContext context)
-    {
-        var res = base.Challenge(context);
-        await res;
-    }
-    public override async Task TokenValidated(TokenValidatedContext context)
-    {
-        var res = base.TokenValidated(context);
-        await res;
-    }
-    public override async Task Forbidden(ForbiddenContext context)
-    {
-        var res = base.Forbidden(context);
-        await res;
-    }
-}
