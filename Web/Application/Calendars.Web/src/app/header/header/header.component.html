@@ -1,0 +1,13 @@
+<app-side-panel></app-side-panel>
+<header class="container-fluid row text-white bg-warning p-2 m-0">
+    <div class="col-2 m-0">
+        <a class="text-white btn btn-lg bi"
+            [ngClass]="{
+                'text-warning btn-white bi-arrow-left-square-fill': sidePanel.isOpen,
+                'bi-three-dots': sidePanel.isClosed
+            }"
+            (click)="sidePanel.changeState()">
+        </a>
+    </div>
+    <h1 class="h1 col-10 text-end m-0">Calendars</h1>
+</header>

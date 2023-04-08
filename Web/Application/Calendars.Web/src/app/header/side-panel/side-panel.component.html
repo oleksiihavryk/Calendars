@@ -1,0 +1,20 @@
+<section class="d-flex flex-column m-0 side-panel bg-warning position-fixed text-white p-3"
+     [ngClass]="{'active': sidePanel.isOpen}">
+    <div class="text-center">
+        <img class="w-75" src="assets/calendar-original.png">
+        <h2 class="text-uppercase">Online Calendars</h2>
+    </div>
+    <nav class="nav flex-column h4">
+        <a href="#" class="mt-2 link-light">Home</a>
+        <a href="#" class="mt-2 link-light">Login</a>
+        <a href="#" class="mt-2 link-light">Info</a>
+    </nav>
+    <div class="mt-auto text-end">
+        <a href="http://online-calendars.com" class="link-dark">www.online-calendars.com</a>
+    </div>
+</section>
+
+<div class="other position-fixed" 
+    [ngClass]="{'active-other': sidePanel.isOpen}"
+    (click)="sidePanel.close()">
+</div>
