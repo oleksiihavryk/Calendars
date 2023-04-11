@@ -1,0 +1,7 @@
+.part {
+    height: 400px;
+}
+.home-background {
+    background-image: url('/assets/home-background.jpg');
+    background-size: cover;
+}
