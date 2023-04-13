@@ -1,0 +1,12 @@
+.part {
+    height: 400px;
+}
+.info-background1 {
+    background-image: url('/assets/info-background-1.jpg');
+    background-size: cover;
+}
+.info-background2 {
+    background-image: url('/assets/info-background-2.jpg');
+    background-size: cover;
+    background-position: center;
+}
