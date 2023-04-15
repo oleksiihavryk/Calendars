@@ -15,8 +15,9 @@ export class SidePanelComponent {
     public modalService: ModalService) {
   }
 
-  public invokeLoginUnavailableModal() : void {
+  public invokeLoginUnavailableModal() : boolean {
     this.sidePanel.close();
-    this.modalService.toggleModal(this.loginUnavailableModalId)
+    this.modalService.toggleModal(this.loginUnavailableModalId);
+    return false;
   }
 }
