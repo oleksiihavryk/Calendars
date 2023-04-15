@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NavigationPanelService } from '../services/navigation-panel.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-side-panel',
@@ -7,6 +8,15 @@ import { NavigationPanelService } from '../services/navigation-panel.service';
   styleUrls: ['./side-panel.component.css']
 })
 export class SidePanelComponent {
-  constructor(public sidePanel: NavigationPanelService) {
+  public loginUnavailableModalId: string = 'loginUnavailable';
+
+  constructor(
+    public sidePanel: NavigationPanelService,
+    public modalService: ModalService) {
+  }
+
+  public invokeLoginUnavailableModal() : void {
+    this.sidePanel.close();
+    this.modalService.toggleModal(this.loginUnavailableModalId)
   }
 }

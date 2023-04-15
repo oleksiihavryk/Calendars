@@ -5,6 +5,7 @@ import { TextPagesRoutingModule } from './text-pages-routing.module';
 
 import { HomeComponent } from './home/home.component';
 import { InfoComponent } from './info/info.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { InfoComponent } from './info/info.component';
   ],
   imports: [
     CommonModule,
-    TextPagesRoutingModule
+    TextPagesRoutingModule,
+    SharedModule
   ]
 })
 export class TextPagesModule { }

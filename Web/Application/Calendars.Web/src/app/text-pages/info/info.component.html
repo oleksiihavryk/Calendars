@@ -20,8 +20,11 @@
         </p>
     </div>
     <div class="d-flex flex-column justify-content-center part text-center">
-        <p href="#" class="display-2 m-5">If this is what you looking for, 
-            <a class="link" href="http://online-calendars.com">let's start!</a>
+        <p class="display-2 m-5">If this is what you looking for, 
+            <a href="#" class="link-primary" (click)="startUnavailable()">let's start</a>!
+            <app-modal [id]="startUnavailableModalId" title="Start">
+                This feature currently is unavaialable. Try again later!
+            </app-modal>
         </p>
     </div>
 </content>

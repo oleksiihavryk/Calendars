@@ -5,9 +5,24 @@
         <h2 class="text-uppercase">Online Calendars</h2>
     </div>
     <nav class="nav flex-column h4">
-        <a routerLink="" (click)="sidePanel.close()" class="mt-2 link-light">Home</a>
-        <a href="#" (click)="sidePanel.close()" class="mt-2 link-light">Login</a>
-        <a routerLink="info" (click)="sidePanel.close()" class="mt-2 link-light">Info</a>
+        <a routerLink="" 
+            (click)="sidePanel.close()" 
+            class="mt-2 link-light">
+            Home
+        </a>
+        <a href="#" 
+            (click)="invokeLoginUnavailableModal()" 
+            class="mt-2 link-light">
+            Login
+            <app-modal [id]="loginUnavailableModalId" title="Login">
+                This feature currently is unavailable. Try again later!
+            </app-modal>
+        </a>
+        <a routerLink="info" 
+            (click)="sidePanel.close()" 
+            class="mt-2 link-light">
+            Info
+        </a>
     </nav>
     <div class="mt-auto text-end">
         <a href="http://online-calendars.com" class="link-dark">www.online-calendars.com</a>
