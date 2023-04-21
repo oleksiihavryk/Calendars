@@ -2,21 +2,31 @@
 @{
     ViewBag.Title = "Sign In";
 }
-<form>
-    <div asp-validation-summary="All"></div>
-    <div class="form-part">
-        <section class="input-section">
+<div class="m-auto">
+    <form class="bg-warning p-3 m-2"
+          asp-action="Login" asp-controller="Account" method="post">
+        <div class="errors" asp-validation-summary="All" hidden="@ViewContext.ModelState.IsValid"></div>
+        <h3 class="text-center text-white">Login</h3>
+        <div class="form-floating mb-3 mt-3">
+            <input asp-for="Login" class="form-control" placeholder="Enter email">
             <label asp-for="Login"></label>
-            <input asp-for="Login"/>
-        </section>
-        <section class="input-section">
+        </div>
+        <div class="form-floating mb-3 mt-3">
+            <input asp-for="Password" class="form-control" placeholder="Enter password" />
             <label asp-for="Password"></label>
-            <input asp-for="Password"/>
+        </div>
+        <input asp-for="ReturnUrl" hidden />
+        <section class="text-center">
+            <button class="btn btn-sm btn-light m-2" type="submit">Submit</button>
+            <a class="btn btn-sm btn-danger m-2" href="@Model.ReturnUrl">Cancel</a>
         </section>
-        <input asp-for="ReturnUrl" hidden/>
-        <section class="buttons-section">
-            <button type="submit">Submit</button>
-            <a class="button" href="@Model.ReturnUrl">Cancel</a>
-        </section>
-    </div>
-</form>
+    </form>
+    <p class="m-2">
+        If you do not have an account,
+        <a asp-action="Register" asp-controller="Account"
+           asp-route-returnUrl="@Model.ReturnUrl">
+            click here
+        </a>
+        to register an account!
+    </p>
+</div>

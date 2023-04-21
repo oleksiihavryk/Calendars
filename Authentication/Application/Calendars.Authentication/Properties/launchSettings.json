@@ -7,23 +7,26 @@
       "applicationUrl": "http://localhost:9000;https://localhost:9001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "Calendars.Authentication_Staging": {
+      }
+    },
+    "Calendars.Authentication_Staging": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:9000;https://localhost:9001",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      }
+    },
+    "Calendars.Authentication_Production": {
         "commandName": "Project",
         "dotnetRunMessages": true,
         "launchBrowser": false,
         "applicationUrl": "http://localhost:9000;https://localhost:9001",
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Staging"
-        },
-        "Calendars.Authentication_Production": {
-          "commandName": "Project",
-          "dotnetRunMessages": true,
-          "launchBrowser": false,
-          "applicationUrl": "http://localhost:9000;https://localhost:9001",
-          "environmentVariables": {
-            "ASPNETCORE_ENVIRONMENT": "Production"
-          }
+          "ASPNETCORE_ENVIRONMENT": "Production"
         }
       }
+    }
+  }
 }

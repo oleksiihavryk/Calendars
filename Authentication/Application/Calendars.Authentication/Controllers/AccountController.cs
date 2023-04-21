@@ -79,7 +79,6 @@ public class AccountController : Controller
     {
         try
         {
-
             if (ModelState.IsValid == false)
                 return View(model);
 

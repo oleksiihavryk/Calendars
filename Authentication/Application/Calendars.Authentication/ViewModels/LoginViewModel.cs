@@ -6,7 +6,10 @@ namespace Calendars.Authentication.ViewModels;
 /// </summary>
 public class LoginViewModel
 {
-    [Required] [Display(Name = "Name or Email")] public string Login { get; set; }
-    [Required] [DataType(DataType.Password)] public string Password { get; set; }
-    public string ReturnUrl { get; set; } = string.Empty;
+    // Visible part of data for user.
+    [Required, Display(Name = "Name or Email")] public string Login { get; set; } = string.Empty;
+    [Required, DataType(DataType.Password)] public string Password { get; set; } = string.Empty; 
+
+    // Invisible data for user
+    [Required] public string ReturnUrl { get; set; } = string.Empty;
 }

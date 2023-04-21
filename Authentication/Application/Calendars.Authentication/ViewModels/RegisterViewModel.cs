@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Components;
 
 namespace Calendars.Authentication.ViewModels;
 /// <summary>
@@ -6,10 +7,13 @@ namespace Calendars.Authentication.ViewModels;
 /// </summary>
 public class RegisterViewModel
 {
-    [Required] public string Name { get; set; }
-    [DataType(DataType.EmailAddress)] public string? Email { get; set; }
-    [Required] [DataType(DataType.Password)] public string Password { get; set; }
-    [Required] [DataType(DataType.Password)] public string PasswordConfirmation { get; set; }
-    public string ReturnUrl { get; set; } = string.Empty;
+    // Visible part of data for user.
+    [Required] public string Name { get; set; } = string.Empty;
+    [DataType(DataType.EmailAddress), Display(Name = "Email (optional)")] public string? Email { get; set; } = null;
+    [Required, DataType(DataType.Password)] public string Password { get; set; } = string.Empty;
+    [Required, DataType(DataType.Password), Display(Name = "Password confirmation")] 
+    public string PasswordConfirmation { get; set; } = string.Empty;
 
+    // Invisible data for user.
+    [Required] public string ReturnUrl { get; set; } = string.Empty;
 }
