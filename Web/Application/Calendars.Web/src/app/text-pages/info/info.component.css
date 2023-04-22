@@ -10,3 +10,12 @@
     background-size: cover;
     background-position: center;
 }
+.custom-w-background2-text {
+    width: 35%;
+}
+
+@media only screen and (max-width: 762px) {
+    .custom-w-background2-text {
+        width: 50%;
+    }
+}

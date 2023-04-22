@@ -4,15 +4,15 @@
         <img class="w-75" src="assets/calendar-original.png">
         <h2 class="text-uppercase">Online Calendars</h2>
     </div>
-    <nav class="nav flex-column h4">
-        <a routerLink="" 
+    <nav class="list-group-flush flex-column h4">
+        <a routerLink="/" 
             (click)="sidePanel.close()" 
-            class="mt-2 link-light">
+            class="list-group-item mt-2 link-light">
             Home
         </a>
         <a href="#" 
             (click)="invokeLoginUnavailableModal()" 
-            class="mt-2 link-light">
+            class="list-group-item mt-2 link-light">
             Login
             <app-modal [id]="loginUnavailableModalId" title="Login">
                 This feature currently is unavailable. Try again later!
@@ -20,7 +20,7 @@
         </a>
         <a routerLink="info" 
             (click)="sidePanel.close()" 
-            class="mt-2 link-light">
+            class="list-group-item mt-2 link-light">
             Info
         </a>
     </nav>

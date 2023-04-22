@@ -1,4 +1,10 @@
-header > div > a {
-    position: relative;
+header {
+    left: 0;
+    top: 0; 
+}
+a.btn-white {
+    position: fixed;
+    left: 0;
+    top: 0; 
     z-index: 2000;
 }

@@ -4,4 +4,6 @@
 .home-background {
     background-image: url('/assets/home-background.jpg');
     background-size: cover;
+    background-position-y: center;
+    background-position-x: center;
 }
