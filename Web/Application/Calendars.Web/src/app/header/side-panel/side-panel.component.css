@@ -18,32 +18,55 @@
 }
 .active-other {
     background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+    z-index: 999;
 }
-@media only screen and (max-width: 1000px) {
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
     .side-panel {
-        width: 30%;
-        left: -30%;
+        width: 70%;
+        left: -70%;
     }
-    .active-other {
-        left: 30%;
+    .active {
+        left: 0%;
     }
 }
-@media only screen and (max-width: 768px) {
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
     .side-panel {
         width: 50%;
         left: -50%;
     }
-    .active-other {
-        left: 50%;
+    .active {
+        left: 0%;
     }
 }
-@media only screen and (max-width: 600px) {
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
     .side-panel {
-        width: 75%;
-        left: -75%;
+        width: 40%;
+        left: -40%;
     }
-    .active-other {
-        left: 75%;
+    .active {
+        left: 0%;
+    }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .side-panel {
+        width: 30%;
+        left: -30%;
+    }
+    .active {
+        left: 0%;
+    }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .side-panel {
+        width: 20%;
+        left: -20%;
+    }
+    .active {
+        left: 0%;
     }
 }
