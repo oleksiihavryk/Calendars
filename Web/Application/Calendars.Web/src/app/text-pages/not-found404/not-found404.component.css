@@ -2,3 +2,9 @@
     height: 404px;
     width: 404px;
 }
+@media only screen and (max-width: 800px) {
+    .image-404 {
+        height: 202px;
+        width: 202px;
+    }
+}
