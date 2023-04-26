@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /Authentication/Application/Calendars.Authentication/appsettings.Staging.json
 /Resources/Application/Calendars.Resources/appsettings.Production.json
 /Resources/Application/Calendars.Resources/appsettings.Staging.json
+/Web/Application/Calendars.Web/src/environments/environment.ts
