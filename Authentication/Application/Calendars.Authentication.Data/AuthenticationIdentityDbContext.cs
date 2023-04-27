@@ -1,4 +1,5 @@
 ﻿using Calendars.Authentication.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,5 +13,18 @@ public class AuthenticationIdentityDbContext : IdentityDbContext<User, UserRole,
         DbContextOptions<AuthenticationIdentityDbContext> options)   
         : base(options)
     {
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<User>().ToTable("Users");
+        builder.Entity<UserRole>().ToTable("Roles");
+        builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
+        builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
+        builder.Entity<IdentityUserLogin<string>>().ToTable("Logins");
+        builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
+        builder.Entity<IdentityUserToken<string>>().ToTable("Tokens");
     }
 }

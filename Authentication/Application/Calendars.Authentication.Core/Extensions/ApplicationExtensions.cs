@@ -28,7 +28,7 @@ public static class ApplicationExtensions
                     origin: configuration["Clients:Web:Origin"] ?? string.Empty)
                     {
                         Scopes = configuration
-                            .GetSection("Clients:Resources:Scopes")
+                            .GetSection("Clients:Web:Scopes")
                             .Get<List<string>>()
                     }),
                 isDevelopment);

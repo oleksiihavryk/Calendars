@@ -34,6 +34,7 @@ public class IdentityServerInMemoryConfiguration
                 _clientsConfiguration.Resources.Origin + "signout-callback-oidc"
             },
 
+            AlwaysIncludeUserClaimsInIdToken = true,
             RequirePkce = _isDevelopment == false,
 
             AllowedCorsOrigins = ClientsOrigins
@@ -43,10 +44,7 @@ public class IdentityServerInMemoryConfiguration
         {
             ClientId = _clientsConfiguration.Web.Id,
             ClientName = _clientsConfiguration.Web.Name,
-            ClientSecrets =
-            {
-                new Secret(_clientsConfiguration.Web.Secret.ToSha256())
-            },
+            ClientSecrets = { new Secret(_clientsConfiguration.Web.Secret.ToSha256()) },
 
             AllowedGrantTypes = GrantTypes.Code,
             AllowedScopes = _clientsConfiguration.Web.Scopes,
@@ -54,12 +52,14 @@ public class IdentityServerInMemoryConfiguration
             RedirectUris =
             {
                 _clientsConfiguration.Web.Origin + "oauth2-redirect.html",
-                _clientsConfiguration.Web.Origin + "signin-oidc",
+                _clientsConfiguration.Web.Origin.OriginalString,
             },
             PostLogoutRedirectUris =
             {
                 _clientsConfiguration.Web.Origin + "signout-callback-oidc"
             },
+
+            AlwaysIncludeUserClaimsInIdToken = true,
 
             AllowedCorsOrigins = ClientsOrigins
         }
@@ -76,7 +76,7 @@ public class IdentityServerInMemoryConfiguration
             Name = IdentityServerConstants.StandardScopes.Email,
             Description = "Email",
             DisplayName = "Email",
-            Required = true,
+            Required = false,
             UserClaims =
             {
                 JwtClaimTypes.Email
@@ -85,7 +85,7 @@ public class IdentityServerInMemoryConfiguration
         new IdentityResource
         {
             Name = IdentityServerConstants.StandardScopes.Profile,
-            UserClaims = 
+            UserClaims =
             {
                 JwtClaimTypes.Name
             },

@@ -10,18 +10,30 @@
             class="list-group-item mt-2 link-light">
             Home
         </a>
-        <a href="#" 
-            (click)="invokeLoginUnavailableModal()" 
+        <a href="#" *ngIf="isLoggedIn === false"
+            (click)="login()" 
             class="list-group-item mt-2 link-light">
             Login
-            <app-modal [id]="loginUnavailableModalId" title="Login">
-                This feature currently is unavailable. Try again later!
-            </app-modal>
+        </a>
+        <a routerLink="profile" *ngIf="isLoggedIn"
+            (click)="sidePanel.close()" 
+            class="list-group-item mt-2 link-light">
+            Profile
+        </a>
+        <a routerLink="calendars" *ngIf="isLoggedIn"
+            (click)="sidePanel.close()" 
+            class="list-group-item mt-2 link-light">
+            Calendars
         </a>
         <a routerLink="info" 
             (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
             Info
+        </a>
+        <a href="#" *ngIf="isLoggedIn"
+            (click)="logout()" 
+            class="list-group-item mt-2 link-light">
+            Logout
         </a>
     </nav>
     <div class="mt-auto text-end">

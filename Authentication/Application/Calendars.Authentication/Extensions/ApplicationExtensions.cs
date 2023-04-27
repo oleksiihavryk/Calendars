@@ -57,4 +57,15 @@ public static class ApplicationExtensions
            ?? throw new ApplicationException(
                message: "Cannot get authentication database " +
                         "connection string from configuration file.");
+    /// <summary>
+    ///     Seed all roles which contains enum "Roles" in system.
+    /// </summary>
+    /// <param name="app"></param>
+    public static async Task SeedRolesAsync(this IApplicationBuilder app)
+    {
+        var roleManager = app.ApplicationServices.GetRequiredService<RoleManager<UserRole>>();
+        foreach (var r in Enum.GetValues<Roles>())
+            if (await roleManager.RoleExistsAsync(r.ToString()) == false)
+                await roleManager.CreateAsync(UserRole.CreateRole(r)); 
+    }
 }

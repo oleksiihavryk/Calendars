@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidePanelComponent } from './side-panel/side-panel.component';
 import { HeaderRoutingModule } from './header-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { AuthenticationModule } from '../authentication/authentication.module';
 
 
 
@@ -15,7 +16,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     SharedModule,
-    HeaderRoutingModule
+    HeaderRoutingModule,
+    AuthenticationModule
   ],
   exports: [
     HeaderComponent

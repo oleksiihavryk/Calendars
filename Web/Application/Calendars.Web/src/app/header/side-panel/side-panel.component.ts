@@ -1,23 +1,39 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationPanelService } from '../services/navigation-panel.service';
-import { ModalService } from 'src/app/shared/services/modal.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-side-panel',
   templateUrl: './side-panel.component.html',
   styleUrls: ['./side-panel.component.css']
 })
-export class SidePanelComponent {
-  public loginUnavailableModalId: string = 'loginUnavailable';
+export class SidePanelComponent implements OnInit {
+  public isLoggedIn: boolean = false;
 
   constructor(
     public sidePanel: NavigationPanelService,
-    public modalService: ModalService) {
+    public oidcSecurityService: OidcSecurityService) {
   }
 
-  public invokeLoginUnavailableModal() : boolean {
+  ngOnInit(): void {
+    this.oidcSecurityService.checkAuth()
+      .subscribe({
+        next: (value) => {
+          this.isLoggedIn = value.isAuthenticated;
+        }
+      })
+  }
+
+  public login() : boolean {
+    this.oidcSecurityService.authorize();
+
     this.sidePanel.close();
-    this.modalService.toggleModal(this.loginUnavailableModalId);
+    return false;
+  }
+  public logout(): boolean {
+    this.oidcSecurityService.logoff().subscribe(console.log);
+
+    this.sidePanel.close();
     return false;
   }
 }

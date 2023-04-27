@@ -8,6 +8,7 @@ var services = builder.Services;
 var env = builder.Environment;
 var config = builder.Configuration;
 
+//project configuration
 services.Configure<RouteOptions>(opt =>
 {
     opt.AppendTrailingSlash = true;
@@ -34,8 +35,12 @@ services.AddCors(opt =>
 });
 services.AddIdentityServer(isConfig);
 
+//build app
 var app = builder.Build();
+//pollute roles
+await app.SeedRolesAsync();
 
+//middleware chain
 app.UseRouting();
 
 app.UseHttpsRedirection();

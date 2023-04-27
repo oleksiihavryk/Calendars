@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Calendars.Authentication.Data.Extensions;
@@ -21,5 +20,8 @@ public static class ApplicationExtensions
         this IServiceCollection services,
         string connectionString)
         => services.AddDbContext<AuthenticationIdentityDbContext>(optionsAction:
-                opt => opt.UseSqlServer(connectionString));
+            opt =>
+            {
+                opt.UseSqlServer(connectionString);
+            });
 }

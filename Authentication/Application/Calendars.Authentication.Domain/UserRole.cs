@@ -6,6 +6,11 @@ public class UserRole : IdentityRole
 {
     public Roles Role { get; }
 
+    public UserRole()
+        : this(Roles.Default)
+    {
+    }
+
     private UserRole(Roles role)
         : base(role.ToString())
     {

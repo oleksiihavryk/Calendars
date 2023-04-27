@@ -1,6 +1,8 @@
-﻿using Calendars.Authentication.Domain;
+﻿using System.Security.Claims;
+using Calendars.Authentication.Domain;
 using Calendars.Authentication.Exceptions;
 using Calendars.Authentication.ViewModels;
+using IdentityModel;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -107,6 +109,8 @@ public class AccountController : Controller
                 return View(model);
             }
 
+            await RegisterClaimsAsync(user);
+
             var signInResult = await SignInUserAsync(user, model.Password);
 
             if (signInResult.Succeeded == false)
@@ -121,6 +125,21 @@ public class AccountController : Controller
         }
     }
 
+    private async Task RegisterClaimsAsync(User user)
+    {
+        await _userManager.AddClaimAsync(
+            user,
+            new Claim(JwtClaimTypes.Subject, user.Id));
+        await _userManager.AddClaimAsync(
+            user,
+            new Claim(JwtClaimTypes.PreferredUserName, user.UserName));
+        if (user.Email != null)
+        {
+            await _userManager.AddClaimAsync(
+                user,
+                new Claim(JwtClaimTypes.Email, user.Email));
+        }
+    }
     private async Task<SignInResult> SignInUserAsync(User user, string password)
         => await _signInManager.PasswordSignInAsync(
             user,
