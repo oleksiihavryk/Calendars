@@ -63,7 +63,8 @@ public static class ApplicationExtensions
     /// <param name="app"></param>
     public static async Task SeedRolesAsync(this IApplicationBuilder app)
     {
-        var roleManager = app.ApplicationServices.GetRequiredService<RoleManager<UserRole>>();
+        var scope = app.ApplicationServices.CreateScope();
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRole>>();
         foreach (var r in Enum.GetValues<Roles>())
             if (await roleManager.RoleExistsAsync(r.ToString()) == false)
                 await roleManager.CreateAsync(UserRole.CreateRole(r)); 

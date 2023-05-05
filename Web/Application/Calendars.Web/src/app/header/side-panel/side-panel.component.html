@@ -10,17 +10,17 @@
             class="list-group-item mt-2 link-light">
             Home
         </a>
-        <a href="#" *ngIf="isLoggedIn === false"
-            (click)="login()" 
+        <a routerLink="login" *ngIf="auth.isLogged === false"
+            (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
             Login
         </a>
-        <a routerLink="profile" *ngIf="isLoggedIn"
+        <a routerLink="profile" *ngIf="auth.isLogged"
             (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
             Profile
         </a>
-        <a routerLink="calendars" *ngIf="isLoggedIn"
+        <a routerLink="calendars" *ngIf="auth.isLogged"
             (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
             Calendars
@@ -30,14 +30,14 @@
             class="list-group-item mt-2 link-light">
             Info
         </a>
-        <a href="#" *ngIf="isLoggedIn"
-            (click)="logout()" 
+        <a routerLink="logout" *ngIf="auth.isLogged"
+            (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
             Logout
         </a>
     </nav>
     <div class="mt-auto text-end">
-        <a href="http://online-calendars.com" class="link-dark">www.online-calendars.com</a>
+        <a href="https://online-calendars.com" class="link-dark">www.online-calendars.com</a>
     </div>
 </section>
 

@@ -36,7 +36,7 @@ AuthenticationConfiguration authCfg = config.AssembleAuthenticationConfiguration
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt =>
     {
-        opt.Audience = authCfg.Scope;
+        opt.Audience = authCfg.Audience;
         opt.Authority = authCfg.Uri.ToString();
         opt.RequireHttpsMetadata = env.IsDevelopment() == false;
     });
@@ -67,7 +67,7 @@ services.AddSwaggerGen(opt =>
                     authCfg.Uri + "connect/token"),
                 Scopes =
                 {
-                    [authCfg.Scope] =
+                    [authCfg.Audience] =
                         "Default scope for resource server security."
                 },
 

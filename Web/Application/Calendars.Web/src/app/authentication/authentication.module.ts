@@ -1,22 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {AuthModule} from 'angular-auth-oidc-client';
+import { AuthenticationRoutingModule } from './authentication-routing.module';
+
+import {AuthModule, LogLevel} from 'angular-auth-oidc-client';
 
 import { environment } from 'src/environments/environment';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoginComponent,
+    LogoutComponent,
+    UnauthorizedComponent
+  ],
   imports: [
     CommonModule,
+    AuthenticationRoutingModule,
     AuthModule.forRoot({
       config: {
         authority: environment.auth.authority,
         redirectUrl: window.location.origin,
+        postLogoutRedirectUri: window.location.origin,
         clientId: environment.auth.clientId,
         scope: environment.auth.scope,
         responseType: 'code',
-        useRefreshToken: true, 
+        logLevel: LogLevel.Debug,
       }
     })
   ]

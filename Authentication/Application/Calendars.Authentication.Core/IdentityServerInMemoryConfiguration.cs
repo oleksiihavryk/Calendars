@@ -19,7 +19,10 @@ public class IdentityServerInMemoryConfiguration
         {
             ClientId = _clientsConfiguration.Resources.Id,
             ClientName = _clientsConfiguration.Resources.Name,
-            ClientSecrets = { new Secret(_clientsConfiguration.Resources.Secret.ToSha256()) },
+            ClientSecrets = new[]
+            {
+                new Secret { Value = _clientsConfiguration.Resources.Secret.ToSha256() }
+            },
             
             AllowedGrantTypes = GrantTypes.ClientCredentials,
             AllowedScopes = _clientsConfiguration.Resources.Scopes,
@@ -44,7 +47,10 @@ public class IdentityServerInMemoryConfiguration
         {
             ClientId = _clientsConfiguration.Web.Id,
             ClientName = _clientsConfiguration.Web.Name,
-            ClientSecrets = { new Secret(_clientsConfiguration.Web.Secret.ToSha256()) },
+            ClientSecrets = new[]
+            {
+                new Secret { Value = _clientsConfiguration.Web.Secret.ToSha256() }
+            },
 
             AllowedGrantTypes = GrantTypes.Code,
             AllowedScopes = _clientsConfiguration.Web.Scopes,
@@ -60,6 +66,7 @@ public class IdentityServerInMemoryConfiguration
             },
 
             AlwaysIncludeUserClaimsInIdToken = true,
+            RequirePkce = true,
 
             AllowedCorsOrigins = ClientsOrigins
         }

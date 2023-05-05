@@ -38,5 +38,5 @@ public static class ApplicationExtensions
         this IConfiguration config)
         => new AuthenticationConfiguration(
             uri: config["Authentication:Uri"] ?? string.Empty,
-            scope: config["Authentication:Scope"] ?? string.Empty);
+            audience: config["Authentication:Audience"] ?? string.Empty);
 }
