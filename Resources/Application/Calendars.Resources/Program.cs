@@ -67,7 +67,7 @@ services.AddSwaggerGen(opt =>
                     authCfg.Uri + "connect/token"),
                 Scopes =
                 {
-                    [authCfg.Audience] =
+                    [authCfg.Scope] =
                         "Default scope for resource server security."
                 },
 
@@ -98,8 +98,6 @@ app.UseCustomExceptionHandler();
 
 if (env.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {

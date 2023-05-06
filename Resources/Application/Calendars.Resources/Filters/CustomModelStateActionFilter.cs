@@ -29,6 +29,7 @@ public class CustomModelStateActionFilter : IAsyncActionFilter
             context.Result = badRequestResult;
 
             await Task.CompletedTask;
+            return;
         }
 
         await next();

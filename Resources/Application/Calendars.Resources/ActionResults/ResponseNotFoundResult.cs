@@ -10,7 +10,7 @@ namespace Calendars.Resources.ActionResults;
 public class ResponseNotFoundResult : NotFoundObjectResult
 {
     public const bool IsSuccess = true;
-    public const HttpStatusCode StatusCode = HttpStatusCode.NotFound;
+    public new const HttpStatusCode StatusCode = HttpStatusCode.NotFound;
 
     public ResponseNotFoundResult(
         IResponseFactory responseFactory,

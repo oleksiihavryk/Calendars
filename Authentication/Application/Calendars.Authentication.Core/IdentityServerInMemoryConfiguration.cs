@@ -49,7 +49,7 @@ public class IdentityServerInMemoryConfiguration
             ClientName = _clientsConfiguration.Web.Name,
             ClientSecrets = new[]
             {
-                new Secret { Value = _clientsConfiguration.Web.Secret.ToSha256() }
+                new Secret(_clientsConfiguration.Web.Secret.ToSha256())
             },
 
             AllowedGrantTypes = GrantTypes.Code,
@@ -62,13 +62,14 @@ public class IdentityServerInMemoryConfiguration
             },
             PostLogoutRedirectUris =
             {
-                _clientsConfiguration.Web.Origin + "signout-callback-oidc"
+                _clientsConfiguration.Web.Origin.OriginalString
             },
 
-            AlwaysIncludeUserClaimsInIdToken = true,
             RequirePkce = true,
+            AlwaysIncludeUserClaimsInIdToken = true,
+            AllowAccessTokensViaBrowser = true,
 
-            AllowedCorsOrigins = ClientsOrigins
+            AllowedCorsOrigins = ClientsOrigins,
         }
     };
     public List<ApiScope> Scopes => new()

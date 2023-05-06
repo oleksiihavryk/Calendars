@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-logout',
@@ -8,7 +9,8 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 })
 export class LogoutComponent implements OnInit {
   constructor(
-    private auth: OidcSecurityService) {
+    private auth: OidcSecurityService,
+    private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
@@ -18,6 +20,6 @@ export class LogoutComponent implements OnInit {
   }
 
   private clearCookies(): void {
-    console.log(document.cookie);
+    this.cookieService.deleteAll();
   }
 }
