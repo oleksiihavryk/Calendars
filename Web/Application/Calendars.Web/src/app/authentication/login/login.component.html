@@ -1,1 +1,6 @@
-<h2 class="h2 text-center m-5">Redirecting to login page...</h2>
+<h2 class="h2 text-center m-5">
+    Redirecting to login page<app-waiting-mark></app-waiting-mark>
+</h2>
+<p class="text-center m-5" *ngIf="showErrorContent">
+    Your internet connection is too slow or on the authentication server occurred unknown error.
+</p>
