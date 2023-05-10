@@ -23,7 +23,7 @@ public class IdentityServerInMemoryConfiguration
             {
                 new Secret { Value = _clientsConfiguration.Resources.Secret.ToSha256() }
             },
-            
+
             AllowedGrantTypes = GrantTypes.ClientCredentials,
             AllowedScopes = _clientsConfiguration.Resources.Scopes,
 

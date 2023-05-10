@@ -1,6 +1,7 @@
 ﻿using Calendars.Authentication.Core;
 using Calendars.Authentication.Data;
 using Calendars.Authentication.Domain;
+using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
 
 namespace Calendars.Authentication.Extensions;
@@ -40,7 +41,10 @@ public static class ApplicationExtensions
             .AddInMemoryApiScopes(identityServerInMemoryConfiguration.Scopes)
             .AddInMemoryIdentityResources(identityServerInMemoryConfiguration.Resources)
             .AddInMemoryApiResources(identityServerInMemoryConfiguration.ApiResources)
-            .AddDeveloperSigningCredential();
+            .AddDeveloperSigningCredential()
+            .AddSecretValidator<PkceSecretValidator>();
+
+        services.AddSingleton(identityServerInMemoryConfiguration);
 
         return services;
     }

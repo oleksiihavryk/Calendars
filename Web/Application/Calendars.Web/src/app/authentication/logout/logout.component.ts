@@ -20,6 +20,6 @@ export class LogoutComponent implements OnInit {
   }
 
   private clearCookies(): void {
-    this.cookieService.deleteAll();
+    this.cookieService.deleteAll('/', window.location.hostname);
   }
 }
