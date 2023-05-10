@@ -1,11 +1,16 @@
 <app-side-panel></app-side-panel>
-<a class="btn-white text-white btn btn-lg bi mt-2 mx-3"
+    <a class="btn-white text-white btn btn-lg bi mt-2 mx-2"
     [ngClass]="{
         'bi-arrow-left-square-fill': sidePanel.isOpen,
         'bi-three-dots': sidePanel.isClosed
     }"
     (click)="sidePanel.changeState()">
 </a>
-<header class="container-fluid row text-white bg-warning p-2 m-0 position-fixed">
-    <h1 class="h1 m-0 col-12 text-end">Calendars</h1>
+<header class="container-fluid d-flex flex-row justify-content-between text-white bg-warning p-2 m-0 position-fixed">
+    <div class="btn-white text-white btn btn-lg bi"
+    [ngClass]="{
+        'bi-arrow-left-square-fill': sidePanel.isOpen,
+        'bi-three-dots': sidePanel.isClosed
+    }"></div>
+    <h1 class="h1 m-0 text-end">Calendars</h1>
 </header>
