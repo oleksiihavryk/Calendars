@@ -15,12 +15,12 @@ export class LogoutComponent implements OnInit, OnDestroy {
   public showErrorContent: boolean = false;
 
   constructor(
-    private auth: OidcSecurityService,
+    private oidc: OidcSecurityService,
     private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
-    this.auth.logoff().subscribe(() => {
+    this.oidc.logoff().subscribe(() => {
       this.clearCookies();
       
       this.sub = timer(this.waitingTimeMs).subscribe(n => {

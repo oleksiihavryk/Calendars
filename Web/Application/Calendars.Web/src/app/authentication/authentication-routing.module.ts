@@ -1,9 +1,29 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule, Injectable, inject } from '@angular/core';
+import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes, CanActivateFn } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { AuthorizeService } from './services/authorize.service';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthenticateUser {
+    constructor(private auth: AuthorizeService) {
+    }
+
+    canActivate(route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): boolean {
+        this.auth.requestAuthenticationIfUserIsNotLoggedIn();
+        return this.auth.isLogged;
+    }
+}
+export const AuthGuard: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+) => inject(AuthenticateUser).canActivate(route, state);
+
 
 const routes: Routes = [
     {
@@ -12,7 +32,8 @@ const routes: Routes = [
     },
     {
         path: 'logout',
-        component: LogoutComponent
+        component: LogoutComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'unauthorized',
