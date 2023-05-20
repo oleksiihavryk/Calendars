@@ -33,7 +33,7 @@ public static class ApplicationExtensions
             };
             opt.User = new UserOptions
             {
-                RequireUniqueEmail = true
+                RequireUniqueEmail = false,
             };
         }).AddEntityFrameworkStores<AuthenticationIdentityDbContext>();
         services.AddIdentityServer()

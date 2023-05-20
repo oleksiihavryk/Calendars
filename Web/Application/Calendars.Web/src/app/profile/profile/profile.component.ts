@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthorizeService } from 'src/app/authentication/services/authorize.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-
+  constructor(public auth: AuthorizeService) { }
 }

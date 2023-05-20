@@ -9,15 +9,15 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
-},
-{
+  },
+  {
     path: 'info',
     component: InfoComponent
-},
-{
-  path: '**',
-  component: NotFound404Component
-}
+  },
+  {
+    path: '**',
+    component: NotFound404Component
+  }
 ];
 
 @NgModule({

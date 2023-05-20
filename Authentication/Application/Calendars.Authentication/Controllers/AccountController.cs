@@ -92,10 +92,11 @@ public class AccountController : Controller
                 return View(model);
             }
 
-            var user = new User(model.Name)
+            var user = new User(model.Name);
+            if (string.IsNullOrWhiteSpace(model.Email) == false)
             {
-                Email = model.Email,
-                EmailConfirmed = true,
+                user.Email = model.Email;
+                user.EmailConfirmed = true;
             };
 
             var userCreatingResult = await _userManager.CreateAsync(user, model.Password);
@@ -132,7 +133,7 @@ public class AccountController : Controller
             new Claim(JwtClaimTypes.Subject, user.Id));
         await _userManager.AddClaimAsync(
             user,
-            new Claim(JwtClaimTypes.PreferredUserName, user.UserName));
+            new Claim(JwtClaimTypes.Name, user.UserName));
         if (user.Email != null)
         {
             await _userManager.AddClaimAsync(

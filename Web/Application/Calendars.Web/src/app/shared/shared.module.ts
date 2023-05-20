@@ -6,7 +6,7 @@ import { WaitingMarkComponent } from './waiting-mark/waiting-mark.component';
 @NgModule({
   declarations: [
     ModalComponent,
-    WaitingMarkComponent
+    WaitingMarkComponent,
   ],
   imports: [
     CommonModule

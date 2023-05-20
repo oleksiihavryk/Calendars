@@ -10,8 +10,7 @@ public class RegisterViewModel
     // Visible part of data for user.
     [Required] public string Name { get; set; } = string.Empty;
     [DataType(DataType.EmailAddress),
-     Display(Name = "Email (optional)"),
-     Required(AllowEmptyStrings = true)]
+     Display(Name = "Email (optional)")]
     public string? Email { get; set; } = null;
     [Required, DataType(DataType.Password)] public string Password { get; set; } = string.Empty;
     [Required, DataType(DataType.Password), Display(Name = "Password confirmation")] 

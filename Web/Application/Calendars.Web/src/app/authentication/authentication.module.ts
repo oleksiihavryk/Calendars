@@ -11,6 +11,10 @@ import { LogoutComponent } from './logout/logout.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { SharedModule } from '../shared/shared.module';
 
+export const configurationsId = {
+  authorize: 'Authorize',
+}
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -22,15 +26,18 @@ import { SharedModule } from '../shared/shared.module';
     AuthenticationRoutingModule,
     SharedModule,
     AuthModule.forRoot({
-      config: {
-        authority: environment.auth.authority,
-        redirectUrl: window.location.origin,
-        postLogoutRedirectUri: window.location.origin,
-        clientId: environment.auth.clientId,
-        scope: environment.auth.scope,
-        responseType: 'code',
-        logLevel: LogLevel.Debug,
-      }
+      config: [
+        {
+          configId: configurationsId.authorize,
+          authority: environment.auth.authority,
+          redirectUrl: window.location.origin,
+          postLogoutRedirectUri: window.location.origin,
+          clientId: environment.auth.clientId,
+          scope: environment.auth.scope,
+          responseType: 'code',
+          logLevel: LogLevel.Debug,
+        },
+      ]
     })
   ]
 })

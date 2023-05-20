@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderModule } from './header/header.module';
 import { TextPagesModule } from './text-pages/text-pages.module';
 import { FooterModule } from './footer/footer.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FooterModule } from './footer/footer.module';
     BrowserModule,
     HeaderModule,
     FooterModule,
+    ProfileModule,
     TextPagesModule,
     AppRoutingModule,
   ],
