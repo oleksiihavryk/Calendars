@@ -46,8 +46,8 @@ public static class ApplicationExtensions
         opt.ClientSecret = configuration["AuthenticationServer:ClientSecret"] ??
                            throw new OptionsConfigurationException();
         opt.Scopes = configuration
-                         .GetSection("AuthenticationServer")
-                         .GetValue<IEnumerable<string>>("Scopes") ??
+                         .GetSection("AuthenticationServer:Scopes")
+                         .Get<List<string>>() ??
                      throw new OptionsConfigurationException();
     }
     public static void AssembleResourcesOptions(

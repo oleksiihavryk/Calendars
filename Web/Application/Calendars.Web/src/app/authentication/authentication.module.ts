@@ -26,18 +26,16 @@ export const configurationsId = {
     AuthenticationRoutingModule,
     SharedModule,
     AuthModule.forRoot({
-      config: [
-        {
-          configId: configurationsId.authorize,
-          authority: environment.auth.authority,
-          redirectUrl: window.location.origin,
-          postLogoutRedirectUri: window.location.origin,
-          clientId: environment.auth.clientId,
-          scope: environment.auth.scope,
-          responseType: 'code',
-          logLevel: LogLevel.Debug,
-        },
-      ]
+      config: {
+        configId: configurationsId.authorize,
+        authority: environment.auth.authority,
+        redirectUrl: window.location.origin,
+        postLogoutRedirectUri: window.location.origin,
+        clientId: environment.auth.clientId,
+        scope: environment.auth.scope,
+        responseType: 'code',
+        logLevel: LogLevel.Debug,
+      },
     })
   ]
 })
