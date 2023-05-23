@@ -17,24 +17,26 @@ public class CalendarsResourcesService : AuthenticationResourcesService, ICalend
     {
     }
 
-    public virtual Task<IEnumerable<Calendar>> GetAllByUserId(string userId)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<Calendar> GetByIdAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<Calendar> Save(Calendar calendar)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<Calendar> Update(Calendar calendar)
-    {
-        throw new NotImplementedException();
-    }
-    public Task Delete(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+    public Task<HttpResponseMessage> GetAllByUserIdAsync(string userId)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Get, 
+            path: $"/calendar/user-id/{userId}");
+    public Task<HttpResponseMessage> GetByIdAsync(Guid id)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Get,
+            path: $"/calendar/id/{id}");
+    public Task<HttpResponseMessage> SaveAsync(Calendar calendar)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Post,
+            path: $"/calendar",
+            body: calendar);
+    public Task<HttpResponseMessage> UpdateAsync(Calendar calendar)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Put,
+            path: $"/calendar",
+            body: calendar);
+    public Task<HttpResponseMessage> DeleteAsync(Guid id)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Delete,
+            path: $"/calendar/id/{id}");
 }

@@ -22,9 +22,9 @@ public abstract class BaseResourcesService
 
     public virtual Task<HttpResponseMessage> RequestResourceAsync(
         HttpMethod method,
-        string? path,
-        object? body,
-        IDictionary<string, string>? headers)
+        string? path = null,
+        object? body = null,
+        IDictionary<string, string>? headers = null)
     {
         var message = new HttpRequestMessage(
             method,

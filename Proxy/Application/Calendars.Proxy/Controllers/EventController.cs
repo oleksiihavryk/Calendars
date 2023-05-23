@@ -1,4 +1,5 @@
-﻿using Calendars.Proxy.Domain;
+﻿using Calendars.Proxy.Core.Interfaces;
+using Calendars.Proxy.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,26 +11,37 @@ namespace Calendars.Proxy.Controllers;
 [ApiController]
 [Authorize]
 [Route("[controller]")]
-public class EventController
+public class EventController : SimilarResponseSupportedControllerBase
 {
+    private readonly IEventsResourcesService _eventsServices;
+
+    public EventController(IEventsResourcesService eventsServices)
+    {
+        _eventsServices = eventsServices;
+    }
+
     [HttpGet("id/{id:guid:required}")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
     {
-        throw new NotImplementedException();
+        var response = await _eventsServices.GetByIdAsync(id);
+        return SimilarResponse(response);
     }
     [HttpPost]
-    public async Task<IActionResult> Save([FromForm, FromBody] Event @event)
+    public async Task<IActionResult> SaveAsync([FromForm, FromBody] Event @event)
     {
-        throw new NotImplementedException();
+        var response = await _eventsServices.Save(@event);
+        return SimilarResponse(response);
     }
     [HttpPut]
-    public async Task<IActionResult> Update([FromForm, FromBody] Event @event)
+    public async Task<IActionResult> UpdateAsync([FromForm, FromBody] Event @event)
     {
-        throw new NotImplementedException();
+        var response = await _eventsServices.UpdateAsync(@event);
+        return SimilarResponse(response);
     }
     [HttpDelete("id/{id:guid:required}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
     {
-        throw new NotImplementedException();
+        var response = await _eventsServices.DeleteAsync(id);
+        return SimilarResponse(response);
     }
 }

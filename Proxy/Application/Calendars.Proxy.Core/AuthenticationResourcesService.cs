@@ -29,9 +29,9 @@ public class AuthenticationResourcesService : BaseResourcesService
 
     public override async Task<HttpResponseMessage> RequestResourceAsync(
         HttpMethod method,
-        string? path, 
-        object? body, 
-        IDictionary<string, string>? headers)
+        string? path = null, 
+        object? body = null, 
+        IDictionary<string, string>? headers = null)
     {
         var token = await Client.RequestClientCredentialsTokenAsync(
             new ClientCredentialsTokenRequest()

@@ -6,9 +6,9 @@ namespace Calendars.Proxy.Core.Interfaces;
 /// </summary>
 public interface ICalendarsResourcesService
 {
-    public Task<IEnumerable<Calendar>> GetAllByUserId(string userId);
-    public Task<Calendar> GetByIdAsync(Guid id);
-    public Task<Calendar> Save(Calendar calendar);
-    public Task<Calendar> Update(Calendar calendar);
-    public Task Delete(Guid id);
+    public Task<HttpResponseMessage> GetAllByUserIdAsync(string userId);
+    public Task<HttpResponseMessage> GetByIdAsync(Guid id);
+    public Task<HttpResponseMessage> SaveAsync(Calendar calendar);
+    public Task<HttpResponseMessage> UpdateAsync(Calendar calendar);
+    public Task<HttpResponseMessage> DeleteAsync(Guid id);
 }

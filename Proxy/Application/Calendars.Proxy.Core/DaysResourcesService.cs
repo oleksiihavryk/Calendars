@@ -18,20 +18,22 @@ public class DaysResourcesService : AuthenticationResourcesService, IDaysResourc
     {
     }
 
-    public Task<Day> GetByIdAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<Day> Save(Day day)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<Day> Update(Day day)
-    {
-        throw new NotImplementedException();
-    }
-    public Task Delete(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+    public Task<HttpResponseMessage> GetByIdAsync(Guid id)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Get,
+            path: $"/calendar/id/{id}");
+    public Task<HttpResponseMessage> SaveAsync(Day day)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Post,
+            path: $"/calendar",
+            body: day);
+    public Task<HttpResponseMessage> UpdateAsync(Day day)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Put,
+            path: $"/calendar",
+            body: day);
+    public Task<HttpResponseMessage> DeleteAsync(Guid id)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Delete,
+            path: $"/calendar/id/{id}");
 }

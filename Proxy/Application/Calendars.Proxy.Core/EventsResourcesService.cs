@@ -17,20 +17,22 @@ public class EventsResourcesService : AuthenticationResourcesService, IEventsRes
     {
     }
 
-    public Task<Event> GetByIdAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<Event> Save(Event @event)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<Event> Update(Event @event)
-    {
-        throw new NotImplementedException();
-    }
-    public Task Delete(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+    public Task<HttpResponseMessage> GetByIdAsync(Guid id)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Get,
+            path: $"/calendar/id/{id}");
+    public Task<HttpResponseMessage> Save(Event @event)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Post,
+            path: $"/calendar",
+            body: @event);
+    public Task<HttpResponseMessage> UpdateAsync(Event @event)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Get,
+            path: $"/calendar",
+            body: @event);
+    public Task<HttpResponseMessage> DeleteAsync(Guid id)
+        => this.RequestResourceAsync(
+            method: HttpMethod.Delete,
+            path: $"/calendar/id/{id}");
 }
