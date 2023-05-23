@@ -37,7 +37,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Data", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Core", "Resources\Application\Calendars.Resources.Core\Calendars.Resources.Core.csproj", "{536AC744-9DDD-42B2-BD84-215E4BF92EC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Resources.Shared", "Resources\Application\Calendars.Resources.Shared\Calendars.Resources.Shared.csproj", "{721B50BC-2597-432F-A077-87ABED4C39A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendars.Resources.Shared", "Resources\Application\Calendars.Resources.Shared\Calendars.Resources.Shared.csproj", "{721B50BC-2597-432F-A077-87ABED4C39A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proxy", "Proxy", "{8C28C7DE-27CD-4792-89C5-4F1679778771}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8ED5D33B-B9F3-4DE0-90B8-67BE5268ED42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4DEF2777-86F8-4DB8-ADF2-925B7A52F0F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Proxy", "Proxy\Application\Calendars.Proxy\Calendars.Proxy.csproj", "{754A4BA8-FA9C-49EC-84D4-4B74756191D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Proxy.Tests", "Proxy\Tests\Calendars.Proxy.Tests\Calendars.Proxy.Tests.csproj", "{650DFF5C-E758-4E7C-90A9-67BE4096EFE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Proxy.Core", "Proxy\Application\Calendars.Proxy.Core\Calendars.Proxy.Core.csproj", "{AF022570-D474-421C-AF44-6F9E58E3F5B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Proxy.Shared", "Proxy\Application\Calendars.Proxy.Shared\Calendars.Proxy.Shared.csproj", "{45B359AD-0266-497A-B284-F3F0CC6E5FE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendars.Proxy.Domain", "Proxy\Application\Calendars.Proxy.Domain\Calendars.Proxy.Domain.csproj", "{6D6A6D15-3F52-4F88-85DF-3DBF01093A5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +109,26 @@ Global
 		{721B50BC-2597-432F-A077-87ABED4C39A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{721B50BC-2597-432F-A077-87ABED4C39A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{721B50BC-2597-432F-A077-87ABED4C39A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754A4BA8-FA9C-49EC-84D4-4B74756191D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754A4BA8-FA9C-49EC-84D4-4B74756191D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754A4BA8-FA9C-49EC-84D4-4B74756191D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754A4BA8-FA9C-49EC-84D4-4B74756191D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{650DFF5C-E758-4E7C-90A9-67BE4096EFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650DFF5C-E758-4E7C-90A9-67BE4096EFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650DFF5C-E758-4E7C-90A9-67BE4096EFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650DFF5C-E758-4E7C-90A9-67BE4096EFE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF022570-D474-421C-AF44-6F9E58E3F5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF022570-D474-421C-AF44-6F9E58E3F5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF022570-D474-421C-AF44-6F9E58E3F5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF022570-D474-421C-AF44-6F9E58E3F5B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45B359AD-0266-497A-B284-F3F0CC6E5FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B359AD-0266-497A-B284-F3F0CC6E5FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B359AD-0266-497A-B284-F3F0CC6E5FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B359AD-0266-497A-B284-F3F0CC6E5FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D6A6D15-3F52-4F88-85DF-3DBF01093A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D6A6D15-3F52-4F88-85DF-3DBF01093A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D6A6D15-3F52-4F88-85DF-3DBF01093A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D6A6D15-3F52-4F88-85DF-3DBF01093A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +150,13 @@ Global
 		{5E8C1339-2ABB-4182-805E-E9C61D60C698} = {535BD07A-E157-45FB-9729-294841A28C2C}
 		{536AC744-9DDD-42B2-BD84-215E4BF92EC6} = {535BD07A-E157-45FB-9729-294841A28C2C}
 		{721B50BC-2597-432F-A077-87ABED4C39A8} = {535BD07A-E157-45FB-9729-294841A28C2C}
+		{8ED5D33B-B9F3-4DE0-90B8-67BE5268ED42} = {8C28C7DE-27CD-4792-89C5-4F1679778771}
+		{4DEF2777-86F8-4DB8-ADF2-925B7A52F0F3} = {8C28C7DE-27CD-4792-89C5-4F1679778771}
+		{754A4BA8-FA9C-49EC-84D4-4B74756191D6} = {8ED5D33B-B9F3-4DE0-90B8-67BE5268ED42}
+		{650DFF5C-E758-4E7C-90A9-67BE4096EFE4} = {4DEF2777-86F8-4DB8-ADF2-925B7A52F0F3}
+		{AF022570-D474-421C-AF44-6F9E58E3F5B3} = {8ED5D33B-B9F3-4DE0-90B8-67BE5268ED42}
+		{45B359AD-0266-497A-B284-F3F0CC6E5FE0} = {8ED5D33B-B9F3-4DE0-90B8-67BE5268ED42}
+		{6D6A6D15-3F52-4F88-85DF-3DBF01093A5A} = {8ED5D33B-B9F3-4DE0-90B8-67BE5268ED42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2B0AD275-8048-4F45-A040-8A7DEEC645CC}
