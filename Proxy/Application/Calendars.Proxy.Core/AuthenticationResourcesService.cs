@@ -33,6 +33,15 @@ public class AuthenticationResourcesService : BaseResourcesService
         object? body = null, 
         IDictionary<string, string>? headers = null)
     {
+        var token = GetTokenForResourcesServerAsync();
+
+        var newHeaders = headers ?? new Dictionary<string, string>();
+        newHeaders.Add("Authentication", $"Bearer {token}");
+        
+        return await base.RequestResourceAsync(method, path, body, newHeaders);
+    }
+    public virtual async Task<string> GetTokenForResourcesServerAsync()
+    {
         var token = await Client.RequestClientCredentialsTokenAsync(
             new ClientCredentialsTokenRequest()
             {
@@ -43,11 +52,6 @@ public class AuthenticationResourcesService : BaseResourcesService
                 Scope = string.Join(",", _scopes)
             });
 
-        if (token.IsError) throw new AuthenticationException();
-
-        var newHeaders = headers ?? new Dictionary<string, string>();
-        newHeaders.Add("Authentication", $"Bearer {token.AccessToken}");
-        
-        return await base.RequestResourceAsync(method, path, body, newHeaders);
+        return token.AccessToken ?? throw new AuthenticationException(); 
     }
 }
