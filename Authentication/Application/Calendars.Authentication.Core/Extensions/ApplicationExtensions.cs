@@ -30,6 +30,11 @@ public static class ApplicationExtensions
                         Scopes = configuration
                             .GetSection("Clients:Web:Scopes")
                             .Get<List<string>>()
-                    }),
-                isDevelopment);
+                    },
+                proxy: new ClientConfiguration(
+                    id: string.Empty,
+                    name: "Proxy",
+                    secret: string.Empty,
+                    origin: configuration["Clients:Proxy:Origin"] ?? string.Empty)),
+            isDevelopment);
 }

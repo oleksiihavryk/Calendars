@@ -33,10 +33,10 @@ public class AuthenticationResourcesService : BaseResourcesService
         object? body = null, 
         IDictionary<string, string>? headers = null)
     {
-        var token = GetTokenForResourcesServerAsync();
+        var token = await GetTokenForResourcesServerAsync();
 
         var newHeaders = headers ?? new Dictionary<string, string>();
-        newHeaders.Add("Authentication", $"Bearer {token}");
+        newHeaders.Add("Authorization", $"Bearer {token}");
         
         return await base.RequestResourceAsync(method, path, body, newHeaders);
     }

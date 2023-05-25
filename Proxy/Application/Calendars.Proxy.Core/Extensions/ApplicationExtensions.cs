@@ -26,6 +26,9 @@ public static class ApplicationExtensions
         services.AddOptions<AuthenticationServerOptions>()
             .Configure(configuration.AssembleAuthenticationOptions);
 
+        services.AddOptions<WebServerOptions>()
+            .Configure(configuration.AssembleWebOptions);
+
         services.AddScoped<AuthenticationResourcesService>();
         
         services.AddScoped<ICalendarsResourcesService, CalendarsResourcesService>();
@@ -55,6 +58,13 @@ public static class ApplicationExtensions
         ResourcesServerOptions opt)
     {
         opt.Uri = configuration["ResourcesServer:Uri"] ??
+                  throw new OptionsConfigurationException();
+    }
+    public static void AssembleWebOptions(
+        this IConfiguration configuration,
+        WebServerOptions opt)
+    {
+        opt.Uri = configuration["WebServer:Uri"] ??
                   throw new OptionsConfigurationException();
     }
 }

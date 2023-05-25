@@ -112,7 +112,8 @@ public class IdentityServerInMemoryConfiguration
     public string[] ClientsOrigins => new[]
     {
         _clientsConfiguration.Resources.Origin.OriginalString,
-        _clientsConfiguration.Web.Origin.OriginalString
+        _clientsConfiguration.Web.Origin.OriginalString,
+        _clientsConfiguration.Proxy.Origin.OriginalString
     };
 
     public IdentityServerInMemoryConfiguration(

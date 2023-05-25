@@ -3,8 +3,8 @@
     "Calendars.Proxy_Development": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "http://localhost:9000;https://localhost:9001",
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:11000;https://localhost:11001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -13,7 +13,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:9000;https://localhost:9001",
+      "applicationUrl": "http://localhost:11000;https://localhost:11001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Staging"
       }
@@ -22,7 +22,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:9000;https://localhost:9001",
+      "applicationUrl": "http://localhost:11000;https://localhost:11001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
       }

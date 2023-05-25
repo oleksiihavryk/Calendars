@@ -6,12 +6,15 @@ public class ClientsConfiguration
 {
     public ClientConfiguration Resources { get; set; }
     public ClientConfiguration Web { get; set; }
+    public ClientConfiguration Proxy { get; set; }
 
     public ClientsConfiguration(
         ClientConfiguration resources,
-        ClientConfiguration web)
+        ClientConfiguration web,
+        ClientConfiguration proxy)
     {
         Resources = resources;
         Web = web;
+        Proxy = proxy;
     }
 }

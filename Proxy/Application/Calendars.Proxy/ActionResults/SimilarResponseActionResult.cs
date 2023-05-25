@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Calendars.Proxy.Core;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Calendars.Proxy.ActionResults;
 /// <summary>
@@ -18,8 +19,10 @@ public class SimilarResponseActionResult : IActionResult
     public async Task ExecuteResultAsync(ActionContext context)
     {
         var response = context.HttpContext.Response;
-        response.Body = await _responseMessage.Content.ReadAsStreamAsync();
         response.StatusCode = (int)_responseMessage.StatusCode;
         response.ContentType = ContentType;
+
+        var responseBody = await _responseMessage.Content.ReadFromJsonAsync<Response>();
+        await response.WriteAsJsonAsync(responseBody);
     }
 }
