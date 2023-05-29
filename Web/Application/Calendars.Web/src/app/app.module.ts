@@ -9,6 +9,7 @@ import { HeaderModule } from './header/header.module';
 import { TextPagesModule } from './text-pages/text-pages.module';
 import { FooterModule } from './footer/footer.module';
 import { ProfileModule } from './profile/profile.module';
+import { CalendarsModule } from './calendars/calendars.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ProfileModule } from './profile/profile.module';
     HeaderModule,
     FooterModule,
     ProfileModule,
+    CalendarsModule,
     TextPagesModule,
     AppRoutingModule,
   ],

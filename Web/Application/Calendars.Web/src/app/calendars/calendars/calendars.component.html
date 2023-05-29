@@ -1,1 +1,25 @@
-<p>calendars works!</p>
+<table>
+    <thead>
+        <tr>
+            <th colspan="6">Calendars</th>
+        </tr>
+        <tr>
+            <th>Identifier</th>
+            <th>User identifier</th>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Type</th>
+            <th>Days count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of calendars">
+            <td style="padding: 5px;">{{c.id}}</td>
+            <td style="padding: 5px;">{{c.userId}}</td>
+            <td style="padding: 5px;">{{c.name}}</td>
+            <td style="padding: 5px;">{{c.year}}</td>
+            <td style="padding: 5px;">{{c.type | calendarType}}</td>
+            <td style="padding: 5px;">{{c.days.length}}</td>
+        </tr>
+    </tbody>
+</table>
