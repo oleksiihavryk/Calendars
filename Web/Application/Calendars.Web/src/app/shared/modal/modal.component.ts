@@ -11,7 +11,9 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() public title: string = '';
   public modal: IModal = {isActive: false, id: '', title: ''};
 
-  constructor(private ref: ElementRef, private modalService: ModalService) {
+  constructor(
+    private ref: ElementRef, 
+    private modalService: ModalService) {
   } 
 
   ngOnInit(): void {

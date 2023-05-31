@@ -5,12 +5,14 @@ import { CalendarsRoutingModule } from './calendars-routing.module';
 import { CalendarsComponent } from './calendars/calendars.component';
 import { SharedModule } from '../shared/shared.module';
 import { CalendarTypePipe } from './pipes/calendar-type.pipe';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 @NgModule({
   declarations: [
     CalendarsComponent,
-    CalendarTypePipe
+    CalendarTypePipe,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
