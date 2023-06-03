@@ -28,7 +28,7 @@ public class DayController : ResponseSupportedControllerBase
         _autoMapper = autoMapper;
     }
 
-    [HttpGet("id/{id:guid:required}")]
+    [HttpGet("id/{id:required}")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
     {
         try
@@ -68,7 +68,7 @@ public class DayController : ResponseSupportedControllerBase
             return UnknownIdentifier(dayDto.Id);
         }
     }
-    [HttpDelete("id/{id:guid:required}")]
+    [HttpDelete("id/{id:required}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try
