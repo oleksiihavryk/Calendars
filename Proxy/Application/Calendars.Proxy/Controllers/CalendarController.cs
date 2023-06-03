@@ -19,14 +19,14 @@ public class CalendarController : SimilarResponseSupportedControllerBase
         _calendarsService = calendarsService;
     }
 
-    [HttpGet("id/{id:guid:required}")]
-    public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+    [HttpGet("id/{id:required}")]
+    public async Task<IActionResult> GetByIdAsync([FromRoute] string id = "")
     {
         var response = await _calendarsService.GetByIdAsync(id);
         return SimilarResponse(response);
     }
     [HttpGet("user-id/{userId:required}")] 
-    public async Task<IActionResult> GetAllByUserIdAsync([FromRoute] string userId)
+    public async Task<IActionResult> GetAllByUserIdAsync([FromRoute] string userId = "")
     {
         var response = await _calendarsService.GetAllByUserIdAsync(userId);
         return SimilarResponse(response);
@@ -43,8 +43,8 @@ public class CalendarController : SimilarResponseSupportedControllerBase
         var response = await _calendarsService.UpdateAsync(calendar);
         return SimilarResponse(response);
     }
-    [HttpDelete("id/{id:guid:required}")]
-    public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
+    [HttpDelete("id/{id:required}")]
+    public async Task<IActionResult> DeleteAsync([FromRoute] string id = "")
     {
         var response = await _calendarsService.DeleteAsync(id);
         return SimilarResponse(response);

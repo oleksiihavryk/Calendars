@@ -64,7 +64,7 @@
                 <tr *ngFor="let c of calendars; index as i"
                     (click)="goToCalendar(c)"
                     class="mouse-pointer">
-                    <td>{{i}}</td>
+                    <td>{{i+1}}</td>
                     <td>{{c.name}}</td>
                     <td>{{c.year}}</td>
                     <td>{{c.type | calendarType}}</td>
@@ -76,8 +76,14 @@
         </table>
         <div class="text-center">
             <button class="btn btn-warning text-white mx-2" 
-                (click)="update()">
-                Update
+                (click)="update()"
+                [disabled]="isUpdating">
+                <ng-template [ngIf]="isUpdating === false">
+                    Update
+                </ng-template>
+                <ng-template [ngIf]="isUpdating">
+                    Updating<app-waiting-mark></app-waiting-mark>
+                </ng-template>
             </button>
             <a class="btn btn-warning text-white mx-2" 
                 routerLink="/calendar/create">

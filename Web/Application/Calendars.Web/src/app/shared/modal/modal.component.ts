@@ -9,7 +9,13 @@ import { IModal, ModalService } from '../services/modal.service';
 export class ModalComponent implements OnInit, OnDestroy {
   @Input() public id: string = '';
   @Input() public title: string = '';
-  public modal: IModal = {isActive: false, id: '', title: ''};
+  @Input() public afterCloseAction: () => void = () => { };
+  public modal: IModal = {
+    id: '', 
+    isActive: false, 
+    title: '', 
+    afterCloseAction: () => {}
+  };
 
   constructor(
     private ref: ElementRef, 
@@ -18,14 +24,21 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.replaceElement();
-    this.modal = this.modalService.createModal(this.id, this.title);
+    this.modal = this.modalService.createModal(
+      this.id, 
+      this.title, 
+      this.afterCloseAction);
   }
   ngOnDestroy(): void {
     this.modalService.removeModal(this.id);
   }
 
-  public toggle(): boolean {
+  public close(): boolean {
     this.modalService.toggleModal(this.modal.id);
+    setTimeout(() => {
+      this.modal.afterCloseAction();
+    }, 100);
+
     return false;
   }
 

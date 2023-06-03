@@ -21,7 +21,7 @@ public class CalendarsResourcesService : AuthenticationResourcesService, ICalend
         => this.RequestResourceAsync(
             method: HttpMethod.Get, 
             path: $"/calendar/user-id/{userId}");
-    public Task<HttpResponseMessage> GetByIdAsync(Guid id)
+    public Task<HttpResponseMessage> GetByIdAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Get,
             path: $"/calendar/id/{id}");
@@ -35,7 +35,7 @@ public class CalendarsResourcesService : AuthenticationResourcesService, ICalend
             method: HttpMethod.Put,
             path: $"/calendar",
             body: calendar);
-    public Task<HttpResponseMessage> DeleteAsync(Guid id)
+    public Task<HttpResponseMessage> DeleteAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Delete,
             path: $"/calendar/id/{id}");

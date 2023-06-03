@@ -1,0 +1,4 @@
+<div *ngIf="isWorking" class="d-flex justify-content-center">
+    <img src="assets/loader.gif" class="m-5"/>
+</div>
+<ng-content *ngIf="isWorking === false"></ng-content>

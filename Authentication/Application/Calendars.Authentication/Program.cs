@@ -1,6 +1,8 @@
 using Calendars.Authentication.Core.Extensions;
 using Calendars.Authentication.Data.Extensions;
 using Calendars.Authentication.Extensions;
+using IdentityServer4.AspNetIdentity;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,10 @@ services.Configure<RouteOptions>(opt =>
 {
     opt.AppendTrailingSlash = true;
     opt.LowercaseUrls = true;
+});
+builder.Services.Configure<SecurityStampValidatorOptions>(opts =>
+{
+    opts.OnRefreshingPrincipal = SecurityStampValidatorCallback.UpdatePrincipal;
 });
 
 services.AddMvc(opt => opt.EnableEndpointRouting = false);

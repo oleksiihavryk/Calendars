@@ -7,8 +7,8 @@ namespace Calendars.Proxy.Core.Interfaces;
 /// </summary>
 public interface IEventsResourcesService
 {
-    public Task<HttpResponseMessage> GetByIdAsync(Guid id);
+    public Task<HttpResponseMessage> GetByIdAsync(string id);
     public Task<HttpResponseMessage> Save(Event @event);
     public Task<HttpResponseMessage> UpdateAsync(Event @event);
-    public Task<HttpResponseMessage> DeleteAsync(Guid id);
+    public Task<HttpResponseMessage> DeleteAsync(string id);
 }

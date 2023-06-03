@@ -4,7 +4,7 @@ import { Calendar } from 'src/app/shared/domain/calendar';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CalendarsSortingService, SortDirection } from '../services/calendars-sorting.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
-import { Observable } from 'rxjs';
+import { Observable, from, map, mergeMap, switchMap } from 'rxjs';
 import { IResponse } from 'src/app/shared/services/resources-http-client';
 
 @Component({
@@ -18,6 +18,7 @@ export class CalendarsComponent implements OnInit {
   public calendarsErrorModalId: string = 'CalendarsErrorModalId';
   public calendarsEmpty: boolean = true;
   public firstUpdateRequest = true;
+  public isUpdating: boolean = false;
 
   constructor(
     public calendarsSorting: CalendarsSortingService,
@@ -84,6 +85,7 @@ export class CalendarsComponent implements OnInit {
   }
 
   public update() : Observable<IResponse> {
+    this.isUpdating = true;
     const req = this.calendarsService.getAll();
     req.subscribe({
       next: (response) => {
@@ -100,6 +102,8 @@ export class CalendarsComponent implements OnInit {
         }
       },
       complete: () => {
+        this.isUpdating = false;
+
         if (this.firstUpdateRequest) {
           this.firstUpdateRequest = false;
           return;

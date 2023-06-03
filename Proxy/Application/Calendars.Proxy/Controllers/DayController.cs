@@ -20,7 +20,7 @@ public class DayController : SimilarResponseSupportedControllerBase
     }
 
     [HttpGet("id/{id:guid:required}")]
-    public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+    public async Task<IActionResult> GetByIdAsync([FromRoute] string id = "")
     {
         var response = await _daysServices.GetByIdAsync(id);
         return SimilarResponse(response);
@@ -38,7 +38,7 @@ public class DayController : SimilarResponseSupportedControllerBase
         return SimilarResponse(response);
     }
     [HttpDelete("id/{id:guid:required}")]
-    public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
+    public async Task<IActionResult> DeleteAsync([FromRoute] string id = "")
     {
         var response = await _daysServices.DeleteAsync(id);
         return SimilarResponse(response);

@@ -1,3 +1,15 @@
-<app-modal [id]="notFoundModalId" title="Error">
-    <p *ngFor="let m of errorMessages">{{m}}</p>
-</app-modal>
+<app-update-window [isWorking]="showLoaderScrean">
+    <div class="m-2"> 
+        <div class="text-center">
+            <h3>{{calendar?.name}}</h3>
+            <p>{{calendar?.type | calendarType}}, {{calendar?.year}}</p>
+        </div>   
+    </div>
+    <!--Error modal-->
+    <app-modal 
+        [id]="notFoundModalId" 
+        [afterCloseAction]="createRedirectToCalendarsFunction()"
+        title="Error">
+        <p *ngFor="let m of errorMessages">{{m}}</p>
+    </app-modal>
+</app-update-window>

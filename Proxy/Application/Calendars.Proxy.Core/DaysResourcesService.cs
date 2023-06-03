@@ -18,7 +18,7 @@ public class DaysResourcesService : AuthenticationResourcesService, IDaysResourc
     {
     }
 
-    public Task<HttpResponseMessage> GetByIdAsync(Guid id)
+    public Task<HttpResponseMessage> GetByIdAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Get,
             path: $"/calendar/id/{id}");
@@ -32,7 +32,7 @@ public class DaysResourcesService : AuthenticationResourcesService, IDaysResourc
             method: HttpMethod.Put,
             path: $"/calendar",
             body: day);
-    public Task<HttpResponseMessage> DeleteAsync(Guid id)
+    public Task<HttpResponseMessage> DeleteAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Delete,
             path: $"/calendar/id/{id}");

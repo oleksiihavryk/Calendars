@@ -17,7 +17,7 @@ public class EventsResourcesService : AuthenticationResourcesService, IEventsRes
     {
     }
 
-    public Task<HttpResponseMessage> GetByIdAsync(Guid id)
+    public Task<HttpResponseMessage> GetByIdAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Get,
             path: $"/calendar/id/{id}");
@@ -31,7 +31,7 @@ public class EventsResourcesService : AuthenticationResourcesService, IEventsRes
             method: HttpMethod.Get,
             path: $"/calendar",
             body: @event);
-    public Task<HttpResponseMessage> DeleteAsync(Guid id)
+    public Task<HttpResponseMessage> DeleteAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Delete,
             path: $"/calendar/id/{id}");
