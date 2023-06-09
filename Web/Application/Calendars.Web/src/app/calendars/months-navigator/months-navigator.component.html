@@ -1,0 +1,31 @@
+<section class="months-navigator" [ngClass]="{'hidden': hidden}">
+    <ul class="bg-secondary text-white">
+        <li><a (click)="scroll('#0')">January</a></li>
+        <li><a (click)="scroll('#1')">February</a></li>
+        <li><a (click)="scroll('#2')">March</a></li>
+        <li><a (click)="scroll('#3')">April</a></li>
+        <li><a (click)="scroll('#4')">May</a></li>
+        <li><a (click)="scroll('#5')">June</a></li>
+        <li><a (click)="scroll('#6')">July</a></li>
+        <li><a (click)="scroll('#7')">August</a></li>
+        <li><a (click)="scroll('#8')">September</a></li>
+        <li><a (click)="scroll('#9')">October</a></li>
+        <li><a (click)="scroll('#10')">November</a></li>
+        <li><a (click)="scroll('#11')">December</a></li>
+    </ul>
+    <div class="buttons-hover w-100" 
+        (mouseenter)="showButtons()"
+        (mouseleave)="hideButtons()"></div>
+    <div class="buttons-area text-center w-100">
+        <i *ngIf="hidden === false"
+            (click)="hidePanel()" 
+            (mouseenter)="showButtons()"
+            [ngClass]="{'hidden': buttonsHidden}"
+            class="bi bi-arrow-down-square h3"></i>
+        <i *ngIf="hidden"
+            (click)="showPanel()" 
+            (mouseenter)="showButtons()"
+            [ngClass]="{'hidden': buttonsHidden}"
+            class="bi bi-arrow-up-square h3"></i>
+    </div>
+</section>

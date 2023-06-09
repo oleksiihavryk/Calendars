@@ -1,0 +1,36 @@
+.align-center {
+
+}
+.calendar {
+    table-layout: fixed;
+}
+.calendar-weeks {
+    text-align: center;
+    font-size: 18px;
+    color: grey;
+}
+.calendar > thead > tr {
+    text-align: center;
+}
+.calendar > tbody > tr {
+    border-bottom: 2px groove grey;
+}
+.calendar > tbody > tr:last-child {
+    border-bottom:none;
+}
+/*day*/
+.calendar > tbody > tr > td {
+    text-align: center;
+}
+.calendar-day {
+    color: grey;
+    padding: 2.5% 0;
+    font-size: 22px;
+}
+.calendar-day:hover {
+    color: black;
+    border: 2px solid orange;
+}
+.calendar-month {
+
+}

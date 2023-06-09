@@ -23,6 +23,7 @@
     "bootstrap-icons": "^1.10.4",
     "jwt-decode": "^3.1.2",
     "ngx-cookie-service": "^16.0.0",
+    "ngx-page-scroll-core": "^11.0.0",
     "oidc-client": "^1.11.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

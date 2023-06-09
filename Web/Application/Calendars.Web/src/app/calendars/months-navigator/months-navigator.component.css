@@ -1,0 +1,46 @@
+
+.months-navigator {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    transition-duration: 0.4s;
+}
+.months-navigator > ul {
+    position: relative;
+    margin: 0;
+    padding: 15px 15px 30px 15px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: white;
+    z-index: 2;
+}
+.months-navigator > ul > li {
+   margin: 10px;
+}
+.months-navigator > ul > li:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.buttons-area {
+    position: fixed;
+    bottom: 0%;
+    z-index: 3;
+}
+.buttons-hover {
+    position: fixed;
+    bottom: 0%;
+    height: 50px;
+    z-index: 3;
+}
+.bi {
+    position: fixed;
+    bottom: 0%;
+    transition-duration: 0.4s;
+}
+.hidden {
+    bottom: -50%;
+}

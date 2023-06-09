@@ -2,9 +2,41 @@
     <div class="m-2"> 
         <div class="text-center">
             <h3>{{calendar?.name}}</h3>
-            <p>{{calendar?.type | calendarType}}, {{calendar?.year}}</p>
-        </div>   
+            <p>{{calendar?.type|calendarType}}, {{calendar?.year}} 
+            </p>
+        </div>
+        <div class="align-center">
+            <table [id]="m[0][6]?.getMonth()"
+                class="calendar w-100 my-5" 
+                *ngFor="let m of months">
+                <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let w of m">
+                        <td class="calendar-day" *ngFor="let d of w">
+                            {{d?.getDate()}}
+                        </td>
+                        <td class="calendar-month"
+                            *ngIf="isBeginOfMonth(w)" 
+                            [attr.rowspan]="calculateWeeksInMonthsByWeek(w)"
+                            colspan="2">
+                            {{w[6] | date: 'MMMM'}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+    <app-months-navigator></app-months-navigator>
     <!--Error modal-->
     <app-modal 
         [id]="notFoundModalId" 
