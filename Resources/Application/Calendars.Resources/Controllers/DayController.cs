@@ -44,7 +44,7 @@ public class DayController : ResponseSupportedControllerBase
         }
     }
     [HttpPost]
-    public async Task<IActionResult> Save([FromForm, FromBody] DayDto calendarDto)
+    public async Task<IActionResult> Save([FromBody] DayDto calendarDto)
     {
         var calendar = _autoMapper.Map<Day>(calendarDto);
         await _dayRepository.SaveAsync(calendar);
@@ -53,7 +53,7 @@ public class DayController : ResponseSupportedControllerBase
         return EntityCreated(result);
     }
     [HttpPut]
-    public async Task<IActionResult> Update([FromForm, FromBody] DayDto dayDto)
+    public async Task<IActionResult> Update([FromBody] DayDto dayDto)
     {
         try
         {

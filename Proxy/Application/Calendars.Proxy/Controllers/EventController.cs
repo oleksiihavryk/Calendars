@@ -27,13 +27,13 @@ public class EventController : SimilarResponseSupportedControllerBase
         return SimilarResponse(response);
     }
     [HttpPost]
-    public async Task<IActionResult> SaveAsync([FromForm, FromBody] Event @event)
+    public async Task<IActionResult> SaveAsync([FromBody] Event @event)
     {
         var response = await _eventsServices.Save(@event);
         return SimilarResponse(response);
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateAsync([FromForm, FromBody] Event @event)
+    public async Task<IActionResult> UpdateAsync([FromBody] Event @event)
     {
         var response = await _eventsServices.UpdateAsync(@event);
         return SimilarResponse(response);

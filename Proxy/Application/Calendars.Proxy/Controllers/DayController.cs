@@ -26,13 +26,13 @@ public class DayController : SimilarResponseSupportedControllerBase
         return SimilarResponse(response);
     }
     [HttpPost]
-    public async Task<IActionResult> SaveAsync([FromForm, FromBody] Day day)
+    public async Task<IActionResult> SaveAsync([FromBody] Day day)
     {
         var response = await _daysServices.SaveAsync(day);
         return SimilarResponse(response);
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateAsync([FromForm, FromBody] Day day)
+    public async Task<IActionResult> UpdateAsync([FromBody] Day day)
     {
         var response = await _daysServices.UpdateAsync(day);
         return SimilarResponse(response);

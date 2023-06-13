@@ -32,13 +32,13 @@ public class CalendarController : SimilarResponseSupportedControllerBase
         return SimilarResponse(response);
     }
     [HttpPost]
-    public async Task<IActionResult> SaveAsync([FromForm, FromBody] Calendar calendar)
+    public async Task<IActionResult> SaveAsync([FromBody] Calendar calendar)
     {
         var response = await _calendarsService.SaveAsync(calendar);
         return SimilarResponse(response);
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateAsync([FromForm, FromBody] Calendar calendar)
+    public async Task<IActionResult> UpdateAsync([FromBody] Calendar calendar)
     {
         var response = await _calendarsService.UpdateAsync(calendar);
         return SimilarResponse(response);

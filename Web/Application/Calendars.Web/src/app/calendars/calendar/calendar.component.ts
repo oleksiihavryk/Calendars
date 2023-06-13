@@ -71,41 +71,11 @@ export class CalendarComponent implements OnInit {
     return yearByDays;
   }
   public createMonthsByYear(year: Date[]) {
-    const weeksCount = Math.round(year.length / 7);
     let weeks = [];
-    let spanIndex = year[0].getDay();
+    let months = [];
 
-    const firstWeek: (Date | null)[] = [];
-
-    for (let j = 0; j < spanIndex; j++) {
-      firstWeek.push(null);
-    }
-
-    year.slice(0, 7 - spanIndex).map(d => firstWeek.push(d));
-    weeks.push(firstWeek);
-
-    for(let i = 0; i < weeksCount; i++) {
-      let index = i * 7 + spanIndex - 1;
-      weeks.push(year.slice(index, index + 7));
-    }
-
-    for (let j = 0; j < 7 - weeks[weeksCount].length; j++) {
-      weeks[weeksCount].push(null);
-    }
-
-    let months: (Date | null)[][][] = [];
-    let monthsCount = 12;
-    let firstWeekOfMonth = 0;
-
-    while (monthsCount --> 0) {
-      const week = weeks[firstWeekOfMonth];
-      const weeksSpanIndex = this.calculateWeeksInMonthsByWeek(week)
-      const firstWeekOfNextMonth = firstWeekOfMonth + weeksSpanIndex;
-      const weeksOfMonths = weeks
-        .slice(firstWeekOfMonth, firstWeekOfNextMonth);
-      months.push(weeksOfMonths);
-      firstWeekOfMonth = firstWeekOfNextMonth;
-    }
+    weeks = this.createWeeksByYear(year);
+    months = this.createMonthsByWeeks(weeks);
 
     return months;
   }
@@ -125,7 +95,63 @@ export class CalendarComponent implements OnInit {
 
     return isFirstDayOfMonth;
   }
-  public calculateWeeksInMonthsByWeek(week: (Date | null)[]) : number {
+  public createWeeksByYear(year: Date[]) : (Date | null)[][] {
+    let weeks = [];
+    let spanIndex = year[0].getDay();
+    const weeksCount = 53;
+
+    const firstWeek: (Date | null)[] = [];
+
+    for (let j = 0; j < spanIndex; j++) {
+      firstWeek.push(null);
+    }
+
+    year.slice(0, 7 - spanIndex).map(d => firstWeek.push(d));
+    weeks.push(firstWeek);
+
+    if (spanIndex === 0) {
+      for(let i = 1; i <= weeksCount; i++) {
+        let index = i * 7;
+        weeks.push(year.slice(index, index + 7));
+      }
+    } else {
+      for(let i = 0; i < weeksCount; i++) {
+        let index = i * 7 + (7 - spanIndex);
+        weeks.push(year.slice(index, index + 7));
+      }
+    }
+
+    if (weeks[weeksCount - 1][0] !== null) {
+      const lastWeekLength = weeks[weeksCount - 1].length;
+      for (let j = 0; j < 7 - lastWeekLength; j++) 
+        weeks[weeksCount - 1].push(null);
+    } else {
+      const lastWeekLength = weeks[weeksCount - 2].length;
+      for (let j = 0; j < 7 - lastWeekLength; j++) 
+        weeks[weeksCount - 2].push(null);
+    }
+
+    return weeks;
+  }
+  public createMonthsByWeeks(weeks: (Date | null)[][])
+    : (Date | null)[][][] { 
+    let months: (Date | null)[][][] = [];
+    let monthsCount = 12;
+    let firstWeekOfMonth = 0;
+
+    while (monthsCount --> 0) {
+      const week = weeks[firstWeekOfMonth];
+      const weeksSpanIndex = this.calculateWeeksInMonthsByFirstWeek(week)
+      const firstWeekOfNextMonth = firstWeekOfMonth + weeksSpanIndex;
+      const weeksOfMonths = weeks
+        .slice(firstWeekOfMonth, firstWeekOfNextMonth);
+      months.push(weeksOfMonths);
+      firstWeekOfMonth = firstWeekOfNextMonth;
+    }
+
+    return months;
+  }
+  public calculateWeeksInMonthsByFirstWeek(week: (Date | null)[]) : number {
     const lastDayOfWeek = week
       .filter(d => d !== null)
       .reverse()
@@ -134,24 +160,23 @@ export class CalendarComponent implements OnInit {
     if (lastDayOfWeek === undefined || lastDayOfWeek === null) 
       throw new Error('Last day of week cannot be null or undefined.');
     
+    if (lastDayOfWeek.getDate() > 7) 
+      throw new Error('Passed week is not a first week of months.');
+
     const fromDay = lastDayOfWeek?.getDate();
     const maxDaysInMonths = 32 - new Date(
       lastDayOfWeek.getFullYear(), 
       lastDayOfWeek.getMonth(),
       32).getDate();
-    const floor = Math.ceil((maxDaysInMonths - fromDay) / 7);
-    let result = floor;
+    let result = 0;
 
-    if ((lastDayOfWeek.getMonth() !== 11 &&
-    lastDayOfWeek.getMonth() !== 0) && 
-      (maxDaysInMonths - fromDay) % 7 === 0) {
-      ++result;
-    }
-
-    if ((lastDayOfWeek.getMonth() === 11 || 
-      lastDayOfWeek.getMonth() === 0) && 
-      maxDaysInMonths - fromDay % 7 !== 0) {
-      ++result;
+    if (lastDayOfWeek.getMonth() === 0) {
+      result = 1 + Math.floor((maxDaysInMonths - fromDay) / 7);
+    } else if (lastDayOfWeek.getMonth() === 11) {
+      result = 2 + Math.floor((maxDaysInMonths - fromDay) / 7);
+    } else {
+      result = Math.ceil((maxDaysInMonths - fromDay) / 7) + 
+        Number((maxDaysInMonths - fromDay) % 7 === 0);
     }
 
     return result;

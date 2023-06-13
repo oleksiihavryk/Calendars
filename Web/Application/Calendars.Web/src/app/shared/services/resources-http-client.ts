@@ -21,8 +21,10 @@ export class ResourcesHttpClient extends HttpClient {
         return this.request<IResponse>(method, url, {
             body: body,
             responseType: 'json',
+            observe: 'body',
             headers: {
-                'Authorization': 'Bearer '+token
+                'Authorization': 'Bearer '+token,
+                'Content-Type': 'application/json'
             }
         });
     }

@@ -45,7 +45,7 @@ public class EventController : ResponseSupportedControllerBase
         }
     }
     [HttpPost]
-    public async Task<IActionResult> Save([FromForm, FromBody] EventDto calendarDto)
+    public async Task<IActionResult> Save([FromBody] EventDto calendarDto)
     {
         var calendar = _autoMapper.Map<Event>(calendarDto);
         await _eventRepository.SaveAsync(calendar);
@@ -54,7 +54,7 @@ public class EventController : ResponseSupportedControllerBase
         return EntityCreated(result);
     }
     [HttpPut]
-    public async Task<IActionResult> Update([FromForm, FromBody] EventDto dayDto)
+    public async Task<IActionResult> Update([FromBody] EventDto dayDto)
     {
         try
         {

@@ -1,0 +1,49 @@
+<div class="form-group m-2">
+    <label [for]="name" class="control-label">{{name | titlecase}}
+    </label>
+    <fieldset [disabled]="disabled">
+
+        <input [formControl]="control" [id]="name"    
+        [type]="type"
+        class="form-control text-center"
+        [ngClass]="{
+            'is-valid': control.touched && control.dirty && 
+                control.valid,
+            'is-invalid': control.touched && control.dirty && 
+            control.valid === false,
+        }">
+        <div *ngIf="control.touched && control.dirty" class="text-danger">
+            <p *ngIf="control.errors?.required">
+                This field is required!
+        </p>
+        <p *ngIf="control.errors?.maxlength !== null && 
+        control.errors?.maxlength !== undefined">
+        This value has a length of 
+        {{control.errors?.maxlength.actualLength}} symbols
+        and cannot be more than 
+        {{control.errors?.maxlength.requiredLength}}
+        symbols.
+        </p>
+        <p *ngIf="control.errors?.minlength !== null && 
+        control.errors?.minlength !== undefined">
+        This value has a length of 
+        {{control.errors?.minlength.actualLength}} symbols
+        and cannot be less than 
+            {{control.errors?.minlength.requiredLength}}
+            symbols.
+        </p>
+        <p *ngIf="control.errors?.min !== null && 
+            control.errors?.min !== undefined">
+            This value '{{control.errors?.min.actual}}' 
+            cannot be less than 
+            {{control.errors?.min.min}}
+        </p>
+        <p *ngIf="control.errors?.max !== null && 
+        control.errors?.max !== undefined">
+        This value '{{control.errors?.max.actual}}' 
+        cannot be greater than 
+        {{control.errors?.max.max}}
+        </p>
+    </div>
+    </fieldset>
+</div>

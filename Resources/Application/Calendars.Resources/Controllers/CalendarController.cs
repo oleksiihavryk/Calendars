@@ -52,7 +52,7 @@ public class CalendarController : ResponseSupportedControllerBase
         return result.Any() == false ? UnknownIdentifier(userId) : EntityFound(result);
     }
     [HttpPost]
-    public async Task<IActionResult> Save([FromForm, FromBody] CalendarDto calendarDto)
+    public async Task<IActionResult> Save([FromBody] CalendarDto calendarDto)
     {
         var calendar = _autoMapper.Map<Calendar>(calendarDto);
         await _calendarRepository.SaveAsync(calendar);
@@ -61,7 +61,7 @@ public class CalendarController : ResponseSupportedControllerBase
         return EntityCreated(result);
     }
     [HttpPut]
-    public async Task<IActionResult> Update([FromForm, FromBody] CalendarDto calendarDto)
+    public async Task<IActionResult> Update([FromBody] CalendarDto calendarDto)
     {
         try
         {

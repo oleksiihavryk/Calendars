@@ -1,0 +1,52 @@
+<app-update-window [isWorking]="isLoading">
+    <div class="d-flex justify-content-center">
+        <form class="form m-5" [formGroup]="form">
+            <h2 class="text-center m-2">Update calendar</h2>
+            <app-input [control]="name" 
+                name="name" type="text"></app-input>
+            <app-input [control]="year" [disabled]="true"
+                name="year" type="number"></app-input>
+            <div class="form-group m-2">
+                <label for="Type" class="control-label">Type</label>
+                <select formControlName="type"
+                    [ngClass]="{
+                        'is-valid': form.controls.type.touched && 
+                            form.controls.type.dirty && 
+                            form.controls.type.valid,
+                        'is-invalid': form.controls.type.touched && 
+                            form.controls.type.dirty && 
+                            form.controls.type.valid === false,
+                    }"
+                    id="Type" class="form-control text-center">
+                    <option selected value="1">{{1 | calendarType}}</option>
+                    <option value="0">{{0 | calendarType}}</option>
+                </select>
+            </div>
+            <div *ngIf="form.controls.type.touched && 
+                form.controls.type.dirty" class="text-danger">
+                <p *ngIf="form.controls.type.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="text-center m-2">
+                <button class="btn btn-warning text-white m-2" 
+                    [disabled]="form.valid === false && 
+                        isUnlockToUpdate"
+                    (click)="update()">Update
+                </button>
+                <a [routerLink]="'/calendar/'+calendar?.id" 
+                    class="btn btn-danger text-white m-2">
+                    Back
+                </a>
+            </div>
+        </form>
+    </div>
+    <app-modal title="Error" [id]="updateCalendarErrorModalId">
+        <p *ngFor="let e of errors">{{e}}</p>
+    </app-modal>
+    <app-modal title="Calendar updated" 
+        [id]="updateCalendarSuccessModalId"
+        [afterCloseAction]="createRedirectToCalendarFunction()">
+        <p>Calendar is successfully created!</p>
+    </app-modal>
+</app-update-window>

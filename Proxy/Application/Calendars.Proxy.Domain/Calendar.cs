@@ -12,6 +12,6 @@ public class Calendar
     public string? UserId { get; set; }
     public string? Name { get; set; }
     public int? Year { get; set; }
-    public CalendarType? Type { get; set; }
-    public ICollection<Day>? Days { get; set; }
+    public int? Type { get; set; }
+    public ICollection<Day> Days { get; set; } = Array.Empty<Day>();
 }
