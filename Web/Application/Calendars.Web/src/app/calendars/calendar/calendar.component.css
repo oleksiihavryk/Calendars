@@ -12,12 +12,6 @@
 .calendar > thead > tr {
     text-align: center;
 }
-.calendar > tbody > tr {
-    border-bottom: 2px groove grey;
-}
-.calendar > tbody > tr:last-child {
-    border-bottom:none;
-}
 /*day*/
 .calendar > tbody > tr > td {
     text-align: center;
@@ -26,11 +20,28 @@
     color: grey;
     padding: 2.5% 0;
     font-size: 22px;
+    border-left: 2px groove grey;
+    border-top: 2px groove grey;
 }
 .calendar-day:hover {
     color: black;
     border: 2px solid orange;
+    cursor: pointer;
 }
 .calendar-month {
 
+}
+tr:first-child > .calendar-day {
+    border-top: none;
+}
+tr > .calendar-day:first-child {
+    border-left: none;
+}
+tr:first-child > .calendar-day:hover {
+    color: black;
+    border: 2px solid orange;
+}
+tr > .calendar-day:first-child:hover {
+    color: black;
+    border: 2px solid orange;
 }
