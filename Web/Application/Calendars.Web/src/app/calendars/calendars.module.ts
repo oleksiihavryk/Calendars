@@ -11,7 +11,6 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { CreateCalendarComponent } from './create-calendar/create-calendar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UpdateCalendarComponent } from './update-calendar/update-calendar.component';
-import { DeleteCalendarComponent } from './delete-calendar/delete-calendar.component';
 
 
 @NgModule({
@@ -22,7 +21,6 @@ import { DeleteCalendarComponent } from './delete-calendar/delete-calendar.compo
     MonthsNavigatorComponent,
     CreateCalendarComponent,
     UpdateCalendarComponent,
-    DeleteCalendarComponent
   ],
   imports: [
     CommonModule,

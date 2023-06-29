@@ -58,6 +58,9 @@
                             <i class="bi bi-sort-down-alt"></i>Type
                         </span>
                     </th>
+                    <th>
+
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -68,6 +71,18 @@
                     <td>{{c.name}}</td>
                     <td>{{c.year}}</td>
                     <td>{{c.type | calendarType}}</td>
+                    <td class="text-center">
+                        <a class="btn btn-warning btn-sm text-white mx-1"
+                            title="Update"
+                            [routerLink]="'/update/calendar/'+c.id">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <button class="btn btn-danger btn-sm text-white mx-1"
+                            title="Delete"
+                            (click)="deleteCalendar($event, c)">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
+                    </td>
                 </tr>
                 <tr *ngIf="calendarsEmpty">
                     <td class="text-center" colspan="4">You dont have any calendars at now.</td>
@@ -91,6 +106,19 @@
             </a>
         </div>
     </div>
+    <app-modal [id]="deleteCalendarModalId" 
+        [isQuestion]="true"
+        title="Delete calendar"
+        [afterCloseAction]="createDeleteCalendarHandler()">
+        Did you realy want to delete this calendar?
+        <p>
+            Consequences of this action is cannot be roll back.
+        </p>
+    </app-modal>
+    <app-modal [id]="calendarsSuccessModalId"
+        title="Success">
+        <p *ngFor="let s of successMessages">{{s}}</p>
+    </app-modal>
     <app-modal [id]="calendarsErrorModalId" title="Error">
         <p *ngFor="let error of errorMessages">{{error}}</p>
         <p class="text-center">Try update later.</p>

@@ -34,8 +34,8 @@ public class EventController : ResponseSupportedControllerBase
     {
         try
         {
-            var day = await _eventRepository.GetByIdAsync(id);
-            var result = _autoMapper.Map<EventDto>(day);
+            var @event = await _eventRepository.GetByIdAsync(id);
+            var result = _autoMapper.Map<EventDto>(@event);
 
             return EntityFound(result);
         }
@@ -45,28 +45,28 @@ public class EventController : ResponseSupportedControllerBase
         }
     }
     [HttpPost]
-    public async Task<IActionResult> Save([FromBody] EventDto calendarDto)
+    public async Task<IActionResult> Save([FromBody] EventDto eventDto)
     {
-        var calendar = _autoMapper.Map<Event>(calendarDto);
-        await _eventRepository.SaveAsync(calendar);
-        var result = _autoMapper.Map<EventDto>(calendar);
+        var @event = _autoMapper.Map<Event>(eventDto);
+        await _eventRepository.SaveAsync(@event);
+        var result = _autoMapper.Map<EventDto>(@event);
 
         return EntityCreated(result);
     }
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] EventDto dayDto)
+    public async Task<IActionResult> Update([FromBody] EventDto eventDto)
     {
         try
         {
-            var day = _autoMapper.Map<Event>(dayDto);
-            await _eventRepository.UpdateAsync(day);
-            var result = _autoMapper.Map<EventDto>(day);
+            var @event = _autoMapper.Map<Event>(eventDto);
+            await _eventRepository.UpdateAsync(@event);
+            var result = _autoMapper.Map<EventDto>(@event);
 
             return EntityUpdated(result);
         }
         catch (ArgumentException)
         {
-            return UnknownIdentifier(dayDto.Id);
+            return UnknownIdentifier(eventDto.Id);
         }
     }
     [HttpDelete("id/{id:required}")]

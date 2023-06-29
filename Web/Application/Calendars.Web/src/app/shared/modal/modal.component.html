@@ -8,8 +8,15 @@
         <ng-content></ng-content>
       </p>
     </div>
-    <div class="text-center">
-      <button class="btn btn-warning text-white" (click)="close()">OK</button>
+    <div class="text-center" *ngIf="isQuestion === false">
+      <button class="btn btn-warning text-white" 
+        (click)="closeWithConsequences()">OK</button>
+    </div>
+    <div class="text-center" *ngIf="isQuestion">
+      <button class="btn btn-warning text-white mx-2"
+        (click)="closeWithConsequences()">OK</button>
+      <button class="btn btn-warning text-white mx-2"
+        (click)="close()">Cancel</button>
     </div>
   </div>
 </div>

@@ -4,8 +4,8 @@ import { CalendarsComponent } from './calendars/calendars.component';
 import { AuthGuard } from '../authentication/authentication-routing.module';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CreateCalendarComponent } from './create-calendar/create-calendar.component';
-import { DeleteCalendarComponent } from './delete-calendar/delete-calendar.component';
 import { UpdateCalendarComponent } from './update-calendar/update-calendar.component';
+import { DayComponent } from '../days/day/day.component';
 
 const routes: Routes = [
   {
@@ -14,14 +14,20 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'calendar/:id',
-    component: CalendarComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'delete/calendar/:id',
-    component: DeleteCalendarComponent,
-    canActivate: [AuthGuard]
+    path: 'calendar',
+    pathMatch: 'prefix',
+    children: [
+      {
+        path: ':id/month/:month/day/:day',
+        component: DayComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':id',
+        component: CalendarComponent,
+        canActivate: [AuthGuard],
+      },
+    ]
   },
   {
     path: 'update/calendar/:id',

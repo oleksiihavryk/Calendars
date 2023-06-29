@@ -30,11 +30,13 @@
             </div>
             <div class="text-center m-2">
                 <button class="btn btn-warning text-white m-2" 
-                    [disabled]="form.valid === false && 
-                        isUnlockToUpdate"
+                    [disabled]="this.form.dirty === false && 
+                        this.form.touched === false &&
+                        this.buttonIsDisabled === false && 
+                        this.form.valid === false"
                     (click)="update()">Update
                 </button>
-                <a [routerLink]="'/calendar/'+calendar?.id" 
+                <a routerLink="/calendars" 
                     class="btn btn-danger text-white m-2">
                     Back
                 </a>
@@ -44,9 +46,15 @@
     <app-modal title="Error" [id]="updateCalendarErrorModalId">
         <p *ngFor="let e of errors">{{e}}</p>
     </app-modal>
+    <app-modal 
+        title="Critical error" 
+        [id]="updateCalendarCriticalErrorModalId"
+        [afterCloseAction]="createRedirectToCalendarsFunction()">
+        <p *ngFor="let e of errors">{{e}}</p>
+    </app-modal>
     <app-modal title="Calendar updated" 
         [id]="updateCalendarSuccessModalId"
-        [afterCloseAction]="createRedirectToCalendarFunction()">
+        [afterCloseAction]="createRedirectToCalendarsFunction()">
         <p>Calendar is successfully created!</p>
     </app-modal>
 </app-update-window>

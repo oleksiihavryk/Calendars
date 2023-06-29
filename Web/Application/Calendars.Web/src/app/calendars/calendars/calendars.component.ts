@@ -14,10 +14,16 @@ import { IResponse } from 'src/app/shared/services/resources-http-client';
 })
 export class CalendarsComponent implements OnInit {
   public calendars: Calendar[] = [];
-  public errorMessages: string[] = [];
+  public deletedCalendar: Calendar | undefined;
+  
   public calendarsErrorModalId: string = 'CalendarsErrorModalId';
-  public calendarsEmpty: boolean = true;
+  public deleteCalendarModalId: string = 'DeleteCalendarModalId';
+  public calendarsSuccessModalId: string = 'CalendarsSuccessModalId';
+  
+  public errorMessages: string[] = [];
+  public successMessages: string[] = [];
   public firstUpdateRequest = true;
+  public calendarsEmpty: boolean = true;
   public isUpdating: boolean = false;
 
   constructor(
@@ -30,6 +36,37 @@ export class CalendarsComponent implements OnInit {
   ngOnInit(): void {
     this.update();
     this.sortByRoute();
+  }
+
+  public deleteCalendar($event: MouseEvent, calendar: Calendar) {
+    $event.stopPropagation();
+    this.deletedCalendar = calendar;
+    this.modal.toggleModal(this.deleteCalendarModalId);
+    return false;
+  }
+  public createDeleteCalendarHandler(): () => void {
+    return () => {
+      const calendar = this.deletedCalendar;
+
+      if (calendar === undefined) 
+        throw new Error('Deleted calendar cannot be a '+
+          'undefined on this stage of deleting.');
+      
+      const obs = this.calendarsService.delete(calendar);
+      obs.subscribe({
+        next: (response) => {
+          this.successMessages = response.messages;
+          this.modal.toggleModal(this.calendarsSuccessModalId);
+          this.update();
+          this.deletedCalendar = undefined;
+        },
+        error: (err) => {
+          this.errorMessages = err.error.messages;
+          this.modal.toggleModal(this.calendarsErrorModalId);
+          this.deletedCalendar = undefined;
+        }
+      })
+    };
   }
 
   public nameSortedDown() {
@@ -91,6 +128,16 @@ export class CalendarsComponent implements OnInit {
       next: (response) => {
         this.calendars = response.result as Calendar[];
         this.calendarsEmpty = false;
+
+        this.isUpdating = false;
+
+        if (this.firstUpdateRequest) {
+          this.firstUpdateRequest = false;
+          return;
+        }
+
+        this.router.navigateByUrl('/calendars');
+        this.calendarsSorting.removeSorting();
       },
       error: (err) => {
         if (err.status === 404 && err.error != undefined) {
@@ -100,8 +147,7 @@ export class CalendarsComponent implements OnInit {
           this.errorMessages = err.error.messages;
           this.modal.toggleModal(this.calendarsErrorModalId);
         }
-      },
-      complete: () => {
+
         this.isUpdating = false;
 
         if (this.firstUpdateRequest) {

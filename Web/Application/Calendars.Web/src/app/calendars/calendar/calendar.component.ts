@@ -5,6 +5,7 @@ import { Calendar } from 'src/app/shared/domain/calendar';
 import { CalendarsService } from '../services/calendars.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { IResponse } from 'src/app/shared/services/resources-http-client';
+import { Day } from 'src/app/shared/domain/day';
 
 @Component({
   selector: 'app-calendar',
@@ -35,6 +36,35 @@ export class CalendarComponent implements OnInit {
     }); 
   }
 
+  public dayBackgroundColorByDate(date: Date | null): string {
+    const day = this.findDayByDate(date);
+    const num = day?.backgroundArgbColorInteger;
+    
+    if (num === undefined)
+      return 'unset';
+
+    const a = (num << 0) >>> 24,
+            r = (num << 8) >>> 24,
+            g = (num << 16) >>> 24, 
+            b = (num << 24) >>> 24;
+    const format = this.decimalNumTo16string;
+
+    return '#'+format(r)+format(g)+format(b)+format(a);
+  }
+  public dayTextColorByDate(date: Date | null): string {
+    const day = this.findDayByDate(date);
+    const num = day?.textArgbColorInteger;
+
+    if (num === undefined)
+      return 'unset';
+
+    const a = (num << 0) >>> 24,
+            r = (num << 8) >>> 24,
+            g = (num << 16) >>> 24, 
+            b = (num << 24) >>> 24;
+    const format = this.decimalNumTo16string;
+    return '#'+format(r)+format(g)+format(b)+format(a);
+  }
   public findOrUpdateCalendar(): Observable<IResponse> {
     this.showLoaderScrean = true;
     const obs = this.route.params.pipe(
@@ -83,6 +113,15 @@ export class CalendarComponent implements OnInit {
     return () => {
       this.router.navigateByUrl('/calendars');
     };
+  }
+  public navigateToDay(day: Date | null): void {
+    if (day !== null) {
+      this.router.navigate(
+        ['month', day.getMonth(), 'day', day.getDate()],
+        {
+          relativeTo: this.route
+        })
+    }
   }
   public isBeginOfMonth(week: (Date | null)[]) : boolean {
     const notNullDays = week.filter(d => d !== null);
@@ -180,5 +219,18 @@ export class CalendarComponent implements OnInit {
     }
 
     return result;
+  }
+
+  private decimalNumTo16string(num: number): string {
+    let result = num <= 16 ? '0' : '';
+    result += num.toString(16);
+    return result;
+  } 
+  private findDayByDate(date: Date | null): Day | undefined {
+    return this.calendar?.days.find(
+      d => {
+        const dayDate = new Date(this.calendar?.year ?? 0, 0, d.dayNumber);
+        return dayDate.toUTCString() === date?.toUTCString();
+      });
   }
 }

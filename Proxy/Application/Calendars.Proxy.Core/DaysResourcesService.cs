@@ -21,19 +21,19 @@ public class DaysResourcesService : AuthenticationResourcesService, IDaysResourc
     public Task<HttpResponseMessage> GetByIdAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Get,
-            path: $"/calendar/id/{id}");
+            path: $"/day/id/{id}");
     public Task<HttpResponseMessage> SaveAsync(Day day)
         => this.RequestResourceAsync(
             method: HttpMethod.Post,
-            path: $"/calendar",
+            path: $"/day",
             body: day);
     public Task<HttpResponseMessage> UpdateAsync(Day day)
         => this.RequestResourceAsync(
             method: HttpMethod.Put,
-            path: $"/calendar",
+            path: $"/day",
             body: day);
     public Task<HttpResponseMessage> DeleteAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Delete,
-            path: $"/calendar/id/{id}");
+            path: $"/day/id/{id}");
 }

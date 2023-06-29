@@ -20,19 +20,19 @@ public class EventsResourcesService : AuthenticationResourcesService, IEventsRes
     public Task<HttpResponseMessage> GetByIdAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Get,
-            path: $"/calendar/id/{id}");
+            path: $"/event/id/{id}");
     public Task<HttpResponseMessage> Save(Event @event)
         => this.RequestResourceAsync(
             method: HttpMethod.Post,
-            path: $"/calendar",
+            path: $"/event",
             body: @event);
     public Task<HttpResponseMessage> UpdateAsync(Event @event)
         => this.RequestResourceAsync(
-            method: HttpMethod.Get,
-            path: $"/calendar",
+            method: HttpMethod.Put,
+            path: $"/event",
             body: @event);
     public Task<HttpResponseMessage> DeleteAsync(string id)
         => this.RequestResourceAsync(
             method: HttpMethod.Delete,
-            path: $"/calendar/id/{id}");
+            path: $"/event/id/{id}");
 }

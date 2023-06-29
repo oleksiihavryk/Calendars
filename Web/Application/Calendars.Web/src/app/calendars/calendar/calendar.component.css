@@ -1,6 +1,3 @@
-.align-center {
-
-}
 .calendar {
     table-layout: fixed;
 }
@@ -11,37 +8,38 @@
 }
 .calendar > thead > tr {
     text-align: center;
+    color: grey;
 }
 /*day*/
 .calendar > tbody > tr > td {
     text-align: center;
 }
 .calendar-day {
-    color: grey;
     padding: 2.5% 0;
     font-size: 22px;
     border-left: 2px groove grey;
     border-top: 2px groove grey;
 }
 .calendar-day:hover {
+    cursor: pointer;
     color: black;
     border: 2px solid orange;
-    cursor: pointer;
-}
-.calendar-month {
-
 }
 tr:first-child > .calendar-day {
-    border-top: none;
+    border-top: 2px solid white;
+}
+tr:last-child > .calendar-day {
+    border-bottom: 2px solid white;
+}
+tr:last-child > .calendar-day:hover {
+    border: 2px solid orange;
 }
 tr > .calendar-day:first-child {
-    border-left: none;
+    border-left: 2px solid white;
 }
 tr:first-child > .calendar-day:hover {
-    color: black;
     border: 2px solid orange;
 }
 tr > .calendar-day:first-child:hover {
-    color: black;
     border: 2px solid orange;
 }

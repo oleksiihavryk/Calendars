@@ -42,13 +42,9 @@ public class DayRepository : IDayRepository
     }
     public async Task<Day> UpdateAsync(Day entity)
     {
-        var updateEntity = await GetByIdAsync(entity.Id);
-        var entry = _dbContext.Update(updateEntity);
-
-        entry.Entity.ShallowUpdateProperties(entity, nameof(Day.Id));
+        var entry = _dbContext.Update(entity);
         await _dbContext.SaveChangesAsync();
-
-        return updateEntity;
+        return entry.Entity;
     }
     public async Task DeleteAsync(Guid id)
     {

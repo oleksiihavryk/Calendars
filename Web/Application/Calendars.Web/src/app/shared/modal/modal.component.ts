@@ -10,6 +10,8 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() public id: string = '';
   @Input() public title: string = '';
   @Input() public afterCloseAction: () => void = () => { };
+  @Input() public isQuestion: boolean = false;
+
   public modal: IModal = {
     id: '', 
     isActive: false, 
@@ -33,12 +35,16 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.modalService.removeModal(this.id);
   }
 
-  public close(): boolean {
+  public closeWithConsequences(): boolean {
     this.modalService.toggleModal(this.modal.id);
     setTimeout(() => {
       this.modal.afterCloseAction();
     }, 100);
 
+    return false;
+  }
+  public close(): boolean {
+    this.modalService.toggleModal(this.modal.id);
     return false;
   }
 

@@ -6,16 +6,8 @@
             </p>
         </div>
         <div class="text-center">
-        <a [routerLink]="'/update/calendar/'+calendar?.id" 
-            class="btn btn-warning text-white m-2">
-            Update
-        </a>
-        <a [routerLink]="'/delete/calendar/'+calendar?.id" 
-            class="btn btn-danger text-white m-2">
-            Delete
-        </a>
         <a routerLink="/calendars" 
-            class="btn btn-danger text-white m-2">
+            class="btn btn-warning text-white m-2">
             Back
         </a>
         </div>
@@ -36,9 +28,17 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let w of m">
-                        <td class="calendar-day" *ngFor="let d of w">
-                            {{d?.getDate()}}
-                        </td>
+                            <td class="calendar-day"
+                                *ngFor="let d of w"
+                                [attr.style]="
+                                    ('background-color:'+
+                                    dayBackgroundColorByDate(d)+';'+
+                                    'color:'+
+                                    dayTextColorByDate(d)) 
+                                    | safeStyle"
+                                (click)="navigateToDay(d)">
+                                {{d?.getDate()}}
+                            </td>
                         <td class="calendar-month"
                             *ngIf="isBeginOfMonth(w)" 
                             [attr.rowspan]="calculateWeeksInMonthsByFirstWeek(w)"

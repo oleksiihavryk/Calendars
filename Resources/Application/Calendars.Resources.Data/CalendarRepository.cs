@@ -47,12 +47,8 @@ public class CalendarRepository : ICalendarRepository
     }
     public async Task<Calendar> UpdateAsync(Calendar entity)
     {
-        var updateEntity = await GetByIdAsync(entity.Id);
-        var entry = _dbContext.Update(updateEntity);
-
-        entry.Entity.ShallowUpdateProperties(entity, nameof(Calendar.Id));
+        var entry = _dbContext.Update(entity);
         await _dbContext.SaveChangesAsync();
-        
         return entry.Entity;
     }
     public async Task DeleteAsync(Guid id)

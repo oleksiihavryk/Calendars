@@ -12,6 +12,7 @@ public class DayDto
     public Guid Id { get; set; } = Guid.Empty;
     [Required] public Guid CalendarId { get; set; }
     [Required] public int DayNumber { get; set; }
-    [Required] public int ArgbColorInteger { get; set; }
+    [Required] public int BackgroundArgbColorInteger { get; set; }
+    [Required] public int TextArgbColorInteger { get; set; }
     public IEnumerable<EventDto> Events { get; set; } = Enumerable.Empty<EventDto>();
 }

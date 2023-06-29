@@ -35,18 +35,20 @@ export class UpdateCalendarComponent implements OnInit {
     year: this.year,
     type: this.type,
   });
+
   public calendar: Calendar | null = null;
-  public isLoading: boolean = true;
+  
   public updateCalendarErrorModalId: string 
-    = "UpdateCalendarErrorModalId";
+  = "UpdateCalendarErrorModalId";
   public updateCalendarSuccessModalId: string 
     = "UpdateCalendarSuccessModalId";
+  public updateCalendarCriticalErrorModalId: string 
+    = "UpdateCalendarCriticalErrorModalId";
+
   public errors: string[] = [];
-  public get isUnlockToUpdate(): boolean {
-    return this.calendar?.name !== this.name.value ||
-      this.calendar?.type !== this.type.value ||
-      this.calendar?.year !== this.year.value;
-  }
+  public isLoading: boolean = true;
+  public buttonIsDisabled: boolean = false;
+
 
   constructor(
     private modal: ModalService,
@@ -63,21 +65,20 @@ export class UpdateCalendarComponent implements OnInit {
 
         this.updateFormValues();
       },
-      error: (err) => {
-        this.errors = err.error.messages;
-        this.modal.toggleModal(this.updateCalendarErrorModalId);
-        this.isLoading = false;
-      },
+      error: this.createHandlerCriticalError()
     });
   }
   public update(): void {
+    this.buttonIsDisabled = true;
     this.updateCalendar().subscribe({
       next: (response) => {
         this.modal.toggleModal(this.updateCalendarSuccessModalId);
+        this.buttonIsDisabled = false;
       },
       error: (err) => {
         this.errors = err.error.messages;
         this.modal.toggleModal(this.updateCalendarErrorModalId);
+        this.buttonIsDisabled = false;
       }
     })
   }
@@ -110,13 +111,22 @@ export class UpdateCalendarComponent implements OnInit {
 
     return this.calendar;
   }
-  public createRedirectToCalendarFunction(): () => void {
-    return () => this.router.navigateByUrl(
-      '/calendar/'+this.calendar?.id);
+  public createRedirectToCalendarsFunction(): () => void {
+    return () => this.router.navigateByUrl('/calendars');
   }
   public updateFormValues() {
     this.name.setValue(this.calendar?.name);
     this.type.setValue(this.calendar?.type);
     this.year.setValue(this.calendar?.year);
+  }
+
+  private createHandlerCriticalError() {
+    return (err: ErrorEvent) => {
+      this.errors = err.error.messages;
+      if (this.errors.values().next()) {
+        this.errors = ['Try to reach external server is failed. Try again later!'];
+      }
+      this.modal.toggleModal(this.updateCalendarCriticalErrorModalId);
+    };
   }
 }

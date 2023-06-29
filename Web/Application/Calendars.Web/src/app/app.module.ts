@@ -10,6 +10,8 @@ import { TextPagesModule } from './text-pages/text-pages.module';
 import { FooterModule } from './footer/footer.module';
 import { ProfileModule } from './profile/profile.module';
 import { CalendarsModule } from './calendars/calendars.module';
+import { DaysModule } from './days/days.module';
+import { EventsModule } from './events/events.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { CalendarsModule } from './calendars/calendars.module';
     FooterModule,
     ProfileModule,
     CalendarsModule,
+    DaysModule,
+    EventsModule,
     TextPagesModule,
     AppRoutingModule,
   ],

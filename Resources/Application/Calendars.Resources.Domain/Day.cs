@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 
 namespace Calendars.Resources.Domain;
 
@@ -7,13 +9,12 @@ namespace Calendars.Resources.Domain;
 /// </summary>
 public class Day
 {
-    public const KnownColor DefaultColor = KnownColor.Red;
+    [Required] public Guid Id { get; set; }
+    [Required] public Guid CalendarId { get; set; }
 
-    public Guid Id { get; set; }
-    public Guid CalendarId { get; set; }
-
-    public int DayNumber { get; set; }
-    public int ArgbColorInteger { get; set; } = Color.FromKnownColor(DefaultColor).ToArgb();
+    [Required] public int DayNumber { get; set; }
+    [Required] public int BackgroundArgbColorInteger { get; set; }
+    [Required] public int TextArgbColorInteger { get; set; }
     public ICollection<Event> Events { get; set; } 
         = new List<Event>();
 }

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Calendars.Proxy.Domain;
+﻿namespace Calendars.Proxy.Domain;
     
 /// <summary>
 ///     Event of day. Like go to supermarket, make a cleanup etc.

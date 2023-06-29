@@ -1,0 +1,31 @@
+<app-update-window [isWorking]="isWaiting">
+    <div class="d-flex justify-content-center">
+        <form class="form m-5" [formGroup]="form">
+            <h2 class="text-center m-2">Add event</h2>
+            <app-input [control]="name" name="name" type="text"></app-input>
+            <app-input [control]="description" name="description" type="text">
+            </app-input>
+            <app-input [control]="timeFrom" name="from" type="time"></app-input>
+            <app-input [control]="timeTo" name="to" type="time"></app-input>
+            <div class="text-center m-2">
+                <button class="btn btn-warning text-white m-2" 
+                    [disabled]="form.valid === false || 
+                        createButtonDisabled"
+                    (click)="create()">Create
+                </button>
+                <a [routerLink]="createUrlToDayNavigation()" 
+                    class="btn btn-danger text-white m-2">
+                    Back
+                </a>
+            </div>
+        </form>
+    </div>
+    <app-modal title="Error" [id]="addEventErrorModalId">
+        <p *ngFor="let e of errorMessages">{{e}}</p>
+    </app-modal>
+    <app-modal title="Event added" 
+        [id]="addEventIsSuccessModalId"
+        [afterCloseAction]="createRedirectToDayAction()">
+        <p>Event is successfully created!</p>
+    </app-modal>
+</app-update-window>

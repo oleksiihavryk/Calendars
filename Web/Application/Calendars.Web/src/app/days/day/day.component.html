@@ -1,0 +1,140 @@
+<app-update-window [isWorking]="isLoading">
+    <div class="m-5 d-flex flex-column">
+        <section class="mx-auto p-5 m-2"
+            [ngStyle]="{
+                'background-color': dayBackgroundColor, 
+                'color': dayTextColor}">
+            <div class="text-center day">{{date.getDate()}}</div>
+            <div class="text-center month">
+                {{date | date: 'MMMM'}}, {{calendar?.year}}
+            </div>
+        </section>
+        <div class="d-flex justify-content-center flex-wrap">
+            <section class="m-2">
+                <h3>Events</h3>
+                <table class="table table-light"
+                    [ngClass]="{'table-hover': day !== undefined}">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of day?.events?.sort()"
+                            [title]="e.description">
+                            <td>{{e.name}}</td>
+                            <td>
+                                {{e.hoursFrom | number: '2.0'}}:<!--
+                                -->{{e.minutesFrom | number: '2.0'}}
+                            </td>
+                            <td>
+                                {{e.hoursTo | number: '2.0'}}:<!--
+                                -->{{e.minutesTo | number: '2.0'}}
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-sm 
+                                    btn-warning text-white mx-1"
+                                    [routerLink]="'/update/event/'+e.id"
+                                    title="Update">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <button class="btn btn-sm
+                                    btn-danger text-white mx-1"
+                                    (click)="deleteEvent(e)"
+                                    title="Delete">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="day === undefined || day.events.length === 0">
+                            <td class="text-center" colspan="4">
+                                You dont have any events at now.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <button (click)="addNewEvent()"
+                        [disabled]="createEventIsDisabled"
+                        class="btn btn-warning text-white">
+                        Create
+                    </button>
+                </div>
+            </section>
+            <section class="m-2">
+                <h3>Options</h3>
+                <div class="d-flex flex-column">
+                    <div class="text-center">
+                        <button (click)="openChangeColorTab()"
+                            class="btn btn-warning text-white m-1">
+                            Set/Change color
+                        </button>
+                        <div [id]="changeColorTabId" class="m-3 text-start"
+                        style="display:none">
+                            <form [formGroup]="changeColorForm">
+                                <app-input 
+                                    [control]="textColor" 
+                                    name="text"
+                                    type="color"></app-input>
+                                <app-input 
+                                    [control]="backgroundColor" 
+                                    name="background"
+                                    type="color"></app-input>
+                                <div class="text-center">
+                                    <button (click)="changeColors()"
+                                        class="btn btn-warning text-white">
+                                        Apply
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="text-center">    
+                        <button class="btn btn-warning text-white m-1"
+                            (click)="clearEvents()">
+                            Clear events
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="text-center mt-3">
+            <a [routerLink]="'/calendar/'+calendar?.id" 
+                class="btn btn-warning text-white">Back</a>
+        </div>
+    </div>
+</app-update-window>
+<app-modal title="Delete event" 
+    [isQuestion]="true"
+    [id]="deleteEventModalId" 
+    [afterCloseAction]="createDeleteEventHandler()">
+        Did you realy want to delete current this event?
+        <p>
+            Consequences of this action is cannot be roll back.
+        </p>
+</app-modal>
+<app-modal title="Clear events" 
+    [isQuestion]="true"
+    [id]="clearEventsModalId" 
+    [afterCloseAction]="createClearEventsHandler()">
+        Did you realy want to clear all events at this day?
+        <p>
+            Consequences of this action is cannot be roll back.
+        </p>
+</app-modal>
+<app-modal title="Success" 
+    [id]="daySuccessModalId" >
+    <p *ngFor="let m of successMessages">{{m}}</p>
+</app-modal>
+<app-modal title="Error" 
+    [id]="dayDefaultErrorModalId" >
+    <p *ngFor="let m of errorMessages">{{m}}</p>
+</app-modal>
+<app-modal title="Critical error" 
+    [id]="dayCriticalErrorModalId" 
+    [afterCloseAction]="navigateToCalendar()">
+    <p *ngFor="let m of errorMessages">{{m}}</p>
+</app-modal>

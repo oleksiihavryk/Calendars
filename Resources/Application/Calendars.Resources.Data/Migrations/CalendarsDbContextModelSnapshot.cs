@@ -30,8 +30,7 @@ namespace Calendars.Resources.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -45,7 +44,7 @@ namespace Calendars.Resources.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Calendars");
+                    b.ToTable("Calendars", (string)null);
                 });
 
             modelBuilder.Entity("Calendars.Resources.Domain.Day", b =>
@@ -54,7 +53,7 @@ namespace Calendars.Resources.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ArgbColorInteger")
+                    b.Property<int>("BackgroundArgbColorInteger")
                         .HasColumnType("int");
 
                     b.Property<Guid>("CalendarId")
@@ -63,15 +62,14 @@ namespace Calendars.Resources.Data.Migrations
                     b.Property<int>("DayNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TextArgbColorInteger")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CalendarId");
 
-                    b.ToTable("Days");
+                    b.ToTable("Days", (string)null);
                 });
 
             modelBuilder.Entity("Calendars.Resources.Domain.Event", b =>
@@ -84,8 +82,7 @@ namespace Calendars.Resources.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HoursFrom")
                         .HasColumnType("int");
@@ -101,18 +98,13 @@ namespace Calendars.Resources.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DayId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
                 });
 
             modelBuilder.Entity("Calendars.Resources.Domain.Day", b =>

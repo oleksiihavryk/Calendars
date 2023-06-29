@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Calendars.Proxy.Domain;
+﻿namespace Calendars.Proxy.Domain;
 /// <summary>
 ///     Calendar - main operational unit in domain.
 ///     Model of calendar. 
