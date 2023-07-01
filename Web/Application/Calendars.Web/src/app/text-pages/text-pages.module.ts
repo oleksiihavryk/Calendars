@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { InfoComponent } from './info/info.component';
 import { SharedModule } from '../shared/shared.module';
 import { NotFound404Component } from './not-found404/not-found404.component';
+import { AuthenticationModule } from '../authentication/authentication.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { NotFound404Component } from './not-found404/not-found404.component';
   imports: [
     CommonModule,
     TextPagesRoutingModule,
+    AuthenticationModule,
     SharedModule
   ]
 })

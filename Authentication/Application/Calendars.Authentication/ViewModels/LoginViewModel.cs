@@ -12,4 +12,5 @@ public class LoginViewModel
 
     // Invisible data for user
     [Required] public string ReturnUrl { get; set; } = string.Empty;
+    [Required] public string CancelUrl { get; set; } = string.Empty;
 }

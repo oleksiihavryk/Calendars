@@ -16,21 +16,36 @@
         <section class="px-2 m-2">
             <h2>Information</h2>
             <section class="p-2">
-                <h5>Calendars: 0</h5>
-                <button class="btn btn-warning text-white">Go to calendars</button>
-            </section>
-            <section class="p-2">
-                <h5>Events: 0</h5>
-                <button class="btn btn-warning text-white">Go to closest event</button>
+                <h5>Calendars: {{calendarsCount}}</h5>
+                <h5>Events: {{eventsCount}}</h5>
+                <a class="btn btn-warning text-white"
+                    routerLink="/calendars">
+                    Go to calendars
+                </a>
             </section>
         </section>
         <section class="px-2 m-2">
             <h2>Settings</h2>
             <section class="d-flex flex-column p-2 mb-2">
                 <h5>Profile settings</h5>
-                <a class="btn btn-warning text-white mb-1">Change password</a>
-                <a class="btn btn-warning text-white">Add/remove email</a>
+                <button class="btn btn-warning text-white mb-1"
+                    (click)="featureIsUnavailable('Change password')">
+                    Change password
+                </button>
+                <button class="btn btn-warning text-white"
+                    (click)="featureIsUnavailable('Add/remove email')">
+                    Add/remove email
+                </button>
             </section>
         </section>
     </div>
 </div>
+<app-modal [id]="profileErrorModalId"
+    title="Error">
+    <p *ngFor="let e of errorMessages">{{e}}</p>
+</app-modal>
+<app-modal [id]="featureIsUnavailableModalId"
+    title="Unavailable feature"
+    [afterCloseAction]="createRemoveFeatureNameHandler()">
+    Current feature '{{this.featureName}}' is unavailable. Try again later!
+</app-modal>

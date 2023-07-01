@@ -1,5 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { PageScrollService } from 'ngx-page-scroll-core';
+import $ from "jquery";
 
 @Component({
   selector: 'app-months-navigator',
@@ -7,8 +8,7 @@ import { PageScrollService } from 'ngx-page-scroll-core';
   styleUrls: ['./months-navigator.component.css']
 })
 export class MonthsNavigatorComponent {
-  public hidden: boolean = false;
-  public buttonsHidden: boolean = false;
+  public panelHidden: boolean = false;
 
   constructor(
     private scrollService: PageScrollService, 
@@ -22,22 +22,14 @@ export class MonthsNavigatorComponent {
       scrollTarget: to
     })
   }
-  public hidePanel() {
-    this.hidden = true;
-    this.buttonsHidden = false;
+
+  public hidePanel(panel: HTMLElement) {
+    $(panel).slideUp(125);
+    this.panelHidden = true;
   }
-  public showPanel() {
-    this.hidden = false;
-    this.buttonsHidden = false;
-  }
-  public showButtons() {
-    if (this.hidden) {
-      this.buttonsHidden = false;
-    }
-  }
-  public hideButtons() {
-    if (this.hidden) {
-      this.buttonsHidden = true;
-    }
+  public showPanel(panel: HTMLElement) {
+    $(panel).slideDown(125, () => {
+      this.panelHidden = false;
+    });
   }
 }

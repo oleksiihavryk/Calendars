@@ -24,9 +24,10 @@
             <label asp-for="PasswordConfirmation"></label>
         </div>
         <input asp-for="ReturnUrl" hidden/>
+        <input asp-for="CancelUrl" hidden/>
         <section class="text-center">   
             <button class="btn btn-sm btn-light m-2" type="submit">Submit</button>
-            <a class="btn btn-sm btn-danger m-2" href="@Model.ReturnUrl">Cancel</a>
+            <a class="btn btn-sm btn-danger m-2" href="@Model.CancelUrl">Cancel</a>
         </section>
     </form>
     <p class="m-2">

@@ -39,7 +39,7 @@
                                 (click)="navigateToDay(d)">
                                 {{d?.getDate()}}
                             </td>
-                        <td class="calendar-month"
+                        <td class="calendar-month display-4"
                             *ngIf="isBeginOfMonth(w)" 
                             [attr.rowspan]="calculateWeeksInMonthsByFirstWeek(w)"
                             colspan="2">

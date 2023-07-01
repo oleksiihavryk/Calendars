@@ -1,11 +1,13 @@
 ﻿using System.Security.Claims;
 using Calendars.Authentication.Domain;
 using Calendars.Authentication.Exceptions;
+using Calendars.Authentication.Options;
 using Calendars.Authentication.ViewModels;
 using IdentityModel;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Calendars.Authentication.Controllers;
@@ -18,28 +20,33 @@ public class AccountController : Controller
     private readonly UserManager<User> _userManager;
     private readonly ILogger<AccountController> _logger;
     private readonly IIdentityServerInteractionService _interactionService;
+    private readonly string _cancelUrl;
 
     public AccountController(
         SignInManager<User> signInManager, 
         UserManager<User> userManager, 
         ILogger<AccountController> logger, 
-        IIdentityServerInteractionService interactionService)
+        IIdentityServerInteractionService interactionService,
+        IOptions<CancelUrlOptions> cancelUrl)
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _logger = logger;
         _interactionService = interactionService;
+        _cancelUrl = cancelUrl.Value.Url;
     }
 
     [HttpGet] public async Task<ViewResult> Login([FromQuery] string returnUrl)
         => await Task.FromResult(View(new LoginViewModel()
         {
-            ReturnUrl = returnUrl
+            ReturnUrl = returnUrl,
+            CancelUrl = _cancelUrl
         }));
     [HttpGet] public async Task<ViewResult> Register([FromQuery] string returnUrl)
         => await Task.FromResult(View(new RegisterViewModel()
         {
-            ReturnUrl = returnUrl
+            ReturnUrl = returnUrl,
+            CancelUrl = _cancelUrl
         }));
     [HttpGet] public async Task<RedirectResult> Logout([FromQuery] string logoutId)
     {

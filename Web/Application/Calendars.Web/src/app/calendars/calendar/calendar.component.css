@@ -25,6 +25,9 @@
     color: black;
     border: 2px solid orange;
 }
+.calendar-month {
+    writing-mode:vertical-rl;
+}
 tr:first-child > .calendar-day {
     border-top: 2px solid white;
 }
@@ -36,6 +39,12 @@ tr:last-child > .calendar-day:hover {
 }
 tr > .calendar-day:first-child {
     border-left: 2px solid white;
+}
+tr > .calendar-day:last-child {
+    border-right: 2px solid white;
+}
+tr > .calendar-day:last-child:hover {
+    border: 2px solid orange;
 }
 tr:first-child > .calendar-day:hover {
     border: 2px solid orange;

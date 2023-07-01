@@ -1,46 +1,45 @@
-
 .months-navigator {
-    position: fixed;
-    bottom: 0;
+    display: block;
     width: 100%;
+    position: fixed;
     z-index: 1;
-    transition-duration: 0.4s;
+    left: 0;
+    bottom: 0; 
 }
 .months-navigator > ul {
-    position: relative;
-    margin: 0;
-    padding: 15px 15px 30px 15px;
-    list-style: none;
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: white;
-    z-index: 2;
+    list-style: none;
 }
 .months-navigator > ul > li {
-   margin: 10px;
+    cursor: pointer;
+    margin: 5px;
 }
 .months-navigator > ul > li:hover {
     text-decoration: underline;
-    cursor: pointer;
 }
-.buttons-area {
-    position: fixed;
-    bottom: 0%;
-    z-index: 3;
+.buttons-layout-area {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0);
+}
+.buttons-layout-area > *::before {
+    content: '*';
 }
 .buttons-hover {
+    display: block;
+    width: 100%;
     position: fixed;
-    bottom: 0%;
-    height: 50px;
-    z-index: 3;
+    z-index: 2;
+    left: 0;
+    bottom: 0; 
 }
-.bi {
+.buttons-area {
+    display: block;
+    width: 100%;
     position: fixed;
-    bottom: 0%;
-    transition-duration: 0.4s;
-}
-.hidden {
-    bottom: -50%;
+    z-index: 2;
+    left: 0;
+    bottom: 0;
 }

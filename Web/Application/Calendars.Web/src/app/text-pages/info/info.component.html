@@ -21,9 +21,10 @@
     </div>
     <div class="d-flex flex-column justify-content-center part text-center">
         <p class="display-4 m-5">If this is what you looking for, 
-            <a href="#" class="link-primary" (click)="startUnavailable()">let's start</a>!
-            <app-modal [id]="startUnavailableModalId" title="Start">
-                This feature currently is unavaialable. Try again later!
+            <a href="#" class="link-primary" (click)="start()">let's start</a>!
+            <app-modal [id]="alreadyLoggedInModalId"
+                title="Start">
+                You cannot start because you already logged in!
             </app-modal>
         </p>
     </div>

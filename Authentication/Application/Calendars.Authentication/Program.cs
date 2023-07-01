@@ -1,6 +1,7 @@
 using Calendars.Authentication.Core.Extensions;
 using Calendars.Authentication.Data.Extensions;
 using Calendars.Authentication.Extensions;
+using Calendars.Authentication.Options;
 using IdentityServer4.AspNetIdentity;
 using Microsoft.AspNetCore.Identity;
 
@@ -19,6 +20,12 @@ services.Configure<RouteOptions>(opt =>
 builder.Services.Configure<SecurityStampValidatorOptions>(opts =>
 {
     opts.OnRefreshingPrincipal = SecurityStampValidatorCallback.UpdatePrincipal;
+});
+services.Configure<CancelUrlOptions>(opt =>
+{
+    opt.Url = config["Clients:Web:Origin"] ?? throw new ApplicationException(
+        message: "Configuration file is incorrect! " +
+                 "Cannot accept information about web client origin form configuration file.");
 });
 
 services.AddMvc(opt => opt.EnableEndpointRouting = false);

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthorizeService } from 'src/app/authentication/services/authorize.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
@@ -7,13 +9,18 @@ import { ModalService } from 'src/app/shared/services/modal.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  public startUnavailableModalId: string = 'startUnavailable';
+  public alreadyLoggedInModalId: string = 'AlreadyLoggedInModalId';
 
-  constructor(public modalService: ModalService) {
-  }
+  constructor(
+    private modal: ModalService,
+    private auth: AuthorizeService,
+    private router: Router) { }
 
-  public startUnavailable(): boolean {
-    this.modalService.toggleModal(this.startUnavailableModalId);
+  public start() {
+    if (this.auth.isLogged) 
+        this.modal.toggleModal(this.alreadyLoggedInModalId);
+    else this.router.navigateByUrl('/login');
+
     return false;
   }
 }
