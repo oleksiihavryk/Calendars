@@ -13,7 +13,9 @@ public class AuthenticationIdentityDbContext : IdentityDbContext<User, UserRole,
         DbContextOptions<AuthenticationIdentityDbContext> options)   
         : base(options)
     {
+        Database.EnsureCreated();
     }
+    
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

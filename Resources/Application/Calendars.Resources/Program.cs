@@ -96,7 +96,7 @@ app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCustomExceptionHandler();
 
-if (env.IsDevelopment())
+if (env.IsProduction() == false)
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
