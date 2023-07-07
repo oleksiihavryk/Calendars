@@ -14,5 +14,6 @@ public class CalendarsDbContext : DbContext
     public CalendarsDbContext(DbContextOptions<CalendarsDbContext> options)
         : base(options)
     {
+        Database.EnsureCreated();
     }
 }
