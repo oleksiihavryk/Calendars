@@ -11,6 +11,8 @@ public class IdentityServerInMemoryConfiguration
 {
     private readonly ClientsConfiguration _clientsConfiguration;
     private readonly bool _isDevelopment;
+    
+    private string[]? _origins = null; 
 
     public List<Client> Clients => new()
     {
@@ -27,15 +29,17 @@ public class IdentityServerInMemoryConfiguration
             AllowedGrantTypes = GrantTypes.ClientCredentials,
             AllowedScopes = _clientsConfiguration.Resources.Scopes,
 
-            RedirectUris =
-            {
-                _clientsConfiguration.Resources.Origin + "oauth2-redirect.html",
-                _clientsConfiguration.Resources.Origin + "signin-oidc",
-            },
-            PostLogoutRedirectUris =
-            {
-                _clientsConfiguration.Resources.Origin + "signout-callback-oidc"
-            },
+            RedirectUris = _clientsConfiguration.Web.Origins
+                .Select(o => new []
+                {
+                    o + "oauth2-redirect.html",
+                    o + "signin-oidc"
+                })
+                .SelectMany(o => o)
+                .ToArray(),
+            PostLogoutRedirectUris = _clientsConfiguration.Resources.Origins
+                .Select(o => o + "signout-callback-oidc")
+                .ToArray(),
 
             AlwaysIncludeUserClaimsInIdToken = true,
             RequirePkce = _isDevelopment == false,
@@ -55,15 +59,17 @@ public class IdentityServerInMemoryConfiguration
             AllowedGrantTypes = GrantTypes.Code,
             AllowedScopes = _clientsConfiguration.Web.Scopes,
 
-            RedirectUris =
-            {
-                _clientsConfiguration.Web.Origin + "oauth2-redirect.html",
-                _clientsConfiguration.Web.Origin.OriginalString,
-            },
-            PostLogoutRedirectUris =
-            {
-                _clientsConfiguration.Web.Origin.OriginalString
-            },
+            RedirectUris = _clientsConfiguration.Web.Origins
+                .Select(o => new []
+                {
+                    o + "oauth2-redirect.html",
+                    o.OriginalString
+                })
+                .SelectMany(o => o)
+                .ToArray(),
+            PostLogoutRedirectUris = _clientsConfiguration.Web.Origins
+                .Select(o => o.OriginalString)
+                .ToArray(),
 
             RequirePkce = true,
             AlwaysIncludeUserClaimsInIdToken = true,
@@ -109,12 +115,13 @@ public class IdentityServerInMemoryConfiguration
             Scopes = { "resources" }
         }
     };
-    public string[] ClientsOrigins => new[]
-    {
-        _clientsConfiguration.Resources.Origin.OriginalString,
-        _clientsConfiguration.Web.Origin.OriginalString,
-        _clientsConfiguration.Proxy.Origin.OriginalString
-    };
+
+    public string[] ClientsOrigins =>
+        _origins ??= _clientsConfiguration.Proxy.Origins
+            .Concat(_clientsConfiguration.Resources.Origins)
+            .Concat(_clientsConfiguration.Web.Origins)
+            .Select(u => u.OriginalString)
+            .ToArray();
 
     public IdentityServerInMemoryConfiguration(
         ClientsConfiguration clientsConfiguration,
