@@ -14,27 +14,41 @@ public static class ApplicationExtensions
                 resources: new ClientConfiguration(
                     id: configuration["Clients:Resources:Id"] ?? string.Empty,
                     name: configuration["Clients:Resources:Name"] ?? string.Empty,
-                    secret: configuration["Clients:Resources:Secret"] ?? string.Empty,
-                    origin: configuration["Clients:Resources:Origin"] ?? string.Empty)
+                    secret: configuration["Clients:Resources:Secret"] ?? string.Empty)
                     {
                         Scopes = configuration
                             .GetSection("Clients:Resources:Scopes")
-                            .Get<List<string>>()
-                    },
+                            .Get<List<string>>(),
+                        Origins = configuration
+                            .GetSection("Clients:Resources:Origins")
+                            .Get<List<string>>()?
+                            .Select(u => new Uri(u))
+                            .ToList()
+                },
                 web: new ClientConfiguration(
                     id: configuration["Clients:Web:Id"] ?? string.Empty,
                     name: configuration["Clients:Web:Name"] ?? string.Empty,
-                    secret: configuration["Clients:Web:Secret"] ?? string.Empty,
-                    origin: configuration["Clients:Web:Origin"] ?? string.Empty)
+                    secret: configuration["Clients:Web:Secret"] ?? string.Empty)
                     {
                         Scopes = configuration
                             .GetSection("Clients:Web:Scopes")
-                            .Get<List<string>>()
-                    },
+                            .Get<List<string>>(),
+                        Origins = configuration
+                            .GetSection("Clients:Web:Origins")
+                            .Get<List<string>>()?
+                            .Select(u => new Uri(u))
+                            .ToList()
+                },
                 proxy: new ClientConfiguration(
                     id: string.Empty,
                     name: "Proxy",
-                    secret: string.Empty,
-                    origin: configuration["Clients:Proxy:Origin"] ?? string.Empty)),
+                    secret: string.Empty)
+                {
+                    Origins = configuration
+                        .GetSection("Clients:Proxy:Origins")
+                        .Get<List<string>>()?
+                        .Select(u => new Uri(u))
+                        .ToList()
+                }),
             isDevelopment);
 }
