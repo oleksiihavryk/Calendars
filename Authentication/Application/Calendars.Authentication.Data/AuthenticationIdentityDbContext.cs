@@ -13,7 +13,6 @@ public class AuthenticationIdentityDbContext : IdentityDbContext<User, UserRole,
         DbContextOptions<AuthenticationIdentityDbContext> options)   
         : base(options)
     {
-        Database.EnsureCreated();
     }
     
 

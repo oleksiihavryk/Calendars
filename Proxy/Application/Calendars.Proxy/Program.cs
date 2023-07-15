@@ -31,8 +31,6 @@ services.AddHttpClient();
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt =>
     {
-        var audience = authOptions.Scopes.First();
-
         opt.Authority = authOptions.Uri;
         opt.IncludeErrorDetails = true;
         opt.RequireHttpsMetadata = isDevelopment == false;

@@ -23,8 +23,10 @@ builder.Services.Configure<SecurityStampValidatorOptions>(opts =>
 });
 services.Configure<CancelUrlOptions>(opt =>
 {
-    opt.Url = config["Clients:Web:Origin"] ?? throw new ApplicationException(
-        message: "Configuration file is incorrect! " +
+    opt.Url = config.GetSection("Clients:Web:Origins")
+        .Get<string[]>()?
+        .First(s => s.Contains("https://")) ?? throw new ApplicationException(
+            message: "Configuration file is incorrect! " +
                  "Cannot accept information about web client origin form configuration file.");
 });
 
@@ -56,6 +58,7 @@ await app.SeedRolesAsync();
 //middleware chain
 app.UseRouting();
 
+app.UseCors();
 app.UseHttpsRedirection();
 
 if (env.IsDevelopment())
