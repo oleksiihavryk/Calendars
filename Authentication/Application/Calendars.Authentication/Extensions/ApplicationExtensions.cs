@@ -62,6 +62,24 @@ public static class ApplicationExtensions
                message: "Cannot get authentication database " +
                         "connection string from configuration file.");
     /// <summary>
+    ///     Get one of web client urls or return null.
+    /// </summary>
+    /// <param name="config"></param>
+    /// <returns>
+    ///     String of url or null if url is not found.
+    /// </returns>
+    public static string? GetOneOfWebClientUrlsOrReturnNull(this IConfiguration config)
+    {
+        var urls = config
+            .GetSection("Clients:Web:Origins")
+            .Get<string[]>();
+
+        if (UrlsIsNullOrEmpty(urls)) return null;
+
+        return urls?.FirstOrDefault(s => s.Contains("https://")) ??
+               urls?.FirstOrDefault(s => s.Contains("http://"));
+    }
+    /// <summary>
     ///     Seed all roles which contains enum "Roles" in system.
     /// </summary>
     /// <param name="app"></param>
@@ -73,4 +91,7 @@ public static class ApplicationExtensions
             if (await roleManager.RoleExistsAsync(r.ToString()) == false)
                 await roleManager.CreateAsync(UserRole.CreateRole(r)); 
     }
+
+    private static bool UrlsIsNullOrEmpty(string[]? urls)
+        => urls == null || urls.Length == 0;
 }

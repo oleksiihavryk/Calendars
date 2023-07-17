@@ -23,9 +23,7 @@ builder.Services.Configure<SecurityStampValidatorOptions>(opts =>
 });
 services.Configure<CancelUrlOptions>(opt =>
 {
-    opt.Url = config.GetSection("Clients:Web:Origins")
-        .Get<string[]>()?
-        .First(s => s.Contains("https://")) ?? throw new ApplicationException(
+    opt.Url = config.GetOneOfWebClientUrlsOrReturnNull() ?? throw new ApplicationException(
             message: "Configuration file is incorrect! " +
                  "Cannot accept information about web client origin form configuration file.");
 });
