@@ -28,12 +28,12 @@ export class ProfileComponent implements OnInit {
     this.calendars.getAll().subscribe({
       next: (response) => {
         const calendars = response.result as Calendar[];
-
+        let eventsCount = 0;
+        
+        calendars.forEach(c => c.days.forEach(d => eventsCount += d.events.length));
+        
         this.calendarsCount = calendars.length;
-        this.eventsCount = calendars.map(c => c.days.length)
-          .reduce((p, c, _) => {
-            return p + c;
-          });
+        this.eventsCount = eventsCount;
       },
       error: this.errorHandler
     });
