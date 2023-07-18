@@ -25,36 +25,11 @@ export class CreateEventComponent implements OnInit {
   ]);
   public timeFrom: FormControl = new FormControl('', [
     Validators.required,
+    this.createTimeValidatorFrom()
   ]);
   public timeTo: FormControl = new FormControl('', [
     Validators.required,
-    (control): ValidationErrors | null => {
-      const [hoursFrom, minutesFrom] = (this.timeFrom?.value ?? '').
-        matchAll(this.timeParser);
-      const [hoursTo, minutesTo] = (this.timeTo?.value ?? '').
-        matchAll(this.timeParser);
-
-      if (hoursFrom && minutesFrom && hoursTo && minutesTo) {
-        const dateFrom = new Date(0);
-        const dateTo = new Date(0);
-        
-        dateFrom.setHours(Number.parseInt(hoursFrom[0]));
-        dateFrom.setMinutes(Number.parseInt(minutesFrom[0]));
-        dateTo.setHours(Number.parseInt(hoursTo[0]));
-        dateTo.setMinutes(Number.parseInt(minutesTo[0]));
-
-        return dateFrom > dateTo ? {
-          incorrectTimeSpan: { 
-            fromHours:hoursFrom[0],
-            fromMin:minutesFrom[0],
-            toHours:hoursTo[0],
-            toMin:minutesTo[0],
-           }
-        } : null;
-      }
-
-      return { incorrectTimeSpan: { } };
-    }
+    this.createTimeValidatorTo()
   ]);
   public description: FormControl = new FormControl('', [
     Validators.maxLength(128)
@@ -139,5 +114,76 @@ export class CreateEventComponent implements OnInit {
   public handleError(err: ErrorEvent) {
     this.errorMessages = err.error.messages;
     this.modal.toggleModal(this.addEventErrorModalId);
+  }
+
+  private createTimeValidatorFrom(): (control: FormControl) => ValidationErrors | null {
+    return (control) => {
+      if (this !== undefined && this.timeFrom !== undefined && this.timeTo !== undefined) {
+        const [hoursFrom, minutesFrom] = (this.timeFrom?.value ?? '').
+          matchAll(this.timeParser);
+        const [hoursTo, minutesTo] = (this.timeTo?.value ?? '').
+          matchAll(this.timeParser);
+  
+        if (hoursFrom && minutesFrom && hoursTo && minutesTo) {
+          const dateFrom = new Date(0);
+          const dateTo = new Date(0); 
+          
+          dateFrom.setHours(Number.parseInt(hoursFrom[0]));
+          dateFrom.setMinutes(Number.parseInt(minutesFrom[0]));
+          dateTo.setHours(Number.parseInt(hoursTo[0]));
+          dateTo.setMinutes(Number.parseInt(minutesTo[0]));
+  
+          if (dateFrom > dateTo) {
+            return { 
+              incorrectTimeSpanFrom: { 
+                fromHours:hoursFrom[0],
+                fromMin:minutesFrom[0],
+                toHours:hoursTo[0],
+                toMin:minutesTo[0],
+              } 
+            }
+          } 
+
+          return null;
+        }
+      }
+  
+      return { incorrectTimeSpanFrom: { } };
+    }
+  }
+  private createTimeValidatorTo(): (control: FormControl) => ValidationErrors | null {
+    return (control) => {
+      if (this !== undefined && this.timeFrom !== undefined && this.timeTo !== undefined) {
+        const [hoursFrom, minutesFrom] = (this.timeFrom?.value ?? '').
+          matchAll(this.timeParser);
+        const [hoursTo, minutesTo] = (this.timeTo?.value ?? '').
+          matchAll(this.timeParser);
+  
+        if (hoursFrom && minutesFrom && hoursTo && minutesTo) {
+          const dateFrom = new Date(0);
+          const dateTo = new Date(0); 
+          
+          dateFrom.setHours(Number.parseInt(hoursFrom[0]));
+          dateFrom.setMinutes(Number.parseInt(minutesFrom[0]));
+          dateTo.setHours(Number.parseInt(hoursTo[0]));
+          dateTo.setMinutes(Number.parseInt(minutesTo[0]));
+  
+          if (dateFrom > dateTo) {
+            return {
+              incorrectTimeSpanTo: { 
+                fromHours:hoursFrom[0],
+                fromMin:minutesFrom[0],
+                toHours:hoursTo[0],
+                toMin:minutesTo[0],
+              }
+            }
+          }
+          
+          return null;
+        }
+      }
+  
+      return { incorrectTimeSpanTo: { } };
+    }
   }
 }

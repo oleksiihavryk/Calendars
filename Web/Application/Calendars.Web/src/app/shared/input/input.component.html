@@ -49,13 +49,21 @@
                     cannot be greater than 
                     {{control.errors?.max.max}}
                 </p>
-                <p *ngIf="control.errors?.incorrectTimeSpan !== null &&
-                    control.errors?.incorrectTimeSpan.fromHours !== undefined &&
-                    control.errors?.incorrectTimeSpan.fromMin !== undefined && 
-                    control.errors?.incorrectTimeSpan.toHours !== undefined &&
-                    control.errors?.incorrectTimeSpan.toMin !== undefined">
-                    This value '{{control.errors?.incorrectTimeSpan.toHours}}:{{control.errors?.incorrectTimeSpan.toMin}}'
-                    cannot be less than '{{control.errors?.incorrectTimeSpan.fromHours}}:{{control.errors?.incorrectTimeSpan.fromMin}}'
+                <p *ngIf="control.errors?.incorrectTimeSpanFrom !== null && control.errors?.incorrectTimeSpanFrom !== undefined &&
+                    control.errors?.incorrectTimeSpanFrom.fromHours !== undefined &&
+                    control.errors?.incorrectTimeSpanFrom.fromMin !== undefined && 
+                    control.errors?.incorrectTimeSpanFrom.toHours !== undefined &&
+                    control.errors?.incorrectTimeSpanFrom.toMin !== undefined">
+                    This value '{{control.errors?.incorrectTimeSpanFrom.fromHours}}:{{control.errors?.incorrectTimeSpanFrom.fromMin}}'
+                    cannot be greater than '{{control.errors?.incorrectTimeSpanFrom.toHours}}:{{control.errors?.incorrectTimeSpanFrom.toMin}}'
+                </p>
+                <p *ngIf="control.errors?.incorrectTimeSpanTo !== null && control.errors?.incorrectTimeSpanTo !== undefined &&
+                    control.errors?.incorrectTimeSpanTo.fromHours !== undefined &&
+                    control.errors?.incorrectTimeSpanTo.fromMin !== undefined && 
+                    control.errors?.incorrectTimeSpanTo.toHours !== undefined   &&
+                    control.errors?.incorrectTimeSpanTo.toMin !== undefined">
+                    This value '{{control.errors?.incorrectTimeSpanTo.toHours}}:{{control.errors?.incorrectTimeSpanTo.toMin}}'
+                    cannot be less than '{{control.errors?.incorrectTimeSpanTo.fromHours}}:{{control.errors?.incorrectTimeSpanTo.fromMin}}'
                 </p>
             </div>
     </fieldset>
