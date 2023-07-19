@@ -13,15 +13,18 @@
         <li><a (click)="scroll('#10')">November</a></li>
         <li><a (click)="scroll('#11')">December</a></li>
     </ul>
-    <div class="buttons-layout-area text-center w-100 pb-2">
-        <i class="h3"></i>
+    <div class="buttons-layout-area text-center w-100">
     </div>
 </section>
-<div #buttons class="buttons-area text-center w-100 pb-2">
-    <i *ngIf="panelHidden === false" 
-        (click)="hidePanel(panel)"
-        class="bi bi-arrow-down-square h3"></i>
-    <i *ngIf="panelHidden" 
-        (click)="showPanel(panel)"
-        class="bi bi-arrow-up-square h3"></i>
+<div class="buttons-area text-center w-100"
+    (mouseenter)="showButtons(buttons)"
+    (mouseleave)="hideButtons(buttons)">
+    <div #buttons class="buttons">
+        <i *ngIf="panelHidden === false" 
+            (click)="hidePanel(panel)"
+            class="bi bi-arrow-down-square h3"></i>
+        <i *ngIf="panelHidden" 
+            (click)="showPanel(panel)"
+            class="bi bi-arrow-up-square h3"></i>
+    </div>
 </div>

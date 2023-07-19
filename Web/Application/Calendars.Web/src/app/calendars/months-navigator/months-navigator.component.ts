@@ -9,6 +9,7 @@ import $ from "jquery";
 })
 export class MonthsNavigatorComponent {
   public panelHidden: boolean = false;
+  public buttonsHidden: boolean = false;
 
   constructor(
     private scrollService: PageScrollService, 
@@ -28,8 +29,24 @@ export class MonthsNavigatorComponent {
     this.panelHidden = true;
   }
   public showPanel(panel: HTMLElement) {
-    $(panel).slideDown(125, () => {
-      this.panelHidden = false;
-    });
+    $(panel).slideDown(125);
+    this.panelHidden = false;
+  }
+  public showButtons(buttons: HTMLElement) {
+    this.buttonsHidden = false;
+    if (this.panelHidden) {
+      $(buttons).stop().slideDown(250, () => {
+        this.buttonsHidden = false;
+      });
+      console.log("buttons is show!")
+    }
+  }
+  public hideButtons(buttons: HTMLElement) {
+    if (this.panelHidden && this.buttonsHidden === false) {
+      $(buttons).stop().slideUp(250, () => {
+        this.buttonsHidden = true;
+      });
+      console.log("buttons is hidden!")
+    }
   }
 }
