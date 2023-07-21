@@ -64,22 +64,12 @@ public class AccountController : Controller
                    await _userManager.FindByNameAsync(model.Login);
 
         if (user == null)
-        {
-            ModelState.AddModelError(
-                key: string.Empty,
-                errorMessage: "User is not found by current name or email.");
-            return View(model);
-        }
+            return UnknownLoginOrPassword(model);
 
         var result = await SignInUserAsync(user, model.Password);
 
         if (result.Succeeded == false)
-        {
-            ModelState.AddModelError(
-                key: string.Empty,
-                errorMessage: "Incorrect password.");
-            return View(model);
-        }
+            return UnknownLoginOrPassword(model);
 
         return Redirect(model.ReturnUrl);
     }
@@ -133,6 +123,13 @@ public class AccountController : Controller
         }
     }
 
+    private ViewResult UnknownLoginOrPassword(LoginViewModel model)
+    {
+        ModelState.AddModelError(
+            key: string.Empty,
+            errorMessage: "Incorrect credentials. Wrong login or password.");
+        return View(model);
+    }
     private async Task RegisterClaimsAsync(User user)
     {
         await _userManager.AddClaimAsync(
