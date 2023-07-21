@@ -3,31 +3,47 @@
     ViewBag.Title = "Sign In";
 }
 <div class="m-auto">
-    <form class="bg-warning p-3 m-2"
+    <div class="errors" asp-validation-summary="All" hidden="@ViewContext.ModelState.IsValid"></div>
+    <form class="p-3 m-2"
           asp-action="Login" asp-controller="Account" method="post">
-        <div class="errors" asp-validation-summary="All" hidden="@ViewContext.ModelState.IsValid"></div>
         <h3 class="text-center text-white">Login</h3>
         <div class="form-floating mb-3 mt-3">
             <input asp-for="Login" class="form-control" placeholder="Enter email">
             <label asp-for="Login"></label>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <input asp-for="Password" class="form-control" placeholder="Enter password" />
+            <input asp-for="Password" class="form-control" placeholder="Enter password"/>
             <label asp-for="Password"></label>
+            <div class="text-white text-end">
+                <label for="ShowPassword">Show password</label>
+                <input id="ShowPassword" type="checkbox" />
+            </div>
+            <script>
+                document.querySelector("#ShowPassword")
+                    .addEventListener(
+                        "click", 
+                        function() {
+                            const el = document.querySelector("#Password");
+                            if (el.getAttribute("type") === "password") 
+                                el.setAttribute("type", "text")
+                            else el.setAttribute("type", "password")
+                        });
+            </script>
         </div>
-        <input asp-for="ReturnUrl" hidden />
-        <input asp-for="CancelUrl" hidden />
+        <input asp-for="ReturnUrl" hidden/>
+        <input asp-for="CancelUrl" hidden/>
         <section class="text-center">
             <button class="btn btn-sm btn-light m-2" type="submit">Submit</button>
             <a class="btn btn-sm btn-danger m-2" href="@Model.CancelUrl">Cancel</a>
         </section>
     </form>
-    <p class="m-2">
+    <p class="m-2 text-white">
         If you do not have an account,
         <a asp-action="Register" asp-controller="Account"
-           asp-route-returnUrl="@Model.ReturnUrl">
-            click here
-        </a>
+           asp-route-returnUrl="@Model.ReturnUrl"
+           class="link link-light">
+            click here<!--
+            --></a>
         to register an account!
     </p>
 </div>
