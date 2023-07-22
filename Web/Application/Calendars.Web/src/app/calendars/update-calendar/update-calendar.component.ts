@@ -53,7 +53,6 @@ export class UpdateCalendarComponent implements OnInit {
   constructor(
     private modal: ModalService,
     private calendars: CalendarsService,
-    private oidc: OidcSecurityService,
     private router: Router,
     private route: ActivatedRoute) { }
   
