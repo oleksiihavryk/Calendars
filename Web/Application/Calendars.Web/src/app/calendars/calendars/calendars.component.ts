@@ -55,9 +55,9 @@ export class CalendarsComponent implements OnInit {
       const obs = this.calendarsService.delete(calendar);
       obs.subscribe({
         next: (response) => {
+          this.update();
           this.successMessages = response.messages;
           this.modal.toggleModal(this.calendarsSuccessModalId);
-          this.update();
           this.deletedCalendar = undefined;
         },
         error: (err) => {
@@ -121,16 +121,20 @@ export class CalendarsComponent implements OnInit {
     this.calendarsSorting.sortYearDown(this.calendars);
   }
 
-  public update() : Observable<IResponse> {
+  public update() : Observable<undefined> {
     this.isUpdating = true;
-    const req = this.calendarsService.getAll();
-    req.subscribe({
-      next: (response) => {
+    const req = this.calendarsService.getAll().pipe(
+      map((response: IResponse) => {
         this.calendars = response.result as Calendar[];
         this.calendarsEmpty = false;
 
         this.isUpdating = false;
 
+        return undefined;
+      })
+    );
+    req.subscribe({
+      next: () => {
         if (this.firstUpdateRequest) {
           this.firstUpdateRequest = false;
           return;
@@ -141,6 +145,7 @@ export class CalendarsComponent implements OnInit {
       },
       error: (err) => {
         if (err.status === 404 && err.error != undefined) {
+          this.calendars = err.error.result as Calendar[];
           this.calendarsEmpty = true;
         } else {
           this.calendars = err.error.result as Calendar[];
