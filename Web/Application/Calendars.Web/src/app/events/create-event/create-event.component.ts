@@ -77,10 +77,12 @@ export class CreateEventComponent implements OnInit {
     })
   }
 
-  public create(): void {
+  public create(): void {  
     if (this.form.invalid) 
       throw new Error('You cannot create a event if creating form is invalid!');
-      
+    
+    this.createButtonDisabled = true;
+    
     const [hoursFrom, minutesFrom] = (this.timeFrom?.value ?? '').
       matchAll(this.timeParser);
     const [hoursTo, minutesTo] = (this.timeTo?.value ?? '').
@@ -98,8 +100,12 @@ export class CreateEventComponent implements OnInit {
     this.events.createNew(event).subscribe({
       next: (response) => {
         this.modal.toggleModal(this.addEventIsSuccessModalId);
+        this.createButtonDisabled = false;
       },
-      error: this.handleError
+      error: (err) => {
+        this.createButtonDisabled = false;
+        this.handleError(err);
+      } 
     })
   }
   public createRedirectToDayAction(): () => void {

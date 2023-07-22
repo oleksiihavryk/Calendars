@@ -9,7 +9,9 @@
             <app-input [control]="timeTo" name="to" type="time"></app-input>
             <div class="text-center m-2">
                 <button class="btn btn-warning text-white m-2" 
-                    [disabled]="form.valid === false || 
+                    [disabled]="form.valid === false ||
+                        form.touched === false ||
+                        form.dirty === false ||
                         updateButtonDisabled"
                     (click)="update()">Update
                 </button>
