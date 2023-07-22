@@ -33,10 +33,7 @@ export class UpdateEventComponent {
   public errorMessages: string[] = [];
   public isWaiting: boolean = false;
   public urlToDay: string = '';
-
-  public get updateButtonDisabled(): boolean {
-    return this.form.touched === false && this.form.dirty === false;
-  }
+  public updateButtonDisabled: boolean = false;
 
   constructor(
     private router: Router,
@@ -119,11 +116,13 @@ export class UpdateEventComponent {
   public update(): void {
     if (this.form.invalid) 
       throw new Error('You cannot create a event if creating form is invalid!');
-
+    
     if (this.event === undefined) 
       throw new Error('You cannot update event because '+
         'event is not founded in system by id.')
-      
+    
+    this.updateButtonDisabled = true;
+    
     const [hoursFrom, minutesFrom] = (this.timeFrom?.value ?? '').
       matchAll(this.timeParser);
     const [hoursTo, minutesTo] = (this.timeTo?.value ?? '').
@@ -140,9 +139,13 @@ export class UpdateEventComponent {
 
     this.events.updateByEventId(event).subscribe({
       next: () => {
+        this.updateButtonDisabled = false;
         this.modal.toggleModal(this.addEventIsSuccessModalId);
       },
-      error: this.handleError
+      error: (err) => {
+        this.updateButtonDisabled = false;
+        this.handleError(err)
+      } 
     })
   }
   public createRedirectToDayAction(): () => void {
