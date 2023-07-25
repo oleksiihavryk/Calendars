@@ -9,6 +9,7 @@ public class Event
 {
     [Required] public Guid Id { get; set; }
     [Required] public Guid DayId { get; set; }
+    [Required] public string UserId { get; set; }
 
     [Required]public string Name { get; set; }
     [Required] public int HoursFrom { get; set; }

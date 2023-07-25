@@ -3,10 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Calendar } from 'src/app/shared/domain/calendar';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { CalendarsService } from '../services/calendars.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable, map, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { IResponse } from 'src/app/shared/services/resources-http-client';
+import { AuthorizeService } from 'src/app/authentication/services/authorize.service';
 
 @Component({
   selector: 'app-create-calendar',
@@ -45,8 +45,8 @@ export class CreateCalendarComponent {
   constructor(
     private modal: ModalService,
     private calendars: CalendarsService,
-    private oidc: OidcSecurityService,
-    private router: Router) { }
+    private router: Router,
+    private authorize: AuthorizeService) { }
 
   public create() {
     this.createButtonDisabled = true;
@@ -65,19 +65,19 @@ export class CreateCalendarComponent {
     });
   }
   public createCalendar(): Observable<IResponse> {
-    return this.oidc.getUserData().pipe(
-      map(v => v.sub),
-      switchMap(id => {
-        const calendar = new Calendar(
-          '00000000-0000-0000-0000-000000000000',
-          id,
-          this.name.value,
-          this.year.value,
-          this.type.value,
-          []);
-        return this.calendars.createNew(calendar);
-      })
-    );
+    const userId = this.authorize.userData.id;
+
+    if (userId === undefined) 
+      throw new Error('User id is not found! Is it happened probably because you are not logged in and trying to create event.');
+    
+    const calendar = new Calendar(
+      '00000000-0000-0000-0000-000000000000',
+      userId,
+      this.name.value,
+      this.year.value,
+      this.type.value,
+      []);
+    return this.calendars.createNew(calendar);
   }
   public createRedirectToCalendarsFunction(): () => void {
     return () => {

@@ -4,7 +4,7 @@ namespace Calendars.Proxy.Core.Interfaces;
 /// <summary>
 ///     Service for access to calendars resources.
 /// </summary>
-public interface ICalendarsResourcesService
+public interface ICalendarsResourceService
 {
     public Task<HttpResponseMessage> GetAllByUserIdAsync(string userId);
     public Task<HttpResponseMessage> GetByIdAsync(string id);

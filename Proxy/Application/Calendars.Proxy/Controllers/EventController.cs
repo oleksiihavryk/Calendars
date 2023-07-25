@@ -13,9 +13,9 @@ namespace Calendars.Proxy.Controllers;
 [Route("[controller]")]
 public class EventController : SimilarResponseSupportedControllerBase
 {
-    private readonly IEventsResourcesService _eventsServices;
+    private readonly IEventsResourceService _eventsServices;
 
-    public EventController(IEventsResourcesService eventsServices)
+    public EventController(IEventsResourceService eventsServices)
     {
         _eventsServices = eventsServices;
     }
@@ -29,7 +29,7 @@ public class EventController : SimilarResponseSupportedControllerBase
     [HttpPost]
     public async Task<IActionResult> SaveAsync([FromBody] Event @event)
     {
-        var response = await _eventsServices.Save(@event);
+        var response = await _eventsServices.SaveAsync(@event);
         return SimilarResponse(response);
     }
     [HttpPut]
