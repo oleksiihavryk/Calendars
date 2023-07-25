@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 
 namespace Calendars.Resources.Domain;
 
@@ -11,6 +9,7 @@ public class Day
 {
     [Required] public Guid Id { get; set; }
     [Required] public Guid CalendarId { get; set; }
+    [Required] public string UserId { get; set; }
 
     [Required] public int DayNumber { get; set; }
     [Required] public int BackgroundArgbColorInteger { get; set; }

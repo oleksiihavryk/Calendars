@@ -9,6 +9,7 @@ import { Day } from 'src/app/shared/domain/day';
 import { Event } from 'src/app/shared/domain/event';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { EventsService } from '../services/events.service';
+import { AuthorizeService } from 'src/app/authentication/services/authorize.service';
 
 @Component({
   selector: 'app-create-event',
@@ -54,7 +55,8 @@ export class CreateEventComponent implements OnInit {
     private events: EventsService,
     private days: DaysService,
     private calendars: CalendarsService,
-    private modal: ModalService) { }
+    private modal: ModalService,
+    private authorize: AuthorizeService) { }
   
   ngOnInit(): void {
     this.route.queryParams.subscribe((v) => {
@@ -78,6 +80,11 @@ export class CreateEventComponent implements OnInit {
   }
 
   public create(): void {  
+    const userId = this.authorize.userData.id;
+
+    if (userId === undefined) 
+      throw new Error('User id is not found! Is it happened probably because you are not logged in and trying to create event.');
+
     if (this.form.invalid) 
       throw new Error('You cannot create a event if creating form is invalid!');
     
@@ -90,6 +97,7 @@ export class CreateEventComponent implements OnInit {
     const event = new Event(
       '00000000-0000-0000-0000-000000000000',
       this.day?.id ?? '',
+      userId,
       this.name.value,
       Number.parseInt(hoursFrom[0]),
       Number.parseInt(hoursTo[0]),

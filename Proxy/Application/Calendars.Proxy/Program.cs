@@ -8,6 +8,8 @@ var services = builder.Services;
 var config = builder.Configuration;
 var isDevelopment = builder.Environment.IsDevelopment();
 
+services.AddHttpContextAccessor();
+
 services.AddControllers();
 services.AddCoreServices(config);
 

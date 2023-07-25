@@ -12,9 +12,9 @@ namespace Calendars.Proxy.Controllers;
 [Route("[controller]")]
 public class CalendarController : SimilarResponseSupportedControllerBase
 {
-    private readonly ICalendarsResourcesService _calendarsService;
+    private readonly ICalendarsResourceService _calendarsService;
 
-    public CalendarController(ICalendarsResourcesService calendarsService)
+    public CalendarController(ICalendarsResourceService calendarsService)
     {
         _calendarsService = calendarsService;
     }

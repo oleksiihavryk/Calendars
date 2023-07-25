@@ -3,12 +3,12 @@
 namespace Calendars.Proxy.Core.Interfaces;
 
 /// <summary>
-///     Service for access to events resources.
+///     Service for access to days resources.
 /// </summary>
-public interface IEventsResourcesService
+public interface IDaysResourceService
 {
     public Task<HttpResponseMessage> GetByIdAsync(string id);
-    public Task<HttpResponseMessage> Save(Event @event);
-    public Task<HttpResponseMessage> UpdateAsync(Event @event);
+    public Task<HttpResponseMessage> SaveAsync(Day day);
+    public Task<HttpResponseMessage> UpdateAsync(Day day);
     public Task<HttpResponseMessage> DeleteAsync(string id);
 }

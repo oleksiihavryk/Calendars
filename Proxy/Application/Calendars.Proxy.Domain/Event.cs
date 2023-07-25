@@ -1,4 +1,6 @@
-﻿namespace Calendars.Proxy.Domain;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Calendars.Proxy.Domain;
     
 /// <summary>
 ///     Event of day. Like go to supermarket, make a cleanup etc.
@@ -7,6 +9,7 @@ public class Event
 {
     public Guid? Id { get; set; }
     public Guid? DayId { get; set; }
+    public string? UserId { get; set; }
     public string? Name { get; set; }
     public int? HoursFrom { get; set; }
     public int? HoursTo { get; set; }
