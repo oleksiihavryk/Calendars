@@ -1,4 +1,6 @@
-﻿namespace Calendars.Proxy.Domain;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Calendars.Proxy.Domain;
 
 /// <summary>
 ///     Special day of calendar (like some holiday, birthday, anniversary or etc.)
@@ -7,6 +9,7 @@ public class Day
 {
     public Guid? Id { get; set; }
     public Guid? CalendarId { get; set; }
+    public string? UserId { get; set; }
     public int? DayNumber { get; set; }
     public int? BackgroundArgbColorInteger { get; set; }
     public int? TextArgbColorInteger { get; set; }

@@ -1,6 +1,8 @@
 ﻿using Calendars.Proxy.Core.Exceptions;
 using Calendars.Proxy.Core.Interfaces;
 using Calendars.Proxy.Core.Options;
+using Calendars.Proxy.Core.ResourceServices;
+using Calendars.Proxy.Core.ResourcesServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,11 +31,12 @@ public static class ApplicationExtensions
         services.AddOptions<WebServerOptions>()
             .Configure(configuration.AssembleWebOptions);
 
-        services.AddScoped<AuthenticationResourcesService>();
+        services.AddScoped<IResourcesService, AuthenticationResourcesService>();
+        services.AddScoped<IUserSecurityProviderService, UserSecurityProviderService>();
         
-        services.AddScoped<ICalendarsResourcesService, CalendarsResourcesService>();
-        services.AddScoped<IEventsResourcesService, EventsResourcesService>();
-        services.AddScoped<IDaysResourcesService, DaysResourcesService>();
+        services.AddScoped<ICalendarsResourceService, UserSecureCalendarsResourceService>();
+        services.AddScoped<IEventsResourceService, UserSecureEventsResourceService>();
+        services.AddScoped<IDaysResourceService, UserSecureDaysResourceService>();
         
         return services;
     }

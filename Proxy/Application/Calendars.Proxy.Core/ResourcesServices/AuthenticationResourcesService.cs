@@ -4,7 +4,7 @@ using IdentityModel;
 using IdentityModel.Client;
 using Microsoft.Extensions.Options;
 
-namespace Calendars.Proxy.Core;
+namespace Calendars.Proxy.Core.ResourcesServices;
 /// <summary>
 ///     Service for requesting resources from secure resource server endpoints.
 /// </summary>
@@ -16,9 +16,9 @@ public class AuthenticationResourcesService : BaseResourcesService
     private readonly IEnumerable<string> _scopes;
 
     public AuthenticationResourcesService(
-        IHttpClientFactory clientFactory, 
+        IHttpClientFactory clientFactory,
         IOptions<ResourcesServerOptions> resOpts,
-        IOptions<AuthenticationServerOptions> authOpts) 
+        IOptions<AuthenticationServerOptions> authOpts)
         : base(clientFactory, resOpts)
     {
         _clientId = authOpts.Value.ClientId;
@@ -29,15 +29,15 @@ public class AuthenticationResourcesService : BaseResourcesService
 
     public override async Task<HttpResponseMessage> RequestResourceAsync(
         HttpMethod method,
-        string? path = null, 
-        object? body = null, 
+        string? path = null,
+        object? body = null,
         IDictionary<string, string>? headers = null)
     {
         var token = await GetTokenForResourcesServerAsync();
 
         var newHeaders = headers ?? new Dictionary<string, string>();
         newHeaders.Add("Authorization", $"Bearer {token}");
-        
+
         return await base.RequestResourceAsync(method, path, body, newHeaders);
     }
     public virtual async Task<string> GetTokenForResourcesServerAsync()
@@ -52,6 +52,6 @@ public class AuthenticationResourcesService : BaseResourcesService
                 Scope = string.Join(",", _scopes)
             });
 
-        return token.AccessToken ?? throw new AuthenticationException(); 
+        return token.AccessToken ?? throw new AuthenticationException();
     }
 }

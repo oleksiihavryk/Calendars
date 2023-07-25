@@ -370,3 +370,4 @@ FodyWeavers.xsd
 /Proxy/Application/Calendars.Proxy/appsettings.Production.json
 /Resources/Application/Calendars.Resources/appsettings.Staging.json
 /Authentication/Application/Calendars.Authentication/appsettings.Staging.json
+/Diagrams

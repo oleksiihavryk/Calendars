@@ -128,8 +128,9 @@ export class UpdateEventComponent {
     const [hoursTo, minutesTo] = (this.timeTo?.value ?? '').
       matchAll(this.timeParser);
     const event = new Event(
-      this.event.id ?? '',
-      this.event.dayId ?? '',
+      this.event.id,
+      this.event.dayId,
+      this.event.userId,
       this.name.value,
       Number.parseInt(hoursFrom[0]),
       Number.parseInt(hoursTo[0]),

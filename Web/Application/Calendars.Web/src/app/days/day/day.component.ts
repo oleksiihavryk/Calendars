@@ -11,6 +11,7 @@ import $ from "jquery";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Event } from 'src/app/shared/domain/event';
 import { EventsService } from 'src/app/events/services/events.service';
+import { AuthorizeService } from 'src/app/authentication/services/authorize.service';
 
 @Component({
   selector: 'app-day',
@@ -73,7 +74,8 @@ export class DayComponent implements OnInit {
     private days: DaysService,
     private events: EventsService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private authorize: AuthorizeService) { }
   
   ngOnInit(): void {
     this.findOrUpdateDayAndCalendar();
@@ -140,6 +142,11 @@ export class DayComponent implements OnInit {
     return true;
   }
   public changeColors() {
+    const userId = this.authorize.userData.id;
+
+    if (userId === undefined) 
+      throw new Error('User id is not found! Is it happened probably because you are not logged in and trying to change colors.');
+
     if (this.changeColorForm.valid) {
       const format = this.hexStringToDecimalNum;
       const textColor = {
@@ -169,6 +176,7 @@ export class DayComponent implements OnInit {
         const updateDayModel = new Day(
           this.day.id,
           this.day.calendarId,
+          userId,
           this.day.dayNumber,
           0,
           0,
@@ -200,7 +208,7 @@ export class DayComponent implements OnInit {
   }
   public createClearEventsHandler(): () => void {
     return () => {
-      const day = this.day ?? new Day('', '', 0, 0, 0, []);
+      const day = this.day ?? new Day('', '', '', 0, 0, 0, []);
       
       if (day.events.length === 0)
       {
@@ -281,6 +289,11 @@ export class DayComponent implements OnInit {
   public createNewDay(
     textColor: IArgbColor | undefined = undefined,
     backgroundColor: IArgbColor | undefined = undefined): Observable<IResponse> {
+    const userId = this.authorize.userData.id;
+
+    if (userId === undefined) 
+      throw new Error('User id is not found! Is it happened probably because you are not logged in and trying to create day.');
+
     const yearFirstDay = Math.floor(
       new Date(this.date.getFullYear(), 0, 1).getTime() / 86400000);
     const dateDay = Math.ceil(this.date.getTime() / 86400000);
@@ -289,6 +302,7 @@ export class DayComponent implements OnInit {
     const newDay = new Day(
       '00000000-0000-0000-0000-000000000000',
       this.calendar?.id ?? '',
+      userId,
       dayOfYear,
       0,
       0,
