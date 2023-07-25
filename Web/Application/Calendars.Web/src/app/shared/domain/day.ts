@@ -35,6 +35,7 @@ export class Day {
     constructor(
         public id: string,
         public calendarId: string,
+        public userId: string,
         public dayNumber: number,
         public backgroundArgbColorInteger: number,
         public textArgbColorInteger: number,
