@@ -15,20 +15,20 @@
             class="list-group-item mt-2 link-light">
             Login
         </a>
-        <a routerLink="profile" *ngIf="auth.isLogged"
+        <a routerLink="info" 
             (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
-            Profile
+            Info
         </a>
         <a routerLink="calendars" *ngIf="auth.isLogged"
             (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
             Calendars
         </a>
-        <a routerLink="info" 
+        <a routerLink="profile" *ngIf="auth.isLogged"
             (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
-            Info
+            Settings
         </a>
         <a routerLink="logout" *ngIf="auth.isLogged"
             (click)="sidePanel.close()" 
