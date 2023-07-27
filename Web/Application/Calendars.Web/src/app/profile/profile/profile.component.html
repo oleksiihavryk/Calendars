@@ -1,45 +1,64 @@
-<div class="d-flex justify-content-evenly align-items-start flex-wrap p-5">
-    <section class="d-flex flex-column p-2 m-2 text-white bg-warning">
-        <img class="profile-pic mx-auto" src="assets/profile-pic.png">
-        <p class="text-center">{{ auth.userData.username }}</p>
-        <p class="text-center m-0">Contact data</p>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item text-break" *ngIf="auth.userData.email !== undefined">
-                Email: <a class="link-dark link-underline-dark">{{ auth.userData.email }}</a>
-            </li>
-            <li class="list-group-item text-break" *ngIf="auth.userData.email === undefined">
-                Email: none
-            </li>
-        </ul>
-    </section>
-    <div class="d-flex flex-wrap justify-content-center">
-        <section class="px-2 m-2">
-            <h2>Information</h2>
-            <section class="p-2">
-                <h5>Calendars: {{calendarsCount}}</h5>
-                <h5>Events: {{eventsCount}}</h5>
-                <a class="btn btn-warning text-white"
-                    routerLink="/calendars">
-                    Go to calendars
-                </a>
-            </section>
+<app-update-window [isWorking]="isUpdating">
+    <div class="m-auto p-5 w-50-auto">
+        <h3>Profile data</h3>
+        <hr/>
+        <section class="mx-2">
+            <h5>Identifier</h5>
+            <p class="my-0">{{auth.userData.id}}</p>
         </section>
-        <section class="px-2 m-2">
-            <h2>Settings</h2>
-            <section class="d-flex flex-column p-2 mb-2">
-                <h5>Profile settings</h5>
-                <button class="btn btn-warning text-white mb-1"
-                    (click)="featureIsUnavailable('Change password')">
-                    Change password
-                </button>
-                <button class="btn btn-warning text-white"
-                    (click)="featureIsUnavailable('Add/remove email')">
-                    Add/remove email
-                </button>
-            </section>
+        <hr/>
+        <section class="mx-2">
+            <h5>Username</h5>
+            <div class="my-0 d-flex flex-row justify-content-between">
+                {{auth.userData.username}} 
+                <button (click)="featureIsUnavailable('Change username')"
+                    class="btn btn-sm btn-warning text-white mx-1">Change</button>
+            </div>
+        </section>
+        <hr/>
+        <section class="mx-2">
+            <h5>Email</h5>
+            <div class="my-0 d-flex flex-row justify-content-between">
+                {{auth.userData.email ?? '-'}} 
+                <div>
+                    <button *ngIf="auth.userData.email === undefined" 
+                        (click)="featureIsUnavailable('Add email')"
+                        class="btn btn-sm btn-warning text-white mx-1">Add</button>
+                    <button *ngIf="auth.userData.email !== undefined" 
+                        (click)="featureIsUnavailable('Change email')"
+                        class="btn btn-sm btn-warning text-white mx-1">Change</button>
+                    <button *ngIf="auth.userData.email !== undefined" 
+                        (click)="featureIsUnavailable('Remove email')"
+                        class="btn btn-sm btn-warning text-white mx-1">Remove</button>
+                </div>
+            </div>
+        </section>
+        <hr/>
+        <h3>Information</h3>
+        <hr/>
+        <section class="mx-2">
+            <div class="my-0 d-flex flex-row justify-content-between">
+                <div>
+                    {{calendarsCount}} Calendars, {{eventsCount}} Events
+                </div>
+                <a routerLink="/calendars"
+                    class="btn btn-sm btn-warning text-white mx-1">Calendars</a>
+            </div>
+        </section>
+        <hr/>
+        <h3>Settings</h3>
+        <hr/>
+        <section class="mx-2">
+            <div class="my-0 d-flex flex-row justify-content-between">
+                Password settings
+                <div>
+                    <button (click)="featureIsUnavailable('Change password')"
+                        class="btn btn-sm btn-warning text-white mx-1">Change password</button>
+                </div>
+            </div>
         </section>
     </div>
-</div>
+</app-update-window>
 <app-modal [id]="profileErrorModalId"
     title="Error">
     <p *ngFor="let e of errorMessages">{{e}}</p>
