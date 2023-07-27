@@ -1,0 +1,13 @@
+.improved-link {
+    color: black;
+    text-decoration: none;
+}
+.improved-link:hover {
+    text-decoration: underline;
+}
+.childs-line-before > *::before {
+    content: '-';
+}
+.choosen {
+    text-decoration: underline;
+}

@@ -9,3 +9,31 @@ a.btn-white {
     top: 0; 
     z-index: 2000;
 }
+.logo {
+    width: 50px;
+    height: 50px;
+}
+.improved-link {
+    color: white;
+    text-decoration: none;
+}
+.improved-link:hover {
+    text-decoration: underline;
+}
+.choosen {
+    text-decoration: underline;
+}
+.hide-if-width-more-than-600px {
+    display: initial;
+}
+.hide-if-width-less-than-600px {
+    display: none !important;
+}
+@media only screen and (min-width: 600px) {
+    .hide-if-width-more-than-600px {
+        display: none !important;
+    }
+    .hide-if-width-less-than-600px {
+        display: inherit !important;
+    }
+}
