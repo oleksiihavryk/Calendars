@@ -1,18 +1,44 @@
 <app-side-panel></app-side-panel>
-    <a class="btn-white text-white btn btn-lg bi mt-2 mx-2"
+<a class="btn-white text-white btn btn-lg bi mt-2 mx-2"
     [ngClass]="{
         'bi-arrow-left-square-fill': sidePanel.isOpen,
-        'bi-three-dots': sidePanel.isClosed
+        'bi-three-dots hide-if-width-more-than-600px': sidePanel.isClosed
     }"
     (click)="sidePanel.changeState()">
 </a>
-<header class="container-fluid d-flex flex-row justify-content-between text-white bg-warning p-2 m-0 position-fixed">
+<header class="container-fluid d-flex justify-content-between text-white 
+    bg-warning p-2 m-0 position-fixed">
     <div class="btn-white text-white btn btn-lg bi"
     [ngClass]="{
         'bi-arrow-left-square-fill': sidePanel.isOpen,
-        'bi-three-dots': sidePanel.isClosed
+        'bi-three-dots hide-if-width-more-than-600px': sidePanel.isClosed
     }"></div>
-    <div class="d-flex flex-column justify-content-center">
-        <h1 class="m-0">Calendars</h1>
+    <div class="d-flex flex-column justify-content-center hide-if-width-less-than-600px">
+        <nav>
+            <a routerLink="/" class="improved-link px-2"
+                routerLinkActive="choosen" 
+                [routerLinkActiveOptions]="{exact: true}">Home</a>
+            <a routerLink="/info" class="improved-link px-2"
+                routerLinkActive="choosen" 
+                [routerLinkActiveOptions]="{exact: true}">Info</a>
+            <a routerLink="/calendars" class="improved-link px-2"
+                routerLinkActive="choosen" *ngIf="auth.isLogged"
+                [routerLinkActiveOptions]="{exact: true}">Calendars</a>
+            <a routerLink="/profile" class="improved-link px-2" *ngIf="auth.isLogged"
+                routerLinkActive="choosen" 
+                [routerLinkActiveOptions]="{exact: true}">Settings</a>
+            <a routerLink="/logout" class="improved-link px-2" *ngIf="auth.isLogged"
+                routerLinkActive="choosen" 
+                [routerLinkActiveOptions]="{exact: true}">Logout</a>
+            <a routerLink="/logout" class="improved-link px-2" *ngIf="auth.isLogged === false"
+                routerLinkActive="choosen" 
+                [routerLinkActiveOptions]="{exact: true}">Login</a>
+        </nav>
+    </div>
+    <div class="d-flex flex-row">
+        <a class="px-2" routerLink="/"><img class="logo" src="/assets/calendar-original.png"/></a>
+        <div class="d-flex flex-column justify-content-center">
+            <h1 class="m-0">Calendars</h1>
+        </div>
     </div>
 </header>

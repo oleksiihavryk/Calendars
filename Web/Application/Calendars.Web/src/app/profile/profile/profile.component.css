@@ -1,25 +1,25 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 400px) {
     .w-50-auto {
-        width: 80%px;
+        width: 90%px;
     }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .w-50-auto {
-        width: 70%;
+        width: 80%;
     }
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .w-50-auto {
-        width: 60%;
+        width: 70%;
     }
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     .w-50-auto {
-        width: 50%;
+        width: 60%;
     }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */

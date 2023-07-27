@@ -19,17 +19,19 @@
         <section class="mx-2">
             <h5>Email</h5>
             <div class="my-0 d-flex flex-row justify-content-between">
-                {{auth.userData.email ?? '-'}} 
-                <div>
-                    <button *ngIf="auth.userData.email === undefined" 
-                        (click)="featureIsUnavailable('Add email')"
-                        class="btn btn-sm btn-warning text-white mx-1">Add</button>
-                    <button *ngIf="auth.userData.email !== undefined" 
-                        (click)="featureIsUnavailable('Change email')"
-                        class="btn btn-sm btn-warning text-white mx-1">Change</button>
-                    <button *ngIf="auth.userData.email !== undefined" 
-                        (click)="featureIsUnavailable('Remove email')"
-                        class="btn btn-sm btn-warning text-white mx-1">Remove</button>
+                <span class="text-break">{{auth.userData.email ?? '-'}}</span>
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="d-flex">
+                        <button *ngIf="auth.userData.email === undefined" 
+                            (click)="featureIsUnavailable('Add email')"
+                            class="btn btn-sm btn-warning text-white mx-1">Add</button>
+                        <button *ngIf="auth.userData.email !== undefined" 
+                            (click)="featureIsUnavailable('Change email')"
+                            class="btn btn-sm btn-warning text-white mx-1">Change</button>
+                        <button *ngIf="auth.userData.email !== undefined" 
+                            (click)="featureIsUnavailable('Remove email')"
+                            class="btn btn-sm btn-warning text-white mx-1">Remove</button>
+                    </div>
                 </div>
             </div>
         </section>
