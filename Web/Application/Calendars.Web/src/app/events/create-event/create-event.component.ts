@@ -24,11 +24,11 @@ export class CreateEventComponent implements OnInit {
     Validators.minLength(0),
     Validators.maxLength(32)
   ]);
-  public timeFrom: FormControl = new FormControl('', [
+  public timeFrom: FormControl = new FormControl('00:00', [
     Validators.required,
     this.createTimeValidatorFrom()
   ]);
-  public timeTo: FormControl = new FormControl('', [
+  public timeTo: FormControl = new FormControl('00:00', [
     Validators.required,
     this.createTimeValidatorTo()
   ]);
