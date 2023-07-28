@@ -90,16 +90,18 @@ export class UpdateEventComponent {
   }
 
   public intitializeFormValuesByEvent(e: Event) {
+    const format = this.transfomNumberToDoubleDigitString;
+
     this.name = new FormControl(e.name, [
       Validators.required,
       Validators.minLength(0),
       Validators.maxLength(32)
     ]);
-    this.timeFrom = new FormControl(e.hoursFrom+':'+e.minutesFrom, [
+    this.timeFrom = new FormControl(format(e.hoursFrom)+':'+format(e.minutesFrom), [
       Validators.required,
       this.createTimeValidatorFrom()
     ]);
-    this.timeTo = new FormControl(e.hoursTo+':'+e.minutesTo, [
+    this.timeTo = new FormControl(format(e.hoursTo)+':'+format(e.minutesTo), [
       Validators.required,
       this.createTimeValidatorTo()
     ]);
@@ -231,4 +233,10 @@ export class UpdateEventComponent {
       return { incorrectTimeSpanTo: { } };
     }
   }
+  private transfomNumberToDoubleDigitString(num: number): string {
+    if (num < 0) throw new Error('Number cannot be less than zero!');
+
+    if (num < 10)  return '0'+num;
+    else return num.toString();    
+  } 
 }
