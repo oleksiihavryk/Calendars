@@ -29,7 +29,7 @@ public class IdentityServerInMemoryConfiguration
             AllowedGrantTypes = GrantTypes.ClientCredentials,
             AllowedScopes = _clientsConfiguration.Resources.Scopes,
 
-            RedirectUris = _clientsConfiguration.Web.Origins
+            RedirectUris = _clientsConfiguration.Resources.Origins
                 .Select(o => new []
                 {
                     o + "oauth2-redirect.html",
@@ -38,6 +38,35 @@ public class IdentityServerInMemoryConfiguration
                 .SelectMany(o => o)
                 .ToArray(),
             PostLogoutRedirectUris = _clientsConfiguration.Resources.Origins
+                .Select(o => o + "signout-callback-oidc")
+                .ToArray(),
+
+            AlwaysIncludeUserClaimsInIdToken = true,
+            RequirePkce = _isDevelopment == false,
+
+            AllowedCorsOrigins = ClientsOrigins
+        },
+        new Client()
+        {
+            ClientId = _clientsConfiguration.Authentication.Id,
+            ClientName = _clientsConfiguration.Authentication.Name,
+            ClientSecrets = new[]
+            {
+                new Secret { Value = _clientsConfiguration.Authentication.Secret.ToSha256() }
+            },
+
+            AllowedGrantTypes = GrantTypes.ClientCredentials,
+            AllowedScopes = _clientsConfiguration.Authentication.Scopes,
+
+            RedirectUris = _clientsConfiguration.Authentication.Origins
+                .Select(o => new []
+                {
+                    o + "oauth2-redirect.html",
+                    o + "signin-oidc"
+                })
+                .SelectMany(o => o)
+                .ToArray(),
+            PostLogoutRedirectUris = _clientsConfiguration.Authentication.Origins
                 .Select(o => o + "signout-callback-oidc")
                 .ToArray(),
 
@@ -80,7 +109,8 @@ public class IdentityServerInMemoryConfiguration
     };
     public List<ApiScope> Scopes => new()
     {
-        new ApiScope("resources")
+        new ApiScope("resources"),
+        new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
     };
     public List<IdentityResource> Resources => new()
     {
@@ -113,7 +143,8 @@ public class IdentityServerInMemoryConfiguration
         new ApiResource("resources")
         {
             Scopes = { "resources" }
-        }
+        },
+        new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
 
     public string[] ClientsOrigins =>

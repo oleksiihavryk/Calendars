@@ -1,0 +1,22 @@
+<h5>Username</h5>
+<div class="my-0 d-flex flex-row justify-content-between form-group">
+    <span *ngIf="isChangesOpen === false">{{username}}</span>
+    <app-profile-input [input]="input" 
+        [isChangesOpen]="isChangesOpen"
+        [valueIsNotChanges]="input.value !== authorize.userData.username"
+        class="w-100"></app-profile-input>
+    <div class="d-flex flex-column justify-content-center">
+        <button *ngIf="isChangesOpen === false" class="btn btn-sm btn-warning text-white mx-1" (click)="openChanges()">Change</button>
+        <button *ngIf="isChangesOpen && input.value !== authorize.userData.username" 
+            class="btn btn-sm btn-warning text-white mx-1" 
+            (click)="change()"
+            [disabled]="form.valid === false || doneButtonDisabled">Done</button>
+        <button *ngIf="isChangesOpen && input.value === authorize.userData.username"
+            class="btn btn-sm btn-warning text-white mx-1"
+            (click)="closeChanges()">Close</button>
+    </div>
+</div>
+<app-modal [id]="changeUsernameErrorModalId"
+    title="Errors">
+    <p *ngFor="let m of errorMessages">{{m}}</p>
+</app-modal>

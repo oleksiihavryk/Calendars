@@ -44,6 +44,8 @@ public static class ApplicationExtensions
             .AddDeveloperSigningCredential()
             .AddSecretValidator<PkceSecretValidator>();
 
+        services.AddLocalApiAuthentication();
+
         services.AddSingleton(identityServerInMemoryConfiguration);
 
         return services;
