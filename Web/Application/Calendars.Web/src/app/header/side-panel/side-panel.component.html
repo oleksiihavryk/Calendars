@@ -13,7 +13,7 @@
         <a routerLink="login" *ngIf="auth.isLogged === false"
             (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
-            Login
+            Sign in
         </a>
         <a routerLink="info" 
             (click)="sidePanel.close()" 
@@ -33,7 +33,7 @@
         <a routerLink="logout" *ngIf="auth.isLogged"
             (click)="sidePanel.close()" 
             class="list-group-item mt-2 link-light">
-            Logout
+            Sign out
         </a>
     </nav>
     <div class="mt-auto text-end">

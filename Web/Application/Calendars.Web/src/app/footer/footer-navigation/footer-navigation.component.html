@@ -9,13 +9,21 @@
             routerLinkActive="choosen" 
             routerLink="/info"
             [routerLinkActiveOptions]="{exact: true}">Info</a></p>
-        <p class="m-0"><a class="improved-link px-1"
+        <p *ngIf="authorize.isLogged === false" class="m-0"><a class="improved-link px-1" 
+            routerLinkActive="choosen" 
+            routerLink="/login"
+            [routerLinkActiveOptions]="{exact: true}">Sign in</a></p>
+        <p *ngIf="authorize.isLogged" class="m-0"><a class="improved-link px-1"
             routerLinkActive="choosen" 
             routerLink="/calendars"
             [routerLinkActiveOptions]="{exact: true}">Calendars</a></p>
-        <p class="m-0"><a class="improved-link px-1" 
+        <p *ngIf="authorize.isLogged" class="m-0"><a class="improved-link px-1" 
             routerLinkActive="choosen" 
             routerLink="/profile"
             [routerLinkActiveOptions]="{exact: true}">Settings</a></p>
+        <p *ngIf="authorize.isLogged" class="m-0"><a class="improved-link px-1" 
+            routerLinkActive="choosen" 
+            routerLink="/logout"
+            [routerLinkActiveOptions]="{exact: true}">Sign out</a></p>
     </nav>
 </div>
