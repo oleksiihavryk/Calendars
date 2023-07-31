@@ -1,6 +1,7 @@
 ﻿using Calendars.Authentication.Core;
 using Calendars.Authentication.Data;
 using Calendars.Authentication.Domain;
+using Calendars.Authentication.UserValidators;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
 
@@ -21,6 +22,8 @@ public static class ApplicationExtensions
         this IServiceCollection services,
         IdentityServerInMemoryConfiguration identityServerInMemoryConfiguration)
     {
+        services.AddTransient<IUserValidator<User>, EmailOptionalUserValidator<User>>();
+
         services.AddIdentity<User, UserRole>(opt =>
         {
             opt.Password = new PasswordOptions
@@ -31,11 +34,9 @@ public static class ApplicationExtensions
                 RequireLowercase = false,
                 RequireUppercase = false,
             };
-            opt.User = new UserOptions
-            {
-                RequireUniqueEmail = false,
-            };
+            opt.User.RequireUniqueEmail = true;
         }).AddEntityFrameworkStores<AuthenticationIdentityDbContext>();
+
         services.AddIdentityServer()
             .AddInMemoryClients(identityServerInMemoryConfiguration.Clients)
             .AddInMemoryApiScopes(identityServerInMemoryConfiguration.Scopes)
@@ -45,6 +46,7 @@ public static class ApplicationExtensions
             .AddSecretValidator<PkceSecretValidator>();
 
         services.AddLocalApiAuthentication();
+
 
         services.AddSingleton(identityServerInMemoryConfiguration);
 

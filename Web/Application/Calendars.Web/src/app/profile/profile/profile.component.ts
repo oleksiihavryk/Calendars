@@ -50,14 +50,6 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public featureIsUnavailable(name: string) {
-    this.featureName = name;
-    this.modal.toggleModal(this.featureIsUnavailableModalId);
-  }
-  public createRemoveFeatureNameHandler(): () => void {
-    return () => this.featureName = '';
-  }
-
   private errorHandler(err: ErrorEvent): void {
       this.errorMessages = err.error.messages;
       if (err.error.messages === undefined || err.error.messages.lenght === 0) {

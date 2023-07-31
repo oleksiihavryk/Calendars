@@ -34,7 +34,7 @@ public class UserController : ResponseSupportedControllerBase
 
         if (user == null) return UnknownIdentifier(userModel.Id);
 
-        if (await IsUserWithSameNameExistAsync(userModel.Name)) 
+        if (await IsUserWithSameNameExistAsync(userModel.Name, user.Id)) 
             return UserWithSameNameAlreadyExist(userModel.Name);
 
         user.Email = userModel.Email;
@@ -59,8 +59,11 @@ public class UserController : ResponseSupportedControllerBase
         return IdentityErrorsOccurred(result.Errors);
     }
 
-    private async Task<bool> IsUserWithSameNameExistAsync(string name)
-        => (await _userManager.FindByNameAsync(name)) != null;
+    private async Task<bool> IsUserWithSameNameExistAsync(string name, string userId)
+    {
+        var user = await _userManager.FindByNameAsync(name); 
+        return user != null && user.Id != userId;
+    }
     private async Task UpdateClaimsAsync(User user)
     {
         var claims = await _userManager.GetClaimsAsync(user);

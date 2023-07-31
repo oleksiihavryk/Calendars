@@ -32,8 +32,3 @@
     title="Error">
     <p *ngFor="let e of errorMessages">{{e}}</p>
 </app-modal>
-<app-modal [id]="featureIsUnavailableModalId"
-    title="Unavailable feature"
-    [afterCloseAction]="createRemoveFeatureNameHandler()">
-    Current feature '{{this.featureName}}' is unavailable. Try again later!
-</app-modal>
