@@ -8,65 +8,27 @@
         </section>
         <hr/>
         <section class="mx-2">
-            <h5>Username</h5>
-            <div class="my-0 d-flex flex-row justify-content-between">
-                {{auth.userData.username}} 
-                <button (click)="featureIsUnavailable('Change username')"
-                    class="btn btn-sm btn-warning text-white mx-1">Change</button>
-            </div>
+            <app-username [username]="auth.userData.username ?? ''"></app-username>
         </section>
         <hr/>
         <section class="mx-2">
-            <h5>Email</h5>
-            <div class="my-0 d-flex flex-row justify-content-between">
-                <span class="text-break">{{auth.userData.email ?? '-'}}</span>
-                <div class="d-flex flex-column justify-content-center">
-                    <div class="d-flex">
-                        <button *ngIf="auth.userData.email === undefined" 
-                            (click)="featureIsUnavailable('Add email')"
-                            class="btn btn-sm btn-warning text-white mx-1">Add</button>
-                        <button *ngIf="auth.userData.email !== undefined" 
-                            (click)="featureIsUnavailable('Change email')"
-                            class="btn btn-sm btn-warning text-white mx-1">Change</button>
-                        <button *ngIf="auth.userData.email !== undefined" 
-                            (click)="featureIsUnavailable('Remove email')"
-                            class="btn btn-sm btn-warning text-white mx-1">Remove</button>
-                    </div>
-                </div>
-            </div>
+            <app-email [email]="auth.userData.email"></app-email>
         </section>
         <hr/>
         <h3>Information</h3>
         <hr/>
         <section class="mx-2">
-            <div class="my-0 d-flex flex-row justify-content-between">
-                <div>
-                    {{calendarsCount}} Calendars, {{eventsCount}} Events
-                </div>
-                <a routerLink="/calendars"
-                    class="btn btn-sm btn-warning text-white mx-1">Calendars</a>
-            </div>
+            <app-calendars-information [calendarsCount]="calendarsCount" [eventsCount]="eventsCount"></app-calendars-information>
         </section>
         <hr/>
         <h3>Settings</h3>
         <hr/>
         <section class="mx-2">
-            <div class="my-0 d-flex flex-row justify-content-between">
-                Password settings
-                <div>
-                    <button (click)="featureIsUnavailable('Change password')"
-                        class="btn btn-sm btn-warning text-white mx-1">Change password</button>
-                </div>
-            </div>
+            <app-password></app-password>
         </section>
     </div>
 </app-update-window>
 <app-modal [id]="profileErrorModalId"
     title="Error">
     <p *ngFor="let e of errorMessages">{{e}}</p>
-</app-modal>
-<app-modal [id]="featureIsUnavailableModalId"
-    title="Unavailable feature"
-    [afterCloseAction]="createRemoveFeatureNameHandler()">
-    Current feature '{{this.featureName}}' is unavailable. Try again later!
 </app-modal>

@@ -30,6 +30,8 @@ services.Configure<CancelUrlOptions>(opt =>
 
 services.AddMvc(opt => opt.EnableEndpointRouting = false);
 
+services.AddResponseFactory();
+
 services.AddDataLayer(config.GetAuthenticationConnectionString());
 
 var isConfig = config

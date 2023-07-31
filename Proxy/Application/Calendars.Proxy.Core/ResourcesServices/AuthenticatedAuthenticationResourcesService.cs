@@ -1,30 +1,25 @@
 ﻿using Calendars.Proxy.Core.Exceptions;
 using Calendars.Proxy.Core.Options;
-using IdentityModel;
 using IdentityModel.Client;
+using IdentityModel;
 using Microsoft.Extensions.Options;
 
 namespace Calendars.Proxy.Core.ResourcesServices;
-/// <summary>
-///     Service for requesting resources from secure resource server endpoints.
-/// </summary>
-public class AuthenticationResourcesService : BaseResourcesService
+
+public class AuthenticatedAuthenticationResourcesService : BaseAuthenticationResourcesService
 {
-    private readonly string _uri;
     private readonly string _clientId;
     private readonly string _clientSecret;
     private readonly IEnumerable<string> _scopes;
 
-    public AuthenticationResourcesService(
+    public AuthenticatedAuthenticationResourcesService(
         IHttpClientFactory clientFactory,
-        IOptions<ResourcesServerOptions> resOpts,
         IOptions<AuthenticationServerOptions> authOpts)
-        : base(clientFactory, resOpts)
+        : base(clientFactory, authOpts)
     {
         _clientId = authOpts.Value.ClientId;
         _clientSecret = authOpts.Value.ClientSecret;
         _scopes = authOpts.Value.Scopes;
-        _uri = authOpts.Value.Uri;
     }
 
     public override async Task<HttpResponseMessage> RequestResourceAsync(
@@ -45,7 +40,7 @@ public class AuthenticationResourcesService : BaseResourcesService
         var token = await Client.RequestClientCredentialsTokenAsync(
             new ClientCredentialsTokenRequest()
             {
-                Address = _uri + "/connect/token",
+                Address = BaseUri + "/connect/token",
                 ClientId = _clientId,
                 ClientSecret = _clientSecret,
                 GrantType = OidcConstants.GrantTypes.ClientCredentials,

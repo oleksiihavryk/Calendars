@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable, map, switchMap } from 'rxjs';
+import { AuthorizeService } from 'src/app/authentication/services/authorize.service';
 
 import { Calendar } from 'src/app/shared/domain/calendar';
 import { ResourcesHttpClient, IResponse } from 'src/app/shared/services/resources-http-client';
@@ -11,36 +12,24 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CalendarsService {
-  private get userId(): Observable<string> {
-    return this.oidc.getUserData().pipe(
-       map(data => data.sub)
-    );
-  }
   private get token(): Observable<string> {
     return this.oidc.getAccessToken();
   }
 
   constructor(
     private client: ResourcesHttpClient,
-    private oidc: OidcSecurityService) { }
+    private oidc: OidcSecurityService,
+    private authorize: AuthorizeService) { }
 
   public getAll(): Observable<IResponse> {
-    return this.userId.pipe(
-      switchMap(userId => {
-        return this.token.pipe(
-          map(token => {
-            return { token: token, userId: userId }
-          })
-        )
-      }),
-      switchMap(userIdAndToken => {
+    return this.token.pipe(
+      switchMap(token => {
         return this.client.makeAuthorizedRequest(
-          environment.resources.url + `/calendar/user-id/${userIdAndToken.userId}`,
+          environment.resources.url + `/calendar/user-id/${this.authorize.userData.id}`,
           'GET', 
-          userIdAndToken.token
+          token
         )
-      })
-    )
+      }));
   }
   public getById(id: string): Observable<IResponse> {
     return this.token.pipe(
