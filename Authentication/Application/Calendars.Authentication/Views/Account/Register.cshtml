@@ -6,7 +6,7 @@
     <div class="errors" asp-validation-summary="All" hidden="@ViewContext.ModelState.IsValid"></div>
     <form class="bg-warning p-3 m-2" 
           asp-action="Register" asp-controller="Account" method="post">
-        <h3 class="text-center text-white">Register</h3>
+        <h3 class="text-center text-white">Registration</h3>
         <div class="form-floating mb-3 mt-3">
             <input asp-for="Email" class="form-control" placeholder="Enter email">
             <label asp-for="Email"></label>

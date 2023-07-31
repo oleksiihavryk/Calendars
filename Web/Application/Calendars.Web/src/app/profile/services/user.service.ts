@@ -4,7 +4,7 @@ import { switchMap } from 'rxjs';
 import { User } from 'src/app/shared/domain/user';
 import { ResourcesHttpClient } from 'src/app/shared/services/resources-http-client';
 
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

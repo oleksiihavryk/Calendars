@@ -29,10 +29,10 @@
                 [routerLinkActiveOptions]="{exact: true}">Settings</a>
             <a routerLink="/logout" class="improved-link px-2" *ngIf="auth.isLogged"
                 routerLinkActive="choosen" 
-                [routerLinkActiveOptions]="{exact: true}">Logout</a>
+                [routerLinkActiveOptions]="{exact: true}">Sign out</a>
             <a routerLink="/logout" class="improved-link px-2" *ngIf="auth.isLogged === false"
                 routerLinkActive="choosen" 
-                [routerLinkActiveOptions]="{exact: true}">Login</a>
+                [routerLinkActiveOptions]="{exact: true}">Sign in</a>
         </nav>
     </div>
     <div class="d-flex flex-row">
