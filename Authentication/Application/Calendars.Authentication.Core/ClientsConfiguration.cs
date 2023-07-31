@@ -7,14 +7,17 @@ public class ClientsConfiguration
     public ClientConfiguration Resources { get; set; }
     public ClientConfiguration Web { get; set; }
     public ClientConfiguration Proxy { get; set; }
+    public ClientConfiguration Authentication { get; set; }
 
     public ClientsConfiguration(
         ClientConfiguration resources,
         ClientConfiguration web,
-        ClientConfiguration proxy)
+        ClientConfiguration proxy, 
+        ClientConfiguration authentication)
     {
         Resources = resources;
         Web = web;
         Proxy = proxy;
+        Authentication = authentication;
     }
 }

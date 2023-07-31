@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Calendars.Authentication.Core.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Calendars.Authentication.Core.Extensions;
 /// <summary>
@@ -49,6 +51,29 @@ public static class ApplicationExtensions
                         .Get<List<string>>()?
                         .Select(u => new Uri(u))
                         .ToList()
+                },
+                authentication: new ClientConfiguration(
+                    id: configuration["Clients:Authentication:Id"] ?? string.Empty,
+                    name: configuration["Clients:Authentication:Name"] ?? string.Empty,
+                    secret: configuration["Clients:Authentication:Secret"] ?? string.Empty)
+                {
+                    Scopes = configuration
+                        .GetSection("Clients:Authentication:Scopes")
+                        .Get<List<string>>(),
+                    Origins = configuration
+                        .GetSection("Clients:Authentication:Origins")
+                        .Get<List<string>>()?
+                        .Select(u => new Uri(u))
+                        .ToList()
                 }),
             isDevelopment);
+    /// <summary>
+    ///     Add response factory in DI Container.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns>
+    ///     IServiceCollection implementation after completing the operation.
+    /// </returns>
+    public static IServiceCollection AddResponseFactory(this IServiceCollection services)
+        => services.AddSingleton<IResponseFactory, ResponseFactory>();
 }

@@ -31,12 +31,15 @@ public static class ApplicationExtensions
         services.AddOptions<WebServerOptions>()
             .Configure(configuration.AssembleWebOptions);
 
-        services.AddScoped<IResourcesService, AuthenticationResourcesService>();
+        services.AddScoped<IResourcesService, AuthenticatedResourcesService>();
+        services.AddScoped<IAuthenticationResourcesService, 
+            AuthenticatedAuthenticationResourcesService>();
         services.AddScoped<IUserSecurityProviderService, UserSecurityProviderService>();
         
         services.AddScoped<ICalendarsResourceService, UserSecureCalendarsResourceService>();
         services.AddScoped<IEventsResourceService, UserSecureEventsResourceService>();
         services.AddScoped<IDaysResourceService, UserSecureDaysResourceService>();
+        services.AddScoped<IUserAuthenticationService, UserSecureUserAuthenticationService>();
         
         return services;
     }
@@ -62,6 +65,14 @@ public static class ApplicationExtensions
     {
         opt.Uri = configuration["ResourcesServer:Uri"] ??
                   throw new OptionsConfigurationException();
+        opt.ClientId = configuration["ResourcesServer:ClientId"] ??
+                       throw new OptionsConfigurationException();
+        opt.ClientSecret = configuration["ResourcesServer:ClientSecret"] ??
+                           throw new OptionsConfigurationException();
+        opt.Scopes = configuration
+                         .GetSection("ResourcesServer:Scopes")
+                         .Get<List<string>>() ??
+                     throw new OptionsConfigurationException();
     }
     public static void AssembleWebOptions(
         this IConfiguration configuration,
