@@ -1,25 +1,26 @@
 <h5>Email</h5>
 <div class="my-0 d-flex flex-row justify-content-between">
-    <span *ngIf="isChangesOpen === false">{{email ?? '*none*'}}</span>
-    <app-profile-input class="w-100" [input]="input" 
+    <span *ngIf="isChangesOpen === false" class="text-break">{{email ?? '*none*'}}</span>
+    <app-profile-input [input]="input" 
         [isChangesOpen]="isChangesOpen" 
-        [valueIsNotChanges]="input.value !== authorize.userData.username"></app-profile-input>
+        [valueIsNotChanges]="isEmailAndInputHasDifferentValues()"
+        [ngClass]="{'w-100': isChangesOpen}"></app-profile-input>
     <div class="d-flex flex-column justify-content-center">
         <div class="d-flex">
             <button *ngIf="email === undefined && isChangesOpen === false" 
                 class="btn btn-sm btn-warning text-white mx-1" (click)="openChanges()">Add</button>
             <button *ngIf="email !== undefined && isChangesOpen === false" 
                 class="btn btn-sm btn-warning text-white mx-1" (click)="openChanges()">Change</button>
-            <button *ngIf="isChangesOpen && (((input.value !== null && input.value !== '') || authorize.userData.email !== undefined) && input.value !== authorize.userData.email)" 
+            <button *ngIf="isChangesOpen && isEmailAndInputHasDifferentValues()" 
                 class="btn btn-sm btn-warning text-white mx-1" 
                 (click)="change()"
                 [disabled]="form.valid === false || doneButtonDisabled">Done</button>
-            <button *ngIf="isChangesOpen && (((input.value === null || input.value === '') && authorize.userData.email === undefined) || input.value === authorize.userData.email)"
+            <button *ngIf="isChangesOpen && isEmailAndInputHasDifferentValues() === false"
                 class="btn btn-sm btn-warning text-white mx-1"
                 (click)="closeChanges()">Close</button>
             <button *ngIf="email !== undefined && isChangesOpen === false" 
                 class="btn btn-sm btn-warning text-white mx-1" 
-                (click)="removeEmail()"
+                (click)="invokeRemoveEmailModal()"
                 [disabled]="doneButtonDisabled">Remove</button>
         </div>
     </div>
@@ -27,4 +28,13 @@
 <app-modal [id]="changeEmailErrorModalId"
     title="Errors">
     <p *ngFor="let m of errorMessages">{{m}}</p>
+</app-modal>
+<app-modal [id]="deleteEmailModalId"
+    title="Remove email"
+    [isQuestion]="true"
+    [afterCloseAction]="createRemoveEmailHandler()">
+    Did you realy want to remove your current email '{{email ?? '*none*'}}'?
+        <p>
+            Consequences of this action is cannot be roll back.
+        </p>
 </app-modal>
