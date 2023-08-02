@@ -15,8 +15,9 @@ export class EmailComponent {
   @Input() email: string | undefined;
 
   public changeEmailErrorModalId: string = 'ChangeEmailErrorModalId';
+  public deleteEmailModalId: string = 'DeleteEmailModalId';
+  
   public errorMessages: string[] = [];
-
   public isChangesOpen: boolean = false;
   public doneButtonDisabled: boolean = false;
 
@@ -34,11 +35,19 @@ export class EmailComponent {
     private userService: UserService,
     private router: Router) {}
 
+  public invokeRemoveEmailModal() {
+    this.modal.toggleModal(this.deleteEmailModalId);
+  }
   public openChanges() {
     this.isChangesOpen = true;
   }
   public closeChanges() {
     this.isChangesOpen = false;
+  }
+  public createRemoveEmailHandler() {
+    return () => {
+      this.removeEmail();
+    }
   }
   public removeEmail() {
     if (this.authorize.userData.email !== undefined) {
@@ -65,6 +74,11 @@ export class EmailComponent {
       this.input.value);
 
     this.updateUser(user);
+  }
+  public isEmailAndInputHasDifferentValues(): boolean {
+    return ((this.input.value !== null && this.input.value !== '') || 
+      this.authorize.userData.email !== undefined) && 
+      this.input.value !== this.authorize.userData.email
   }
 
   private updateUser(user: User) : void {

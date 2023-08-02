@@ -1,5 +1,4 @@
-﻿using Calendars.Authentication.Core;
-using Calendars.Authentication.Core.Interfaces;
+﻿using Calendars.Authentication.Core.Interfaces;
 using Calendars.Authentication.Domain;
 using Calendars.Authentication.ViewModels;
 using IdentityModel;
@@ -40,12 +39,15 @@ public class UserController : ResponseSupportedControllerBase
         user.Email = userModel.Email;
         user.UserName = userModel.Name;
 
-        if (userModel.Password != null)
+        if (userModel is { OldPassword: not null, NewPassword: not null })
         {
-            var newPasswordHash = _userManager.PasswordHasher
-                .HashPassword(user, userModel.Password);
+            var changingResult = await _userManager.ChangePasswordAsync(
+                user,
+                currentPassword: userModel.OldPassword,
+                newPassword: userModel.NewPassword);
 
-            user.PasswordHash = newPasswordHash;
+            if (changingResult.Succeeded == false)
+                return IdentityErrorsOccurred(changingResult.Errors);
         }
 
         user.ChangeSecurityStamp();
