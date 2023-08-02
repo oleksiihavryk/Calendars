@@ -1,9 +1,10 @@
 <h5>Email</h5>
 <div class="my-0 d-flex flex-row justify-content-between">
-    <span *ngIf="isChangesOpen === false">{{email ?? '*none*'}}</span>
-    <app-profile-input class="w-100" [input]="input" 
+    <span *ngIf="isChangesOpen === false" class="text-break">{{email ?? '*none*'}}</span>
+    <app-profile-input [input]="input" 
         [isChangesOpen]="isChangesOpen" 
-        [valueIsNotChanges]="isEmailAndInputHasDifferentValues()"></app-profile-input>
+        [valueIsNotChanges]="isEmailAndInputHasDifferentValues()"
+        [ngClass]="{'w-100': isChangesOpen}"></app-profile-input>
     <div class="d-flex flex-column justify-content-center">
         <div class="d-flex">
             <button *ngIf="email === undefined && isChangesOpen === false" 
