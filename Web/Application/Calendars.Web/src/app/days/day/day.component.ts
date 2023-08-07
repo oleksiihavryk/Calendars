@@ -220,7 +220,7 @@ export class DayComponent implements OnInit {
       const obs = this.days.delete(day);
       obs.subscribe({
         next: (response) => {
-          this.day = undefined;
+          this.findOrUpdateDayAndCalendar();
           this.successMessages = response.messages;
           this.modal.toggleModal(this.daySuccessModalId);
         },
@@ -235,32 +235,18 @@ export class DayComponent implements OnInit {
           'on this stage of deletion');
       }
 
-      if (this.day.events.length > 1) {
-        const obs = this.events.delete(this.deletedEvent);
-        obs.subscribe({
-          next: () => {
-            this.findOrUpdateDayAndCalendar();
-            this.successMessages = [
-              'Event is succesfully deleted!',
-              'Wait for updating of events list.'
-              ];
-            this.modal.toggleModal(this.daySuccessModalId);
-          },
-          error: this.errorHandler
-        })
-      } else {
-        const obs = this.days.delete(this.day);
-        obs.subscribe({ 
-          next: (response) => {
-            this.day = undefined;
-            this.successMessages = [
-              'Event is succesfully deleted!',
-              'Wait for updating of events list.'
-              ];
-            this.modal.toggleModal(this.daySuccessModalId);
-          }
-        })
-      }
+      const obs = this.day.events.length > 1 ? this.events.delete(this.deletedEvent) : this.days.delete(this.day);
+      obs.subscribe({
+        next: () => {
+          this.findOrUpdateDayAndCalendar();
+          this.successMessages = [
+            'Event is succesfully deleted!',
+            'Wait for updating of events list.'
+            ];
+          this.modal.toggleModal(this.daySuccessModalId);
+        },
+        error: this.errorHandler
+      })
     };
   }
   public addNewEvent(): void {
@@ -312,14 +298,14 @@ export class DayComponent implements OnInit {
     newDay.backgroundArgbColor = backgroundColor ?? { 
       a: 255,
       r: 255,
-      g: 193,
-      b: 7
+      g: 255,
+      b: 255
     };
     newDay.textArgbColor = textColor ?? { 
       a: 255,
-      r: 255,
-      g: 255,
-      b: 255
+      r: 0,
+      g: 0,
+      b: 0
     }
 
     return this.days.createNew(newDay);

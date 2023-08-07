@@ -2,5 +2,5 @@
         *ngIf="isChangesOpen"
         class="form-control" 
         [ngClass]="{
-            'is-invalid': input.valid === false,
+            'is-invalid': input.valid === false && valueIsNotChanges,
             'is-valid': input.valid && valueIsNotChanges}"/>
