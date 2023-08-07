@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ValidationResult } from 'angular-auth-oidc-client';
 import { CalendarsService } from 'src/app/calendars/services/calendars.service';
 import { DaysService } from 'src/app/days/services/days.service';
 import { Calendar } from 'src/app/shared/domain/calendar';
@@ -10,6 +9,8 @@ import { Event } from 'src/app/shared/domain/event';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { EventsService } from '../services/events.service';
 import { AuthorizeService } from 'src/app/authentication/services/authorize.service';
+import { Observable } from 'rxjs';
+import { IResponse } from 'src/app/shared/services/resources-http-client';
 
 @Component({
   selector: 'app-create-event',
@@ -87,6 +88,9 @@ export class CreateEventComponent implements OnInit {
 
     if (this.form.invalid) 
       throw new Error('You cannot create a event if creating form is invalid!');
+
+    if (this.day === null) 
+      throw new Error('Day is cannot be null when you creating a new event in system.')
     
     this.createButtonDisabled = true;
     
@@ -105,15 +109,17 @@ export class CreateEventComponent implements OnInit {
       Number.parseInt(minutesTo[0]),
       this.description.value);
 
-    this.events.createNew(event).subscribe({
-      next: (response) => {
-        this.modal.toggleModal(this.addEventIsSuccessModalId);
+    const obs = this.isShouldUpdateColor() ? this.createNewEventAndUpdateColor(event) : this.createNewEvent(event);
+
+    obs.subscribe({
+      next: (r) => {
         this.createButtonDisabled = false;
+        this.modal.toggleModal(this.addEventIsSuccessModalId);
       },
       error: (err) => {
         this.createButtonDisabled = false;
         this.handleError(err);
-      } 
+      },
     })
   }
   public createRedirectToDayAction(): () => void {
@@ -130,6 +136,61 @@ export class CreateEventComponent implements OnInit {
     this.modal.toggleModal(this.addEventErrorModalId);
   }
 
+  private isShouldUpdateColor() : boolean {
+    if (this.day === null) 
+      throw new Error('Day is cannot be null when you creating a new event in system.');
+
+    const protoDay = new Day('', '', '', 0, 0, 0, []);
+    
+    protoDay.backgroundArgbColor = {
+      a: 255,
+      r: 255,
+      g: 255,
+      b: 255
+    }
+    protoDay.textArgbColor = {
+      a: 255,
+      r: 0,
+      g: 0,
+      b: 0
+    }
+
+    const result = this.day.events.length === 0 && 
+      this.day.backgroundArgbColorInteger === protoDay.backgroundArgbColorInteger && 
+      this.day.textArgbColorInteger === protoDay.textArgbColorInteger;
+    return result;
+  }
+  private createNewEvent(event: Event) : Observable<IResponse> {
+    return this.events.createNew(event);
+  }
+  private createNewEventAndUpdateColor(event: Event) : Observable<IResponse> {
+    if (this.day === null) 
+      throw new Error('Day is cannot be null when you creating a new event in system.')
+
+    const newDay = new Day(
+      this.day.id,
+      this.day.calendarId,
+      this.day.userId,
+      this.day.dayNumber,
+      this.day.backgroundArgbColorInteger,
+      this.day.textArgbColorInteger,
+      [ event ]);
+
+    newDay.backgroundArgbColor = {
+      a: 255,
+      r: 255,
+      g: 193,
+      b: 7
+    }
+    newDay.textArgbColor = {
+      a: 255,
+      r: 255,
+      g: 255,
+      b: 255
+    }
+
+    return this.days.updateByDayId(newDay);
+  }
   private createTimeValidatorFrom(): (control: FormControl) => ValidationErrors | null {
     return (control) => {
       if (this !== undefined && this.timeFrom !== undefined && this.timeTo !== undefined) {
