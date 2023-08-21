@@ -25,7 +25,7 @@ public class ResponseIdentityErrorsResult : IActionResult
         _errors = errors;
     }
 
-    public async Task ExecuteResultAsync(ActionContext context)
+    public virtual async Task ExecuteResultAsync(ActionContext context)
     {
         var response = _responseFactory.CreateResponse(
             isSuccess: IsSuccess,

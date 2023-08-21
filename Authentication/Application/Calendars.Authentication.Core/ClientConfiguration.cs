@@ -4,19 +4,9 @@
 /// </summary>
 public class ClientConfiguration
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Secret { get; set; }
+    public string Id { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Secret { get; set; } = string.Empty;
     public List<Uri> Origins { get; set; } = new List<Uri>();
     public List<string> Scopes { get; set; } = new List<string>();
-
-    public ClientConfiguration(
-        string id, 
-        string name, 
-        string secret)
-    {
-        Id = id;
-        Name = name;
-        Secret = secret;
-    }
 }
