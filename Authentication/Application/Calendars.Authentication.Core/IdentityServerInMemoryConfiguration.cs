@@ -148,7 +148,6 @@ public class IdentityServerInMemoryConfiguration
         },
         new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
-
     public virtual string[] ClientsOrigins =>
         _origins ??= _clientsConfiguration.Proxy.Origins
             .Concat(_clientsConfiguration.Resources.Origins)

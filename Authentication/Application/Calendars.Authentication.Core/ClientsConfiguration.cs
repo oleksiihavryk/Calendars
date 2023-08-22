@@ -4,8 +4,8 @@
 /// </summary>
 public class ClientsConfiguration
 {
-    public ClientConfiguration Resources { get; set; } = new ClientConfiguration();
-    public ClientConfiguration Web { get; set; } = new ClientConfiguration();
-    public ClientConfiguration Proxy { get; set; } = new ClientConfiguration();
-    public ClientConfiguration Authentication { get; set; } = new ClientConfiguration();
+    public virtual ClientConfiguration Resources { get; set; } = new ClientConfiguration();
+    public virtual ClientConfiguration Web { get; set; } = new ClientConfiguration();
+    public virtual ClientConfiguration Proxy { get; set; } = new ClientConfiguration();
+    public virtual ClientConfiguration Authentication { get; set; } = new ClientConfiguration();
 }
