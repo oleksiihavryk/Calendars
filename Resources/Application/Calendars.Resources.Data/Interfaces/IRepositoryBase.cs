@@ -11,7 +11,7 @@
 /// </typeparam>
 public interface IRepositoryBase<TEntity, TEntityIdentifier>
 {
-    Task<TEntity> GetByIdAsync(TEntityIdentifier id);
+    Task<TEntity> GetByIdAsync(TEntityIdentifier id, bool attached);
     Task<TEntity> SaveAsync(TEntity entity);
     Task<TEntity> UpdateAsync(TEntity entity);
     Task DeleteAsync(TEntityIdentifier id);

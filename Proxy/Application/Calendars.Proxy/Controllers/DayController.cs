@@ -12,17 +12,19 @@ namespace Calendars.Proxy.Controllers;
 [Route("[controller]")]
 public class DayController : SimilarResponseSupportedControllerBase
 {
-    private readonly IDaysResourceService _daysServices;
+    private readonly IDaysService _daysServices;
 
-    public DayController(IDaysResourceService daysServices)
+    public DayController(IDaysService daysServices)
     {
         _daysServices = daysServices;
     }
 
-    [HttpGet("id/{id:guid:required}")]
-    public async Task<IActionResult> GetByIdAsync([FromRoute] string id = "")
+    [HttpGet("id/{id:required}")]
+    public async Task<IActionResult> GetByIdAsync(
+        [FromRoute] string id = "",
+        [FromQuery] string userId = "")
     {
-        var response = await _daysServices.GetByIdAsync(id);
+        var response = await _daysServices.GetByIdAsync(id, userId);
         return SimilarResponse(response);
     }
     [HttpPost]
@@ -37,10 +39,12 @@ public class DayController : SimilarResponseSupportedControllerBase
         var response = await _daysServices.UpdateAsync(day);
         return SimilarResponse(response);
     }
-    [HttpDelete("id/{id:guid:required}")]
-    public async Task<IActionResult> DeleteAsync([FromRoute] string id = "")
+    [HttpDelete("id/{id:required}")]
+    public async Task<IActionResult> DeleteAsync(
+        [FromRoute] string id = "",
+        [FromQuery] string userId = "")
     {
-        var response = await _daysServices.DeleteAsync(id);
+        var response = await _daysServices.DeleteAsync(id, userId);
         return SimilarResponse(response);
     }
 }

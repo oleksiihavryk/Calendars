@@ -1,8 +1,6 @@
-﻿using Calendars.Proxy.ActionResults;
-using Calendars.Proxy.Core.Interfaces;
+﻿using Calendars.Proxy.Core.Interfaces;
 using Calendars.Proxy.Domain;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Calendars.Proxy.Controllers;
@@ -14,9 +12,9 @@ namespace Calendars.Proxy.Controllers;
 [Route("[controller]")]
 public class UserController : SimilarResponseSupportedControllerBase
 {
-    private readonly IUserAuthenticationService _userService;
+    private readonly IUserService _userService;
 
-    public UserController(IUserAuthenticationService userService)
+    public UserController(IUserService userService)
     {
         _userService = userService;
     }

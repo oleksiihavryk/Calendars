@@ -1,7 +1,7 @@
-﻿using Calendars.Proxy.Domain;
-using Calendars.Proxy.RefactoredCore.Interfaces;
+﻿using Calendars.Proxy.Core.Interfaces;
+using Calendars.Proxy.Domain;
 
-namespace Calendars.Proxy.RefactoredCore.Services;
+namespace Calendars.Proxy.Core.Services;
 /// <summary>
 ///     Service for requesting calendars endpoints on resource server.
 /// </summary>
@@ -13,23 +13,23 @@ public class CalendarsService : ServiceDecorator, ICalendarsService
     public virtual async Task<HttpResponseMessage> GetAllByUserIdAsync(string userId)
         => await RequestAsync(
             method: HttpMethod.Get,
-            path: $"/calendar/user-id/{userId}");
-    public virtual async Task<HttpResponseMessage> GetByIdAsync(string id)
+            path: $"calendar/user-id/{userId}");
+    public virtual async Task<HttpResponseMessage> GetByIdAsync(string id, string userId)
         => await RequestAsync(
             method: HttpMethod.Get,
-            path: $"/calendar/id/{id}");
+            path: $"calendar/id/{id}?userId={userId}");
     public virtual async Task<HttpResponseMessage> SaveAsync(Calendar calendar)
         => await RequestAsync(
             method: HttpMethod.Post,
-            path: $"/calendar",
+            path: $"calendar",
             body: calendar);
     public virtual async Task<HttpResponseMessage> UpdateAsync(Calendar calendar)
         => await RequestAsync(
             method: HttpMethod.Put,
-            path: $"/calendar",
+            path: $"calendar",
             body: calendar);
-    public virtual async Task<HttpResponseMessage> DeleteAsync(string id)
+    public virtual async Task<HttpResponseMessage> DeleteAsync(string id, string userId)
         => await RequestAsync(
             method: HttpMethod.Delete,
-            path: $"/calendar/id/{id}");
+            path: $"calendar/id/{id}?userId={userId}");
 }

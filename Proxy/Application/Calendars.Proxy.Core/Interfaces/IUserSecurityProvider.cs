@@ -1,4 +1,4 @@
-﻿namespace Calendars.Proxy.RefactoredCore.Interfaces;
+﻿namespace Calendars.Proxy.Core.Interfaces;
 /// <summary>
 ///     Interface of user security provider which can check
 ///     user id`s of authenticated token request.

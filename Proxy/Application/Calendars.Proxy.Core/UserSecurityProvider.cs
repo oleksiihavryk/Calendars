@@ -1,8 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using Calendars.Proxy.RefactoredCore.Interfaces;
+using Calendars.Proxy.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 
-namespace Calendars.Proxy.RefactoredCore;
+namespace Calendars.Proxy.Core;
 /// <summary>
 ///     Service which secure resources of users from other users.
 /// </summary>

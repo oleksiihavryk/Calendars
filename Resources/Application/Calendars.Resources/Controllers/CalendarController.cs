@@ -29,11 +29,16 @@ public class CalendarController : ResponseSupportedControllerBase
     }
 
     [HttpGet("id/{id:required}")]
-    public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+    public async Task<IActionResult> GetByIdAsync(
+        [FromRoute] Guid id, 
+        [FromQuery] string userId)
     {
+        if (await CheckIfEntityHaveCorrectUserIdAsync(id, userId) == false)
+            return UnknownUserIdentifier(userId);
+
         try
         {
-            var calendar = await _calendarRepository.GetByIdAsync(id);
+            var calendar = await _calendarRepository.GetByIdAsync(id, false);
             var result = _autoMapper.Map<CalendarDto>(calendar);
 
             return EntityFound(result);
@@ -54,6 +59,10 @@ public class CalendarController : ResponseSupportedControllerBase
     [HttpPost]
     public async Task<IActionResult> Save([FromBody] CalendarDto calendarDto)
     {
+        if (calendarDto.Id != Guid.Empty && 
+            await CheckIfEntityHaveCorrectUserIdAsync(calendarDto.Id, calendarDto.UserId) == false)
+            return UnknownUserIdentifier(calendarDto.UserId);
+
         var calendar = _autoMapper.Map<Calendar>(calendarDto);
         await _calendarRepository.SaveAsync(calendar);
         var result = _autoMapper.Map<CalendarDto>(calendar);
@@ -63,6 +72,10 @@ public class CalendarController : ResponseSupportedControllerBase
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] CalendarDto calendarDto)
     {
+        if (calendarDto.Id != Guid.Empty && 
+            await CheckIfEntityHaveCorrectUserIdAsync(calendarDto.Id, calendarDto.UserId) == false)
+            return UnknownUserIdentifier(calendarDto.UserId);
+
         try
         {
             var calendar = _autoMapper.Map<Calendar>(calendarDto);
@@ -77,8 +90,13 @@ public class CalendarController : ResponseSupportedControllerBase
         }
     }
     [HttpDelete("id/{id:required}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    public async Task<IActionResult> Delete(
+        [FromRoute] Guid id,
+        [FromQuery] string userId)
     {
+        if (await CheckIfEntityHaveCorrectUserIdAsync(id, userId) == false)
+            return UnknownUserIdentifier(userId);
+
         try
         {
             await _calendarRepository.DeleteAsync(id);
@@ -87,6 +105,19 @@ public class CalendarController : ResponseSupportedControllerBase
         catch (ArgumentException)
         {
             return UnknownIdentifier(id);
+        }
+    }
+
+    private async Task<bool> CheckIfEntityHaveCorrectUserIdAsync(Guid id, string userId)
+    {
+        try
+        {
+            var entity = await _calendarRepository.GetByIdAsync(id, false);
+            return entity.UserId.Equals(userId, StringComparison.Ordinal);
+        }
+        catch (ArgumentException)
+        {
+            return false;
         }
     }
 }

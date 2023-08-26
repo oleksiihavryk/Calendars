@@ -1,6 +1,6 @@
-﻿using Calendars.Proxy.RefactoredCore.Interfaces;
+﻿using Calendars.Proxy.Core.Interfaces;
 
-namespace Calendars.Proxy.RefactoredCore.Services;
+namespace Calendars.Proxy.Core.Services;
 /// <summary>
 ///     Decorator class for IService interface.
 /// </summary>

@@ -1,7 +1,7 @@
-﻿using Calendars.Proxy.Domain;
-using Calendars.Proxy.RefactoredCore.Interfaces;
+﻿using Calendars.Proxy.Core.Interfaces;
+using Calendars.Proxy.Domain;
 
-namespace Calendars.Proxy.RefactoredCore.Services;
+namespace Calendars.Proxy.Core.Services;
 /// <summary>
 ///     Service for requesting user endpoints on authentication server.
 /// </summary>
@@ -13,6 +13,6 @@ public class UserService : ServiceDecorator, IUserService
     public virtual async Task<HttpResponseMessage> UpdateAsync(User user)
         => await RequestAsync(
             method: HttpMethod.Put,
-            path: "/user",
+            path: "user",
             body: user);
 }

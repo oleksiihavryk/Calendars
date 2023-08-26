@@ -17,7 +17,5 @@ public class ResourcesServerOptions
             }
         }
     }
-    public string ClientId { get; set; } = string.Empty;
-    public string ClientSecret { get; set; } = string.Empty;
-    public IEnumerable<string> Scopes { get; set; } = Enumerable.Empty<string>();
+    public Credentials Credentials { get; set; }
 }

@@ -29,11 +29,16 @@ public class DayController : ResponseSupportedControllerBase
     }
 
     [HttpGet("id/{id:required}")]
-    public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+    public async Task<IActionResult> GetByIdAsync(
+        [FromRoute] Guid id,
+        [FromQuery] string userId)
     {
+        if (await CheckIfEntityHaveCorrectUserIdAsync(id, userId) == false)
+            return UnknownUserIdentifier(userId);
+
         try
         {
-            var day = await _dayRepository.GetByIdAsync(id);
+            var day = await _dayRepository.GetByIdAsync(id, false);
             var result = _autoMapper.Map<DayDto>(day);
 
             return EntityFound(result);
@@ -46,6 +51,10 @@ public class DayController : ResponseSupportedControllerBase
     [HttpPost]
     public async Task<IActionResult> Save([FromBody] DayDto dayDto)
     {
+        if (dayDto.Id != Guid.Empty && 
+            await CheckIfEntityHaveCorrectUserIdAsync(dayDto.Id, dayDto.UserId) == false)
+            return UnknownUserIdentifier(dayDto.UserId);
+
         var day = _autoMapper.Map<Day>(dayDto);
         await _dayRepository.SaveAsync(day);
         var result = _autoMapper.Map<DayDto>(day);
@@ -55,6 +64,10 @@ public class DayController : ResponseSupportedControllerBase
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] DayDto dayDto)
     {
+        if (dayDto.Id != Guid.Empty &&
+            await CheckIfEntityHaveCorrectUserIdAsync(dayDto.Id, dayDto.UserId) == false)
+            return UnknownUserIdentifier(dayDto.UserId);
+
         try
         {
             var day = _autoMapper.Map<Day>(dayDto);
@@ -69,8 +82,13 @@ public class DayController : ResponseSupportedControllerBase
         }
     }
     [HttpDelete("id/{id:required}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    public async Task<IActionResult> Delete(
+        [FromRoute] Guid id,
+        [FromQuery] string userId)
     {
+        if (await CheckIfEntityHaveCorrectUserIdAsync(id, userId) == false)
+            return UnknownUserIdentifier(userId);
+
         try
         {
             await _dayRepository.DeleteAsync(id);
@@ -79,6 +97,19 @@ public class DayController : ResponseSupportedControllerBase
         catch (ArgumentException)
         {
             return UnknownIdentifier(id);
+        }
+    }
+
+    private async Task<bool> CheckIfEntityHaveCorrectUserIdAsync(Guid id, string userId)
+    {
+        try
+        {
+            var entity = await _dayRepository.GetByIdAsync(id, false);
+            return entity.UserId.Equals(userId, StringComparison.Ordinal);
+        }
+        catch (ArgumentException)
+        {
+            return false;
         }
     }
 }

@@ -26,6 +26,12 @@ public class ResponseSupportedControllerBase : ControllerBase
             responseFactory: _responseFactory,
             value: null,
             messages: $"Entity with identifier {identifier} is not found.");
+    [NonAction]
+    protected IActionResult UnknownUserIdentifier<T>(T identifier)
+        => new ResponseNotFoundResult(
+            responseFactory: _responseFactory,
+            value: null,
+            messages: $"Entity user id - {identifier} is incorrect!");
     [NonAction] protected IActionResult EntityCreated<T>(T entity)
         => new ResponseCreatedResult(
             responseFactory: _responseFactory,

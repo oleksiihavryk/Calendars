@@ -1,11 +1,11 @@
 ﻿namespace Calendars.Proxy.Core.Exceptions;
 /// <summary>
-///     Exception which occurred when options file is incorrect compilate by main configuration file.
+///     Exception which occurred when options file is incorrect compile by main configuration file.
 /// </summary>
 public class OptionsConfigurationException : Exception
 {
     public override string Message => base.Message ??
-                                      "Options file is incorrect compilate" +
+                                      "Options file is incorrect compile" +
                                       " by main configuration file.";
 
     public OptionsConfigurationException(string? message = null)

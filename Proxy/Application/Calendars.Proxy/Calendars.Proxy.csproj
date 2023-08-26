@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Calendars.Proxy.Core\Calendars.Proxy.Core.csproj" />
-    <ProjectReference Include="..\Calendars.Proxy.RefactoredCore\Calendars.Proxy.RefactoredCore.csproj" />
   </ItemGroup>
 
 </Project>

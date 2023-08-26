@@ -1,4 +1,4 @@
-﻿namespace Calendars.Proxy.RefactoredCore;
+﻿namespace Calendars.Proxy.Core;
 /// <summary>
 ///     Credentials for get access to secure resources on external server.
 /// </summary>

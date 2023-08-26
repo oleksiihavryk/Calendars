@@ -1,9 +1,9 @@
 ﻿using System.Security.Authentication;
-using Calendars.Proxy.RefactoredCore.Interfaces;
-using IdentityModel.Client;
+using Calendars.Proxy.Core.Interfaces;
 using IdentityModel;
+using IdentityModel.Client;
 
-namespace Calendars.Proxy.RefactoredCore.Services;
+namespace Calendars.Proxy.Core.Services;
 /// <summary>
 ///     Implementation of service decorator for requesting secure resources from external server.
 /// </summary>
@@ -40,7 +40,7 @@ public class BearerAuthenticationService : ServiceDecorator
         var token = await Client.RequestClientCredentialsTokenAsync(
             new ClientCredentialsTokenRequest()
             {
-                Address = _credentials.AuthenticationServer + "/connect/token",
+                Address = _credentials.AuthenticationServer + "connect/token",
                 ClientId = _credentials.ClientId,
                 ClientSecret = _credentials.ClientSecret,
                 GrantType = OidcConstants.GrantTypes.ClientCredentials,

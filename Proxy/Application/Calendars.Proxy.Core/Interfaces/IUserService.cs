@@ -1,6 +1,6 @@
 ﻿using Calendars.Proxy.Domain;
 
-namespace Calendars.Proxy.RefactoredCore.Interfaces;
+namespace Calendars.Proxy.Core.Interfaces;
 /// <summary>
 ///     Interface of service for requesting user resources from authentication server.
 /// </summary>
