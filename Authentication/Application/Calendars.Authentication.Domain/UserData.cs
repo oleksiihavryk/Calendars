@@ -1,11 +1,11 @@
-﻿namespace Calendars.Authentication.ViewModels;
+﻿namespace Calendars.Authentication.Domain;
 /// <summary>
 ///     User data.
 /// </summary>
-public class UserViewModel
+public class UserData
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
+    public Guid UserId { get; set; }
+    public string Name { get; set; } 
     public string? Email { get; set; }
     public string? OldPassword { get; set; }
     public string? NewPassword { get; set; }

@@ -1,11 +1,12 @@
 ﻿namespace Calendars.Proxy.Core.Interfaces;
-
 /// <summary>
-///     Interface of service for requesting resources from resource server.
+///     Interface of service for requesting resources from external server.
 /// </summary>
-public interface IResourcesService
+public interface IService
 {
-    Task<HttpResponseMessage> RequestResourceAsync(
+    public HttpClient Client { get; }
+
+    Task<HttpResponseMessage> RequestAsync(
         HttpMethod method,
         string? path = null,
         object? body = null,

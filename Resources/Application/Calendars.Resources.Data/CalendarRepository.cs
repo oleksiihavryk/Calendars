@@ -1,7 +1,6 @@
 ﻿using Calendars.Resources.Data.Extensions;
 using Calendars.Resources.Data.Interfaces;
 using Calendars.Resources.Domain;
-using Calendars.Resources.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Calendars.Resources.Data;
@@ -19,7 +18,7 @@ public class CalendarRepository : ICalendarRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Calendar> GetByIdAsync(Guid id)
+    public async Task<Calendar> GetByIdAsync(Guid id, bool attached)
     {
         var entity = await _dbContext
             .Calendars
@@ -30,6 +29,9 @@ public class CalendarRepository : ICalendarRepository
             throw new ArgumentException(
                 paramName: nameof(id),
                 message: "Entity for update with passed entity id is not found in database.");
+
+        if (attached == false)
+            _dbContext.Calendars.Entry(entity).State = EntityState.Detached;
 
         return entity;
     }
@@ -53,7 +55,7 @@ public class CalendarRepository : ICalendarRepository
     }
     public async Task DeleteAsync(Guid id)
     {
-        var entity = await GetByIdAsync(id);
+        var entity = await GetByIdAsync(id, true);
 
         _dbContext.Calendars.Remove(entity);
 

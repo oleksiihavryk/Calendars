@@ -22,7 +22,7 @@ public class ResponseBadRequestResult : IActionResult
         _parameterAndErrors = parameterAndErrors;
     }
 
-    public async Task ExecuteResultAsync(ActionContext context)
+    public virtual async Task ExecuteResultAsync(ActionContext context)
     {
         var messages = _parameterAndErrors.Select(
             kvp => $"Errors of '{kvp.Key}' parameter: " +

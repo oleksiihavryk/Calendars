@@ -15,20 +15,21 @@ public class PkceSecretValidator : ISecretValidator
         _isConfiguration = isConfiguration;
     }
 
-    public Task<SecretValidationResult> ValidateAsync(
+    public virtual async Task<SecretValidationResult> ValidateAsync(
         IEnumerable<Secret> secrets, 
         ParsedSecret parsedSecret)
     {
-        var fail = Task.FromResult(new SecretValidationResult { Success = false });
-        var success = Task.FromResult(new SecretValidationResult { Success = true });
+        var fail = await Task.FromResult(
+            new SecretValidationResult { Success = false });
+        var success = await Task.FromResult(
+            new SecretValidationResult { Success = true });
 
         if (parsedSecret.Type != IdentityServerConstants.ParsedSecretTypes.NoSecret)
             return fail;
 
-        var sharedSecrets = secrets.Where(
-            s => s.Type == IdentityServerConstants.SecretTypes.SharedSecret);
-        if (!sharedSecrets.Any())
-            return fail;
+        if (secrets.Any(s => 
+                s.Type == IdentityServerConstants.SecretTypes.SharedSecret) 
+            == false) return fail;
 
         if (_isConfiguration.Clients
             .Any(c => c.RequirePkce && c.ClientId == parsedSecret.Id) == false)

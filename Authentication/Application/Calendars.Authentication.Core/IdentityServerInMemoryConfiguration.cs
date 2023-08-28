@@ -1,4 +1,5 @@
-﻿using IdentityModel;
+﻿using Calendars.Authentication.Shared;
+using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
 
@@ -14,7 +15,7 @@ public class IdentityServerInMemoryConfiguration
     
     private string[]? _origins = null; 
 
-    public List<Client> Clients => new()
+    public virtual List<Client> Clients => new()
     {
         //Resources API client.
         new Client()
@@ -107,19 +108,19 @@ public class IdentityServerInMemoryConfiguration
             AllowedCorsOrigins = ClientsOrigins,
         }
     };
-    public List<ApiScope> Scopes => new()
+    public virtual List<ApiScope> Scopes => new()
     {
-        new ApiScope("resources"),
+        new ApiScope(ApplicationIdentityServerConstants.ResourcesApiScopeName),
         new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
     };
-    public List<IdentityResource> Resources => new()
+    public virtual List<IdentityResource> Resources => new()
     {
         new IdentityResources.OpenId(),
         new IdentityResource()
         {
             Name = IdentityServerConstants.StandardScopes.Email,
-            Description = "Email",
-            DisplayName = "Email",
+            Description = ApplicationIdentityServerConstants.EmailIdentityResourceDescription,
+            DisplayName = ApplicationIdentityServerConstants.EmailIdentityResourceName,
             Required = false,
             UserClaims =
             {
@@ -134,20 +135,20 @@ public class IdentityServerInMemoryConfiguration
                 JwtClaimTypes.Name
             },
             Required = true,
-            DisplayName = "Profile",
-            Description = "Profile data."
+            DisplayName = ApplicationIdentityServerConstants.ProfileIdentityResourceName,
+            Description = 
+                ApplicationIdentityServerConstants.ProfileEmailIdentityResourceDescription
         }
     };
-    public List<ApiResource> ApiResources => new()
+    public virtual List<ApiResource> ApiResources => new()
     {
-        new ApiResource("resources")
+        new ApiResource(ApplicationIdentityServerConstants.ResourcesApiResourcesName)
         {
-            Scopes = { "resources" }
+            Scopes = { ApplicationIdentityServerConstants.ResourcesApiScopeName }
         },
         new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
-
-    public string[] ClientsOrigins =>
+    public virtual string[] ClientsOrigins =>
         _origins ??= _clientsConfiguration.Proxy.Origins
             .Concat(_clientsConfiguration.Resources.Origins)
             .Concat(_clientsConfiguration.Web.Origins)

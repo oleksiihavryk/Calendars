@@ -10,7 +10,7 @@ namespace Calendars.Authentication.Core;
 /// </summary>
 public class ResponseFactory : IResponseFactory
 {
-    public Response CreateResponse(
+    public virtual Response CreateResponse(
         bool isSuccess,
         HttpStatusCode statusCode,
         object? result,

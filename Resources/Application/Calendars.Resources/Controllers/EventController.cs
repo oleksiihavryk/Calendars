@@ -30,11 +30,16 @@ public class EventController : ResponseSupportedControllerBase
     }
 
     [HttpGet("id/{id:required}")]
-    public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+    public async Task<IActionResult> GetByIdAsync(
+        [FromRoute] Guid id,
+        [FromQuery] string userId)
     {
+        if (await CheckIfEntityHaveCorrectUserIdAsync(id, userId) == false)
+            return UnknownUserIdentifier(userId);
+
         try
         {
-            var @event = await _eventRepository.GetByIdAsync(id);
+            var @event = await _eventRepository.GetByIdAsync(id, false);
             var result = _autoMapper.Map<EventDto>(@event);
 
             return EntityFound(result);
@@ -47,6 +52,10 @@ public class EventController : ResponseSupportedControllerBase
     [HttpPost]
     public async Task<IActionResult> Save([FromBody] EventDto eventDto)
     {
+        if (eventDto.Id != Guid.Empty && 
+            await CheckIfEntityHaveCorrectUserIdAsync(eventDto.Id, eventDto.UserId) == false)
+            return UnknownUserIdentifier(eventDto.UserId);
+
         var @event = _autoMapper.Map<Event>(eventDto);
         await _eventRepository.SaveAsync(@event);
         var result = _autoMapper.Map<EventDto>(@event);
@@ -56,6 +65,10 @@ public class EventController : ResponseSupportedControllerBase
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] EventDto eventDto)
     {
+        if (eventDto.Id != Guid.Empty && 
+            await CheckIfEntityHaveCorrectUserIdAsync(eventDto.Id, eventDto.UserId) == false)
+            return UnknownUserIdentifier(eventDto.UserId);
+
         try
         {
             var @event = _autoMapper.Map<Event>(eventDto);
@@ -70,8 +83,13 @@ public class EventController : ResponseSupportedControllerBase
         }
     }
     [HttpDelete("id/{id:required}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    public async Task<IActionResult> Delete(
+        [FromRoute] Guid id,
+        [FromQuery] string userId)
     {
+        if (await CheckIfEntityHaveCorrectUserIdAsync(id, userId) == false)
+            return UnknownUserIdentifier(userId);
+
         try
         {
             await _eventRepository.DeleteAsync(id);
@@ -80,6 +98,19 @@ public class EventController : ResponseSupportedControllerBase
         catch (ArgumentException)
         {
             return UnknownIdentifier(id);
+        }
+    }
+
+    private async Task<bool> CheckIfEntityHaveCorrectUserIdAsync(Guid id, string userId)
+    {
+        try
+        {
+            var entity = await _eventRepository.GetByIdAsync(id, false);
+            return entity.UserId.Equals(userId, StringComparison.Ordinal);
+        }
+        catch (ArgumentException)
+        {
+            return false;
         }
     }
 }
