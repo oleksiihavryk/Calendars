@@ -1,27 +1,28 @@
 ﻿using System.Net.Http.Json;
 using Calendars.Proxy.Core.Interfaces;
-using Calendars.Proxy.Core.Options;
-using Microsoft.Extensions.Options;
 
-namespace Calendars.Proxy.Core.ResourcesServices;
+namespace Calendars.Proxy.Core;
 /// <summary>
-///     Abstract service for requesting resources from resource server.
+///     Default implementation of service for requesting resources from external server.
 /// </summary>
-public abstract class BaseResourcesService : IResourcesService
+public class Service : IService
 {
     private readonly string _baseUri;
 
-    protected HttpClient Client { get; set; }
+    public virtual HttpClient Client { get; }
 
-    protected BaseResourcesService(
+    public Service(
         IHttpClientFactory clientFactory,
-        IOptions<ResourcesServerOptions> opts)
+        Uri baseUri)
     {
+        ArgumentNullException.ThrowIfNull(clientFactory);
+        ArgumentNullException.ThrowIfNull(baseUri);
+
         Client = clientFactory.CreateClient();
-        _baseUri = opts.Value.Uri;
+        _baseUri = baseUri.AbsoluteUri;
     }
 
-    public virtual Task<HttpResponseMessage> RequestResourceAsync(
+    public virtual Task<HttpResponseMessage> RequestAsync(
         HttpMethod method,
         string? path = null,
         object? body = null,

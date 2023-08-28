@@ -19,7 +19,7 @@ public class DayRepository : IDayRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Day> GetByIdAsync(Guid id)
+    public async Task<Day> GetByIdAsync(Guid id, bool attached)
     {
         var entity = await _dbContext
             .Days
@@ -30,6 +30,9 @@ public class DayRepository : IDayRepository
             throw new ArgumentException(
                 paramName: nameof(id),
                 message: "Entity for update with passed entity id is not found in database.");
+
+        if (attached == false)
+            _dbContext.Days.Entry(entity).State = EntityState.Detached;
 
         return entity;
     }
@@ -48,7 +51,7 @@ public class DayRepository : IDayRepository
     }
     public async Task DeleteAsync(Guid id)
     {
-        var entity = await GetByIdAsync(id);
+        var entity = await GetByIdAsync(id, true);
 
         _dbContext.Days.Remove(entity);
 

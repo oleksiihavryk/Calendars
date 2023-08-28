@@ -13,17 +13,19 @@ namespace Calendars.Proxy.Controllers;
 [Route("[controller]")]
 public class EventController : SimilarResponseSupportedControllerBase
 {
-    private readonly IEventsResourceService _eventsServices;
+    private readonly IEventsService _eventsServices;
 
-    public EventController(IEventsResourceService eventsServices)
+    public EventController(IEventsService eventsServices)
     {
         _eventsServices = eventsServices;
     }
 
-    [HttpGet("id/{id:guid:required}")]
-    public async Task<IActionResult> GetByIdAsync([FromRoute] string id = "")
+    [HttpGet("id/{id:required}")]
+    public async Task<IActionResult> GetByIdAsync(
+        [FromRoute] string id = "",
+        [FromQuery] string userId = "")
     {
-        var response = await _eventsServices.GetByIdAsync(id);
+        var response = await _eventsServices.GetByIdAsync(id, userId);
         return SimilarResponse(response);
     }
     [HttpPost]
@@ -38,10 +40,12 @@ public class EventController : SimilarResponseSupportedControllerBase
         var response = await _eventsServices.UpdateAsync(@event);
         return SimilarResponse(response);
     }
-    [HttpDelete("id/{id:guid:required}")]
-    public async Task<IActionResult> DeleteAsync([FromRoute] string id = "")
+    [HttpDelete("id/{id:required}")]
+    public async Task<IActionResult> DeleteAsync(
+        [FromRoute] string id = "",
+        [FromQuery] string userId = "")
     {
-        var response = await _eventsServices.DeleteAsync(id);
+        var response = await _eventsServices.DeleteAsync(id, userId);
         return SimilarResponse(response);
     }
 }

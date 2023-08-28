@@ -10,63 +10,64 @@ public static class ApplicationExtensions
 {
     public static IdentityServerInMemoryConfiguration AssembleIdentityServerInMemoryConfiguration(
         this IConfiguration configuration,
-        bool isDevelopment)
+        bool isDevelopment) 
         => new IdentityServerInMemoryConfiguration(
-            clientsConfiguration: new ClientsConfiguration(
-                resources: new ClientConfiguration(
-                    id: configuration["Clients:Resources:Id"] ?? string.Empty,
-                    name: configuration["Clients:Resources:Name"] ?? string.Empty,
-                    secret: configuration["Clients:Resources:Secret"] ?? string.Empty)
-                    {
-                        Scopes = configuration
-                            .GetSection("Clients:Resources:Scopes")
-                            .Get<List<string>>(),
-                        Origins = configuration
-                            .GetSection("Clients:Resources:Origins")
-                            .Get<List<string>>()?
-                            .Select(u => new Uri(u))
-                            .ToList()
-                },
-                web: new ClientConfiguration(
-                    id: configuration["Clients:Web:Id"] ?? string.Empty,
-                    name: configuration["Clients:Web:Name"] ?? string.Empty,
-                    secret: configuration["Clients:Web:Secret"] ?? string.Empty)
-                    {
-                        Scopes = configuration
-                            .GetSection("Clients:Web:Scopes")
-                            .Get<List<string>>(),
-                        Origins = configuration
-                            .GetSection("Clients:Web:Origins")
-                            .Get<List<string>>()?
-                            .Select(u => new Uri(u))
-                            .ToList()
-                },
-                proxy: new ClientConfiguration(
-                    id: string.Empty,
-                    name: "Proxy",
-                    secret: string.Empty)
+            clientsConfiguration: new ClientsConfiguration 
+            {
+                Resources = new ClientConfiguration
                 {
+                    Id = configuration["Clients:Resources:Id"] ?? string.Empty,
+                    Name = configuration["Clients:Resources:Name"] ?? string.Empty,
+                    Secret = configuration["Clients:Resources:Secret"] ?? string.Empty,
+                    Scopes = configuration
+                        .GetSection("Clients:Resources:Scopes")
+                        .Get<List<string>>() ?? new List<string>(),
+                    Origins = configuration
+                        .GetSection("Clients:Resources:Origins")
+                        .Get<List<string>>()?
+                        .Select(u => new Uri(u))
+                        .ToList() ?? new List<Uri>()
+                },
+                Web = new ClientConfiguration
+                {
+                    Id = configuration["Clients:Web:Id"] ?? string.Empty,
+                    Name = configuration["Clients:Web:Name"] ?? string.Empty,
+                    Secret = configuration["Clients:Web:Secret"] ?? string.Empty,
+                    Scopes = configuration
+                        .GetSection("Clients:Web:Scopes")
+                        .Get<List<string>>() ?? new List<string>(),
+                    Origins = configuration
+                        .GetSection("Clients:Web:Origins")
+                        .Get<List<string>>()?
+                        .Select(u => new Uri(u))
+                        .ToList() ?? new List<Uri>()
+                },
+                Proxy = new ClientConfiguration
+                {
+                    Id = string.Empty,
+                    Name = "Proxy",
+                    Secret = string.Empty,
                     Origins = configuration
                         .GetSection("Clients:Proxy:Origins")
                         .Get<List<string>>()?
                         .Select(u => new Uri(u))
-                        .ToList()
+                        .ToList() ?? new List<Uri>()
                 },
-                authentication: new ClientConfiguration(
-                    id: configuration["Clients:Authentication:Id"] ?? string.Empty,
-                    name: configuration["Clients:Authentication:Name"] ?? string.Empty,
-                    secret: configuration["Clients:Authentication:Secret"] ?? string.Empty)
+                Authentication = new ClientConfiguration
                 {
+                    Id = configuration["Clients:Authentication:Id"] ?? string.Empty,
+                    Name = configuration["Clients:Authentication:Name"] ?? string.Empty,
+                    Secret = configuration["Clients:Authentication:Secret"] ?? string.Empty,
                     Scopes = configuration
                         .GetSection("Clients:Authentication:Scopes")
-                        .Get<List<string>>(),
+                        .Get<List<string>>() ?? new List<string>(),
                     Origins = configuration
                         .GetSection("Clients:Authentication:Origins")
                         .Get<List<string>>()?
                         .Select(u => new Uri(u))
-                        .ToList()
-                }),
-            isDevelopment);
+                        .ToList() ?? new List<Uri>()
+                }
+            }, isDevelopment);
     /// <summary>
     ///     Add response factory in DI Container.
     /// </summary>

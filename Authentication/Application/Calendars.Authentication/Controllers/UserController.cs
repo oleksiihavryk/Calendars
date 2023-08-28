@@ -1,6 +1,5 @@
 ﻿using Calendars.Authentication.Core.Interfaces;
 using Calendars.Authentication.Domain;
-using Calendars.Authentication.ViewModels;
 using IdentityModel;
 using IdentityServer4;
 using Microsoft.AspNetCore.Authorization;
@@ -27,11 +26,11 @@ public class UserController : ResponseSupportedControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] UserViewModel userModel)
+    public async Task<IActionResult> Update([FromBody] UserData userModel)
     {
-        var user = await _userManager.FindByIdAsync(userModel.Id.ToString());
+        var user = await _userManager.FindByIdAsync(userModel.UserId.ToString());
 
-        if (user == null) return UnknownIdentifier(userModel.Id);
+        if (user == null) return UnknownIdentifier(userModel.UserId);
 
         if (await IsUserWithSameNameExistAsync(userModel.Name, user.Id)) 
             return UserWithSameNameAlreadyExist(userModel.Name);

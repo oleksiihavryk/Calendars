@@ -6,7 +6,7 @@ namespace Calendars.Proxy.Core;
 /// <summary>
 ///     Service which secure resources of users from other users.
 /// </summary>
-public class UserSecurityProviderService : IUserSecurityProviderService
+public class UserSecurityProvider : IUserSecurityProvider
 {
     private readonly HttpContext _httpContext;
 
@@ -29,7 +29,7 @@ public class UserSecurityProviderService : IUserSecurityProviderService
         }
     } 
 
-    public UserSecurityProviderService(IHttpContextAccessor httpContextAccessor)
+    public UserSecurityProvider(IHttpContextAccessor httpContextAccessor)
     {
         ArgumentNullException.ThrowIfNull(httpContextAccessor.HttpContext);
 
