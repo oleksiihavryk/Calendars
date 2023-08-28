@@ -35,7 +35,7 @@ export class CalendarsService {
     return this.token.pipe(
       switchMap(token => {
         return this.client.makeAuthorizedRequest(
-          environment.resources.url + `/calendar/id/${id}`,
+          environment.resources.url + `/calendar/id/${id}?userId=${this.authorize.userData.id}`,
           'GET', 
           token
         )
@@ -46,7 +46,7 @@ export class CalendarsService {
     return this.token.pipe(
       switchMap(token => {
         return this.client.makeAuthorizedRequest(
-          environment.resources.url + `/calendar/id/${calendar.id}`,
+          environment.resources.url + `/calendar/id/${calendar.id}?userId=${this.authorize.userData.id}`,
           'DELETE', 
           token
         )
