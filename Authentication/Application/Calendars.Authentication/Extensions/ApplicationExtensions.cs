@@ -46,7 +46,7 @@ public static class ApplicationExtensions
             .AddSecretValidator<PkceSecretValidator>();
 
         services.AddLocalApiAuthentication();
-
+        
 
         services.AddSingleton(identityServerInMemoryConfiguration);
 
